@@ -1,0 +1,184 @@
+import { Flame, ArrowUp, ArrowDown } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
+import { highlightItems } from "../../data/siteContent";
+import Section from "../common/Section";
+
+function HighlightCard({ item }) {
+  const cardRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Motion values for tilt effect
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setIsExpanded(false); // Auto-shrink back when cursor moves away
+    x.set(0);
+    y.set(0);
+  };
+
+  const MAX_DESC_LENGTH = 110;
+  const isLongDesc = item.desc.length > MAX_DESC_LENGTH;
+
+  return (
+    <motion.article
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      animate={{
+        height: isExpanded ? "auto" : "180px",
+      }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className="group relative grid w-full gap-4 overflow-hidden rounded-[2.25rem] border-transparent bg-[#E8E3D3] px-5 py-4 shadow-xl transition-all duration-500 ease-out sm:grid-cols-[160px_1fr] sm:gap-6 flex-shrink-0"
+    >
+      <div className="relative h-32 overflow-hidden rounded-2xl sm:h-full" style={{ transform: "translateZ(20px)" }}>
+        <motion.img
+          src={item.image}
+          alt=""
+          animate={{
+            scale: isHovered ? 1.05 : 1,
+          }}
+          transition={{ duration: 0.6 }}
+          className="h-full w-full object-cover"
+        />
+      </div>
+
+      <div className="flex flex-col justify-center gap-1 pr-2 pb-1" style={{ transform: "translateZ(30px)" }}>
+        <span className="text-[0.65rem] font-bold uppercase tracking-wider text-black/50">
+          {item.date}
+        </span>
+        <h3 className="font-display text-lg font-black leading-tight text-[#DA291C] md:text-xl">
+          {item.title}
+        </h3>
+        <p className="text-[0.825rem] font-medium leading-relaxed text-black/80 md:text-[0.875rem]">
+          {!isExpanded && isLongDesc ? (
+            <>
+              {item.desc.substring(0, MAX_DESC_LENGTH)}
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsExpanded(true);
+                }}
+                className="text-[#DA291C] font-semibold cursor-pointer hover:underline"
+              > ...read more</span>
+            </>
+          ) : (
+            item.desc
+          )}
+        </p>
+      </div>
+    </motion.article>
+  );
+}
+
+export default function Highlights() {
+  const scrollContainerRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const { scrollTop } = scrollContainerRef.current;
+      const scrollAmount = 200; // Exact height of one card + one gap (180 + 20)
+      scrollContainerRef.current.scrollTo({
+        top: direction === "up" ? scrollTop - scrollAmount : scrollTop + scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  };
+
+  return (
+    <Section id="highlights" className="bg-[#1B1A1A] relative min-h-screen py-24 flex items-center justify-center">
+      <div className="mx-auto w-full max-w-[1430px] px-6 lg:px-12">
+        {/* Main 'Box' Container */}
+        <div className="relative overflow-hidden rounded-[3.5rem] border border-white/5 bg-[#121212] p-8 md:p-12 lg:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
+          {/* Subtle Ambient Glow inside the box */}
+          <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-glow blur-[100px] opacity-20" />
+
+          <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 relative z-10">
+            {/* Left Column: Fixed Content */}
+            <div className="flex flex-col gap-6">
+              <div className="flex justify-start">
+                <div className="inline-flex items-center gap-3 rounded-lg bg-white p-1 pr-5 shadow-xl transition-transform hover:scale-105">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E33B26] shadow-sm">
+                    <Flame className="size-5 fill-white text-white" strokeWidth={2.5} />
+                  </div>
+                  <span className="text-[0.7rem] font-black uppercase tracking-[0.15em] text-black pt-0.5">
+                    Highlights
+                  </span>
+                </div>
+              </div>
+
+              <h2 className="text-title-1 text-white">
+                Transforming Industries Through Intelligent Innovation
+              </h2>
+
+              <p className="text-body-lg text-white/50 max-w-sm">
+                At Latrix, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter.
+              </p>
+
+              {/* Navigation Arrows */}
+              <div className="mt-4 flex gap-4">
+                <button
+                  onClick={() => scroll("up")}
+                  aria-label="Scroll up"
+                  className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition-all hover:bg-white/15 hover:border-white/30 group active:scale-95"
+                >
+                  <ArrowUp size={22} className="transition-transform group-hover:-translate-y-0.5" />
+                </button>
+                <button
+                  onClick={() => scroll("down")}
+                  aria-label="Scroll down"
+                  className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition-all hover:bg-white/15 hover:border-white/30 group active:scale-95"
+                >
+                  <ArrowDown size={22} className="transition-transform group-hover:translate-y-0.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: Discrete 3-Card Scroll Container */}
+            <div
+              ref={scrollContainerRef}
+              className="flex flex-col gap-5 md:h-[580px] md:overflow-hidden no-scrollbar pr-1"
+            >
+              {highlightItems.map((item, index) => (
+                <HighlightCard key={index} item={item} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+
+

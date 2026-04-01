@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LATRICS - Knowledge Transfer Document</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a2e;
+    --fg-muted: #555;
+    --fg-subtle: #888;
+    --accent: #DA291C;
+    --accent-light: #fef2f2;
+    --border: #e5e7eb;
+    --surface: #f8f9fa;
+    --code-bg: #1e1e2e;
+    --code-fg: #cdd6f4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--fg);
+    line-height: 1.7;
+    font-size: 11pt;
+    background: var(--bg);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  @media print {
+    body { padding: 0; font-size: 10pt; max-width: none; }
+    .page-break { page-break-before: always; }
+    h2 { page-break-after: avoid; }
+    table, pre { page-break-inside: avoid; }
+    .no-print { display: none; }
+  }
+
+  .cover {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    min-height: 90vh; text-align: center; border-bottom: 3px solid var(--accent);
+    padding-bottom: 60px; margin-bottom: 40px;
+  }
+  .cover-logo { font-size: 48pt; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; margin-bottom: 12px; }
+  .cover-subtitle { font-size: 18pt; font-weight: 600; color: var(--fg); margin-bottom: 8px; }
+  .cover-desc { font-size: 12pt; color: var(--fg-muted); max-width: 500px; margin-bottom: 40px; }
+  .cover-meta { font-size: 10pt; color: var(--fg-subtle); }
+  .cover-meta span { display: block; margin: 4px 0; }
+
+  .toc { margin-bottom: 40px; }
+  .toc h2 { font-size: 16pt; margin-bottom: 16px; color: var(--accent); }
+  .toc ol { padding-left: 24px; }
+  .toc li { margin: 6px 0; font-size: 11pt; }
+  .toc a { color: var(--fg); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+
+  h1 { font-size: 22pt; font-weight: 800; color: var(--accent); margin: 48px 0 16px; letter-spacing: -0.02em; border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
+  h2 { font-size: 16pt; font-weight: 700; color: var(--fg); margin: 32px 0 12px; }
+  h3 { font-size: 13pt; font-weight: 700; color: var(--fg); margin: 24px 0 8px; }
+  h4 { font-size: 11pt; font-weight: 700; color: var(--accent); margin: 16px 0 6px; }
+
+  p { margin: 8px 0; }
+  ul, ol { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 12px 0 20px;
+    font-size: 10pt;
+  }
+  th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+  th { background: var(--surface); font-weight: 700; font-size: 9.5pt; text-transform: uppercase; letter-spacing: 0.04em; }
+  tr:nth-child(even) td { background: #fafafa; }
+
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5pt;
+    background: var(--surface); padding: 1px 5px; border-radius: 3px; color: var(--accent);
+  }
+  pre {
+    background: var(--code-bg); color: var(--code-fg); padding: 16px 20px;
+    border-radius: 8px; overflow-x: auto; margin: 12px 0; font-size: 9pt;
+    font-family: 'JetBrains Mono', monospace; line-height: 1.6;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+
+  .callout {
+    border-left: 4px solid; padding: 12px 16px; margin: 16px 0;
+    border-radius: 0 6px 6px 0; font-size: 10pt;
+  }
+  .callout-warning { border-color: #f59e0b; background: #fffbeb; }
+
+  .diagram {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 20px; margin: 16px 0;
+    font-family: 'JetBrains Mono', monospace; font-size: 9pt;
+    white-space: pre; overflow-x: auto; line-height: 1.4;
+  }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-logo">LATRICS</div>
+  <div class="cover-subtitle">Complete Knowledge Transfer Document</div>
+  <div class="cover-desc">Technical Breakdown for Client KT Session &mdash; Every file, every flow, every decision explained.</div>
+  <div class="cover-meta">
+    <span><strong>Project:</strong> LATRICS (Industrial Intelligence Platform)</span>
+    <span><strong>Date:</strong> April 2026</span>
+    <span><strong>Total Files Analysed:</strong> 42 source files + 22 public assets</span>
+    <span><strong>Architecture:</strong> MERN Stack Monorepo</span>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc page-break">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">High-Level Overview</a></li>
+    <li><a href="#s2">Architecture Explanation</a></li>
+    <li><a href="#s3">Component / Module Breakdown</a></li>
+    <li><a href="#s4">Data Flow Explanation</a></li>
+    <li><a href="#s5">Key Logic Explanation</a></li>
+    <li><a href="#s6">Database Design</a></li>
+    <li><a href="#s7">API Documentation</a></li>
+    <li><a href="#s8">UI/UX Flow</a></li>
+    <li><a href="#s9">Dependencies &amp; Configuration</a></li>
+    <li><a href="#s10">Edge Cases &amp; Error Handling</a></li>
+    <li><a href="#s11">Performance &amp; Optimization</a></li>
+    <li><a href="#s12">Security Considerations</a></li>
+    <li><a href="#s13">Deployment Flow</a></li>
+    <li><a href="#s14">Summary for Client KT (Non-Technical)</a></li>
+  </ol>
+</div>
+
+<!-- SECTION 1 -->
+<h1 id="s1" class="page-break">1. High-Level Overview</h1>
+
+<h2>Purpose</h2>
+<p>LATRICS is a <strong>marketing &amp; product showcase website</strong> for an industrial intelligence company specialising in autonomous drones, LiDAR mapping, and AI-based analytics for aerospace, energy, and infrastructure sectors.</p>
+
+<h2>Problem It Solves</h2>
+<p>It serves as the company's digital storefront &mdash; presenting capabilities, showcasing case studies, displaying live operational telemetry, and capturing leads via a demo request form and newsletter subscription.</p>
+
+<h2>Tech Stack</h2>
+<table>
+  <tr><th>Layer</th><th>Technology</th><th>Version</th></tr>
+  <tr><td>Frontend Framework</td><td>React</td><td>19.1.0</td></tr>
+  <tr><td>Build Tool</td><td>Vite</td><td>7.1.5</td></tr>
+  <tr><td>CSS Framework</td><td>Tailwind CSS</td><td>4.2.2</td></tr>
+  <tr><td>Animation</td><td>Framer Motion</td><td>12.38.0</td></tr>
+  <tr><td>3D Rendering</td><td>Three.js + React Three Fiber + Drei</td><td>0.183.2 / 9.5.0 / 10.7.7</td></tr>
+  <tr><td>Icons</td><td>Lucide React</td><td>1.7.0</td></tr>
+  <tr><td>Backend Runtime</td><td>Node.js + Express</td><td>4.21.2</td></tr>
+  <tr><td>Database</td><td>MongoDB Atlas (Mongoose)</td><td>9.3.3</td></tr>
+  <tr><td>Real-time</td><td>Socket.IO</td><td>4.8.1 / 4.8.3</td></tr>
+  <tr><td>Monorepo Tool</td><td>npm Workspaces + Concurrently</td><td>9.1.2</td></tr>
+</table>
+
+<!-- SECTION 2 -->
+<h1 id="s2" class="page-break">2. Architecture Explanation</h1>
+
+<h2>Overall Pattern</h2>
+<p><strong>MERN Stack</strong> (MongoDB, Express, React, Node.js) organised as a monorepo with npm workspaces.</p>
+
+<h2>Folder Structure</h2>
+<pre><code>LATRICS/
+|-- package.json              &lt;-- Root: monorepo scripts
+|-- backend/
+|   |-- .env                  &lt;-- PORT, CORS_ORIGINS, MONGODB_URI
+|   +-- src/
+|       |-- index.js          &lt;-- Server entry point
+|       |-- app.js            &lt;-- Express factory
+|       |-- config/           &lt;-- env.js, db.js
+|       |-- data/             &lt;-- liveMetrics.js
+|       |-- models/           &lt;-- Contact.js, Newsletter.js
+|       |-- routes/           &lt;-- demoRoutes, liveRoutes, newsletterRoutes
+|       |-- services/         &lt;-- liveDataService.js
+|       +-- socket/           &lt;-- registerLiveSocket.js
+|
+|-- frontend/
+|   |-- .env                  &lt;-- VITE_API_URL
+|   |-- index.html, vite.config.js
+|   |-- public/               &lt;-- 22 static images
+|   +-- src/
+|       |-- main.jsx          &lt;-- React entry point
+|       |-- styles.css        &lt;-- Design system tokens
+|       |-- app/              &lt;-- App.jsx, config.js, motion.js
+|       |-- components/
+|       |   |-- 3d/           &lt;-- DroneScene, ProceduralDrone
+|       |   |-- common/       &lt;-- Button, Card, Container, etc.
+|       |   +-- sections/     &lt;-- 11 page sections
+|       |-- data/             &lt;-- siteContent.js
+|       |-- hooks/            &lt;-- useDemoRequest, useNavbarScroll
+|       |-- lib/              &lt;-- cn.js utility
+|       +-- services/         &lt;-- api.js</code></pre>
+
+<h2>Layer Interaction Diagram</h2>
+<div class="diagram">+----------------------------------------------+
+|  Browser (User)                              |
+|  +----------------------------------------+  |
+|  |  React Frontend (Vite :5173)           |  |
+|  |  Components -&gt; Hooks -&gt; Services (fetch)|  |
+|  +------------------+---------------------+  |
+|                     | REST + WebSocket        |
+|  +------------------v---------------------+  |
+|  |  Express Backend (:5005)               |  |
+|  |  Routes -&gt; Services -&gt; Socket.IO       |  |
+|  +------------------+---------------------+  |
+|                     | Mongoose ODM            |
+|  +------------------v---------------------+  |
+|  |  MongoDB Atlas (Cloud)                 |  |
+|  |  contacts | newsletters               |  |
+|  +----------------------------------------+  |
++----------------------------------------------+</div>
+
+<!-- SECTION 3 -->
+<h1 id="s3" class="page-break">3. Component / Module Breakdown</h1>
+
+<h2>Backend Files</h2>
+
+<h3><code>backend/src/index.js</code> &mdash; Server Entry Point</h3>
+<ul>
+  <li><strong>Role</strong>: Bootstraps DB connection, Express app, HTTP server, Socket.IO, graceful shutdown</li>
+  <li><code>startServer()</code>: Async startup sequence connecting all layers</li>
+  <li><code>gracefulShutdown()</code>: Handles SIGTERM/SIGINT &mdash; clears intervals, closes server</li>
+</ul>
+
+<h3><code>backend/src/app.js</code> &mdash; Express App Factory</h3>
+<ul>
+  <li><code>createApp()</code>: Applies CORS, JSON parsing, mounts 3 route groups under <code>/api</code></li>
+</ul>
+
+<h3><code>backend/src/config/env.js</code> &mdash; Environment Helpers</h3>
+<ul>
+  <li><code>getPort()</code>: Parses PORT env, defaults to 5005</li>
+  <li><code>resolveAllowedOrigins()</code>: Splits CORS_ORIGINS by comma or returns <code>true</code></li>
+</ul>
+
+<h3><code>backend/src/config/db.js</code> &mdash; Database Connection</h3>
+<ul>
+  <li><code>connectDatabase()</code>: Mongoose connection with Google DNS fix for Windows SRV resolution, 5s timeout, non-fatal failure</li>
+</ul>
+
+<h3><code>backend/src/models/Contact.js</code></h3>
+<ul><li>Mongoose schema: name, email (lowercase), phone, createdAt &mdash; all required + trimmed</li></ul>
+
+<h3><code>backend/src/models/Newsletter.js</code></h3>
+<ul><li>Mongoose schema: email (unique, lowercase), subscribedAt</li></ul>
+
+<h3><code>backend/src/routes/demoRoutes.js</code></h3>
+<ul><li>POST <code>/api/demo-request</code>: Validates fields &rarr; checks DB state &rarr; saves Contact &rarr; 201/400/503/500</li></ul>
+
+<h3><code>backend/src/routes/liveRoutes.js</code></h3>
+<ul><li>GET <code>/api/live</code>: Returns simulated telemetry snapshot (fallback for Socket.IO)</li></ul>
+
+<h3><code>backend/src/routes/newsletterRoutes.js</code></h3>
+<ul><li>POST <code>/api/newsletter-subscribe</code>: Validates email &rarr; duplicate check &rarr; saves &rarr; 201/400/409/500</li></ul>
+
+<h3><code>backend/src/services/liveDataService.js</code></h3>
+<ul>
+  <li><code>buildLivePayload()</code>: Generates metrics + shuffled activity feed</li>
+  <li>Uses Fisher-Yates shuffle algorithm and random number generation within defined ranges</li>
+</ul>
+
+<h3><code>backend/src/socket/registerLiveSocket.js</code></h3>
+<ul><li>Emits <code>live:update</code> on connection + every 2500ms; returns <code>shutdown()</code> to clear interval</li></ul>
+
+<h2 class="page-break">Frontend Files</h2>
+
+<h3>Core Files</h3>
+<table>
+  <tr><th>File</th><th>Role</th></tr>
+  <tr><td><code>main.jsx</code></td><td>React entry &mdash; mounts App inside StrictMode</td></tr>
+  <tr><td><code>styles.css</code></td><td>Design system: 70+ theme tokens, base resets, custom animations, reduced-motion support</td></tr>
+  <tr><td><code>app/App.jsx</code></td><td>Root orchestrator &mdash; initialises hooks, passes state down to all 11 sections</td></tr>
+  <tr><td><code>app/config.js</code></td><td>API URL resolver with env/dev/prod fallbacks</td></tr>
+  <tr><td><code>app/motion.js</code></td><td>3 shared Framer Motion presets: fadeInUp, staggerContainer, staggerItem</td></tr>
+  <tr><td><code>lib/cn.js</code></td><td>Lightweight class name joiner (filters falsy values)</td></tr>
+  <tr><td><code>services/api.js</code></td><td>Fetch wrappers for demo request + newsletter subscription</td></tr>
+  <tr><td><code>data/siteContent.js</code></td><td>All static text, image paths, and section data arrays</td></tr>
+</table>
+
+<h3>Custom Hooks</h3>
+<table>
+  <tr><th>Hook</th><th>Purpose</th><th>Returns</th></tr>
+  <tr><td><code>useDemoRequest</code></td><td>Form state + HTTP submission</td><td>formData, setFormData, isSubmitting, submitState, handleFormSubmit</td></tr>
+  <tr><td><code>useNavbarScroll</code></td><td>rAF-throttled scroll tracking</td><td>boolean <code>isScrolled</code></td></tr>
+</table>
+
+<h3>Common Components (Reusable UI Primitives)</h3>
+<table>
+  <tr><th>Component</th><th>Variants / Props</th><th>Purpose</th></tr>
+  <tr><td><code>Button</code></td><td>primary / secondary / ghost; <code>as</code>, <code>disabled</code></td><td>Themed button with hover/focus/active states</td></tr>
+  <tr><td><code>Card</code></td><td>elevated / telemetry / inset / flat / glass</td><td>Surface container with design-system layering</td></tr>
+  <tr><td><code>Container</code></td><td>className</td><td>Max-width 1400px centered wrapper</td></tr>
+  <tr><td><code>Section</code></td><td>default / elevate / band / subtle; spacing</td><td>Section padding + scroll-offset support</td></tr>
+  <tr><td><code>SectionHeading</code></td><td>eyebrow, title, description, align</td><td>Structured heading block</td></tr>
+  <tr><td><code>Tag</code></td><td>icon, className</td><td>Pill-shaped eyebrow chip</td></tr>
+  <tr><td><code>TextField</code></td><td>id, label, type, inputClassName</td><td>Accessible label + styled input</td></tr>
+  <tr><td><code>BannerMarquee</code></td><td>(none)</td><td>Infinite horizontal partner ticker</td></tr>
+</table>
+
+<h3>Section Components (Page Sections)</h3>
+<table>
+  <tr><th>Section</th><th>Key Features</th></tr>
+  <tr><td><code>Navbar</code></td><td>Fixed header, scroll-blur, desktop links, mobile hamburger drawer, CTA button</td></tr>
+  <tr><td><code>Hero</code></td><td>Full-viewport bg image, animated heading, floating image cards</td></tr>
+  <tr><td><code>About</code></td><td>Feature checklist, red glow card, two CTA buttons</td></tr>
+  <tr><td><code>Simulation</code></td><td>Interactive 3D drone scene (Three.js canvas)</td></tr>
+  <tr><td><code>Highlights</code></td><td>2-column layout with 3D tilt cards, scroll buttons, expandable text</td></tr>
+  <tr><td><code>WhyLatrics</code></td><td>6-card value proposition grid with stagger animation</td></tr>
+  <tr><td><code>Industries</code></td><td>3-tab switcher with spring layout animation, full-bleed image, overlay</td></tr>
+  <tr><td><code>CaseStudies</code></td><td>4 tall rounded cards, image zoom on hover, circular arrow buttons</td></tr>
+  <tr><td><code>Milestones</code></td><td>4-column stats grid, alternating red glow, memoized cards</td></tr>
+  <tr><td><code>DemoForm</code></td><td>2-column: info + floating drone image | inset form card with 3 fields</td></tr>
+  <tr><td><code>Footer</code></td><td>Red background, links, newsletter form with status feedback</td></tr>
+</table>
+
+<h3>3D Components</h3>
+<table>
+  <tr><th>Component</th><th>Role</th></tr>
+  <tr><td><code>DroneScene</code></td><td>Canvas wrapper: fog, multi-point lighting, Stars, Grid, Float, OrbitControls (auto-rotate), ContactShadows</td></tr>
+  <tr><td><code>ProceduralDrone</code></td><td>Procedurally built drone model: body, 4 spinning rotors, arms, landing gear, payload with logo decals</td></tr>
+</table>
+
+<!-- SECTION 4 -->
+<h1 id="s4" class="page-break">4. Data Flow Explanation</h1>
+
+<h2>Example 1: Demo Request Form Submission</h2>
+<pre><code>1. User fills Name, Email, Phone in DemoForm.jsx
+2. Each keystroke -&gt; handleFieldChange() -&gt; setFormData()
+3. User clicks "Book demo" -&gt; form onSubmit triggers
+4. handleFormSubmit() in useDemoRequest.js:
+   a. event.preventDefault()
+   b. setIsSubmitting(true)
+   c. Calls postDemoRequest(formData)
+5. api.js sends: POST /api/demo-request { name, email, phone }
+6. demoRoutes.js:
+   a. Validates all 3 fields non-empty strings
+   b. Checks mongoose.connection.readyState === 1
+   c. Creates new Contact, calls .save()
+7. Returns 201 { message: "Request received and saved." }
+8. api.js returns { ok: true, status: 201, data }
+9. Hook sets submitState = { type: "success" }
+10. DemoForm renders green success message
+11. Form fields reset to empty</code></pre>
+
+<h2>Example 2: Live Metrics via WebSocket</h2>
+<pre><code>1. Backend starts -&gt; registerLiveSocket(io):
+   - On connection -&gt; emit("live:update", buildLivePayload())
+   - setInterval 2500ms -&gt; io.emit("live:update", payload)
+2. buildLivePayload() generates:
+   - Timestamp, 4 metrics (random values), 4 shuffled events
+3. Frontend socket.io-client is installed but not actively
+   connected in current components</code></pre>
+
+<h2>Example 3: Newsletter Subscription</h2>
+<pre><code>1. User enters email in Footer -&gt; setEmail()
+2. Clicks subscribe -&gt; handleSubscribe()
+3. Calls postNewsletterSubscription(email)
+4. POST /api/newsletter-subscribe { email }
+5. newsletterRoutes.js:
+   a. Validates email contains "@"
+   b. Checks for duplicate (findOne)
+   c. Saves lowercase -&gt; 201
+6. Footer shows success, auto-clears after 5 seconds</code></pre>
+
+<!-- SECTION 5 -->
+<h1 id="s5" class="page-break">5. Key Logic Explanation</h1>
+
+<h3>Fisher-Yates Shuffle (liveDataService.js)</h3>
+<pre><code>function fisherYatesShuffle(array) {
+  for (let i = array.length - 1; i &gt; 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}</code></pre>
+<p><strong>Why</strong>: Produces an unbiased permutation. Each element has equal probability of any position. Used to randomise the activity feed events each broadcast cycle.</p>
+
+<h3>rAF-Throttled Scroll (useNavbarScroll.js)</h3>
+<p>Uses <code>requestAnimationFrame</code> to batch scroll reads into a single frame. Only updates state when the boolean value actually changes &mdash; avoids unnecessary React re-renders. Scroll events fire 60+ times/second without throttling.</p>
+
+<h3>3D Tilt Effect (Highlights.jsx)</h3>
+<p><code>useMotionValue</code> tracks raw mouse position (normalised -0.5 to 0.5) &rarr; <code>useSpring</code> smooths values &rarr; <code>useTransform</code> maps to rotateX/Y (&plusmn;5&deg;). Combined with <code>translateZ</code> on child elements for parallax depth.</p>
+
+<h3>Procedural Rotor Spin (ProceduralDrone.jsx)</h3>
+<p><code>useFrame((state, delta) =&gt; ...)</code> runs every animation frame. Increments <code>rotation.y</code> by <code>delta * 15</code> for frame-rate-independent spinning.</p>
+
+<h3>Spring Layout Animation (Industries.jsx)</h3>
+<p><code>layoutId="activeIndustry"</code> on the active tab background. Framer Motion auto-animates position between tabs using spring physics.</p>
+
+<!-- SECTION 6 -->
+<h1 id="s6" class="page-break">6. Database Design</h1>
+
+<h2>MongoDB Atlas &mdash; Database: <code>latrics</code></h2>
+
+<h3>Collection: <code>contacts</code></h3>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Constraints</th><th>Purpose</th></tr>
+  <tr><td>_id</td><td>ObjectId</td><td>auto-generated</td><td>Primary key</td></tr>
+  <tr><td>name</td><td>String</td><td>required, trimmed</td><td>Lead's full name</td></tr>
+  <tr><td>email</td><td>String</td><td>required, trimmed, lowercase</td><td>Lead's email</td></tr>
+  <tr><td>phone</td><td>String</td><td>required, trimmed</td><td>Lead's phone</td></tr>
+  <tr><td>createdAt</td><td>Date</td><td>default: Date.now</td><td>Submission timestamp</td></tr>
+</table>
+
+<h4>Example Record:</h4>
+<pre><code>{
+  "_id": "661f2a3b4c5d6e7f8a9b0c1d",
+  "name": "Ravi Kumar",
+  "email": "ravi@aerospace-corp.in",
+  "phone": "+91 98765 43210",
+  "createdAt": "2026-04-01T10:30:00.000Z"
+}</code></pre>
+
+<h3>Collection: <code>newsletters</code></h3>
+<table>
+  <tr><th>Field</th><th>Type</th><th>Constraints</th><th>Purpose</th></tr>
+  <tr><td>_id</td><td>ObjectId</td><td>auto-generated</td><td>Primary key</td></tr>
+  <tr><td>email</td><td>String</td><td>required, unique, trimmed, lowercase</td><td>Subscriber email</td></tr>
+  <tr><td>subscribedAt</td><td>Date</td><td>default: Date.now</td><td>Subscription timestamp</td></tr>
+</table>
+
+<p><strong>Relationships</strong>: No foreign keys between collections. Each is independent. <code>newsletters.email</code> has a unique index enforced at the database level.</p>
+
+<!-- SECTION 7 -->
+<h1 id="s7" class="page-break">7. API Documentation</h1>
+
+<p><strong>Base URL:</strong> <code>http://localhost:5005</code></p>
+
+<h3>GET /api/live</h3>
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>Purpose</td><td>Snapshot of simulated live telemetry metrics</td></tr>
+  <tr><td>Auth</td><td>None</td></tr>
+  <tr><td>Request Body</td><td>None</td></tr>
+  <tr><td>Success (200)</td><td>{ generatedAt, metrics[], activity[] }</td></tr>
+</table>
+
+<h3>POST /api/demo-request</h3>
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>Purpose</td><td>Submit a demo request (lead capture)</td></tr>
+  <tr><td>Content-Type</td><td>application/json</td></tr>
+  <tr><td>Body</td><td>{ name, email, phone }</td></tr>
+</table>
+<table>
+  <tr><th>Status</th><th>Condition</th><th>Response</th></tr>
+  <tr><td>201</td><td>Success</td><td>"Request received and saved."</td></tr>
+  <tr><td>400</td><td>Missing fields</td><td>"Name, email, and phone are required."</td></tr>
+  <tr><td>503</td><td>DB not connected</td><td>"Database connection is currently unavailable."</td></tr>
+  <tr><td>500</td><td>Server error</td><td>"Server error while saving your request."</td></tr>
+</table>
+
+<h3>POST /api/newsletter-subscribe</h3>
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>Purpose</td><td>Subscribe email to newsletter</td></tr>
+  <tr><td>Content-Type</td><td>application/json</td></tr>
+  <tr><td>Body</td><td>{ email }</td></tr>
+</table>
+<table>
+  <tr><th>Status</th><th>Condition</th><th>Response</th></tr>
+  <tr><td>201</td><td>Success</td><td>"Successfully subscribed to newsletter."</td></tr>
+  <tr><td>400</td><td>Invalid email</td><td>"A valid email address is required."</td></tr>
+  <tr><td>409</td><td>Already exists</td><td>"This email is already subscribed."</td></tr>
+  <tr><td>500</td><td>Server error</td><td>"Server error. Please try again later."</td></tr>
+</table>
+
+<h3>WebSocket: <code>live:update</code></h3>
+<p>Direction: Server &rarr; Client | Frequency: Every 2500ms + on initial connection | Payload: same as GET /api/live</p>
+
+<!-- SECTION 8 -->
+<h1 id="s8" class="page-break">8. UI/UX Flow</h1>
+
+<h2>Page Structure (Top to Bottom)</h2>
+<div class="diagram">NAVBAR (fixed, scroll-aware blur)
+---------------------------------
+HERO (full-viewport, bg image)
+---------------------------------
+ABOUT (feature card)
+---------------------------------
+SIMULATION (3D interactive drone)
+---------------------------------
+BANNER MARQUEE (partner ticker)
+---------------------------------
+HIGHLIGHTS (scrollable articles)
+---------------------------------
+WHY LATRICS (6-card grid)
+---------------------------------
+INDUSTRIES (tabbed showcase)
+---------------------------------
+CASE STUDIES (4-card grid)
+---------------------------------
+MILESTONES (stats counters)
+---------------------------------
+DEMO FORM (lead capture)
+---------------------------------
+FOOTER (links + newsletter)</div>
+
+<h2>Navigation</h2>
+<ul>
+  <li>Navbar links use <code>href="#section-id"</code> for in-page anchor scrolling</li>
+  <li>Sections use <code>scroll-mt</code> offset to account for fixed navbar</li>
+  <li>Mobile: hamburger opens animated drawer overlay</li>
+  <li>"Contact Us" CTA scrolls to #contact (DemoForm)</li>
+</ul>
+
+<h2>State Management</h2>
+<p>No global store (Redux/Zustand). All state is local React useState/useEffect: scroll state, active industry tab, form data, mobile menu toggle, newsletter form.</p>
+
+<!-- SECTION 9 -->
+<h1 id="s9" class="page-break">9. Dependencies &amp; Configuration</h1>
+
+<h2>Frontend Dependencies</h2>
+<table>
+  <tr><th>Package</th><th>Purpose</th></tr>
+  <tr><td>react, react-dom</td><td>Core UI library</td></tr>
+  <tr><td>vite, @vitejs/plugin-react</td><td>Dev server + build + JSX/HMR</td></tr>
+  <tr><td>tailwindcss, @tailwindcss/vite</td><td>Utility-first CSS (v4, zero-runtime)</td></tr>
+  <tr><td>framer-motion</td><td>Declarative animations + layout transitions</td></tr>
+  <tr><td>lucide-react</td><td>Tree-shakeable SVG icon library</td></tr>
+  <tr><td>three, @react-three/fiber, @react-three/drei</td><td>3D rendering engine + React bindings</td></tr>
+  <tr><td>socket.io-client</td><td>WebSocket client (installed but not actively used)</td></tr>
+</table>
+
+<h2>Backend Dependencies</h2>
+<table>
+  <tr><th>Package</th><th>Purpose</th></tr>
+  <tr><td>express</td><td>HTTP server framework</td></tr>
+  <tr><td>mongoose</td><td>MongoDB ODM with schema validation</td></tr>
+  <tr><td>socket.io</td><td>WebSocket server</td></tr>
+  <tr><td>cors</td><td>Cross-origin middleware</td></tr>
+  <tr><td>dotenv</td><td>.env variable loader</td></tr>
+</table>
+
+<h2>Environment Variables</h2>
+<table>
+  <tr><th>Variable</th><th>File</th><th>Purpose</th></tr>
+  <tr><td>PORT</td><td>backend/.env</td><td>Backend port (default: 5005)</td></tr>
+  <tr><td>CORS_ORIGINS</td><td>backend/.env</td><td>Comma-separated allowed origins</td></tr>
+  <tr><td>MONGODB_URI</td><td>backend/.env</td><td>MongoDB Atlas connection string</td></tr>
+  <tr><td>VITE_API_URL</td><td>frontend/.env</td><td>Backend URL for API calls</td></tr>
+</table>
+
+<!-- SECTION 10 -->
+<h1 id="s10" class="page-break">10. Edge Cases &amp; Error Handling</h1>
+
+<table>
+  <tr><th>Scenario</th><th>Handling</th></tr>
+  <tr><td>MongoDB connection fails</td><td>Logs warning, continues running. Form submissions return 503</td></tr>
+  <tr><td>SRV DNS lookup fails (Windows)</td><td>Forces Google DNS (8.8.8.8) and IPv4-first resolution</td></tr>
+  <tr><td>Form with empty fields</td><td>Route validates non-empty trimmed strings &rarr; 400</td></tr>
+  <tr><td>Duplicate newsletter email</td><td>Route checks findOne before insert &rarr; 409</td></tr>
+  <tr><td>Backend unreachable</td><td>Catch block shows "couldn't reach the server"</td></tr>
+  <tr><td>API returns non-JSON</td><td><code>response.json().catch(() =&gt; ({}))</code> prevents crash</td></tr>
+  <tr><td>Scroll event spam</td><td>requestAnimationFrame throttling</td></tr>
+  <tr><td>Reduced motion preference</td><td>useReducedMotion + CSS prefers-reduced-motion kills animations</td></tr>
+  <tr><td>Server process killed</td><td>SIGTERM/SIGINT cleanup of socket intervals + HTTP server</td></tr>
+</table>
+
+<!-- SECTION 11 -->
+<h1 id="s11">11. Performance &amp; Optimization</h1>
+
+<h2>Current</h2>
+<ul>
+  <li>rAF scroll throttling in useNavbarScroll</li>
+  <li>Conditional state updates (only when value changes)</li>
+  <li><code>React.memo</code> on MilestoneCard</li>
+  <li><code>viewport: { once: true }</code> &mdash; animations fire only once</li>
+  <li>3D scene inside <code>&lt;Suspense&gt;</code> for non-blocking load</li>
+  <li>Tailwind v4 &mdash; zero-runtime CSS</li>
+  <li>Google Fonts preconnect headers</li>
+</ul>
+
+<h2>Suggested Improvements</h2>
+<ul>
+  <li><strong>Image optimization</strong>: hero_bg.png is 32MB &mdash; compress and convert to WebP</li>
+  <li><strong>Code splitting</strong>: Lazy-load 3D scene with React.lazy()</li>
+  <li><strong>Remove unused socket.io-client</strong>: Reduces bundle size</li>
+  <li><strong>Font subsetting</strong>: Load only needed Poppins weights</li>
+  <li><strong>Service Worker</strong>: Add for offline static asset caching</li>
+</ul>
+
+<!-- SECTION 12 -->
+<h1 id="s12" class="page-break">12. Security Considerations</h1>
+
+<h2>Current Measures</h2>
+<ul>
+  <li>CORS whitelist from environment variables</li>
+  <li>Server-side input validation + trimming</li>
+  <li>Email normalisation (lowercase storage)</li>
+  <li>MongoDB URI only in backend .env</li>
+  <li>Unique index on newsletter email prevents duplicates</li>
+</ul>
+
+<h2>Areas of Concern</h2>
+<div class="callout callout-warning">
+  <strong>Warning:</strong>
+  <ul>
+    <li>MongoDB URI with credentials in .env file &mdash; should be in .gitignore and credentials rotated</li>
+    <li>No rate limiting on API endpoints (spam/brute-force vulnerable)</li>
+    <li>Email validation only checks for "@" (not RFC 5322)</li>
+    <li>No CSRF protection (relies solely on CORS)</li>
+    <li>No HTTPS enforcement for production</li>
+    <li>All API endpoints are unauthenticated</li>
+  </ul>
+</div>
+
+<!-- SECTION 13 -->
+<h1 id="s13">13. Deployment Flow</h1>
+
+<h2>Running Locally</h2>
+<pre><code># 1. Clone &amp; install
+git clone &lt;repo-url&gt;
+cd LATRICS
+npm install
+
+# 2. Configure .env files
+# backend/.env -&gt; PORT, CORS_ORIGINS, MONGODB_URI
+# frontend/.env -&gt; VITE_API_URL
+
+# 3. Start both servers
+npm run dev
+# Backend: http://localhost:5005
+# Frontend: http://localhost:5173</code></pre>
+
+<h2>Build for Production</h2>
+<pre><code>npm run build   # Builds frontend -&gt; frontend/dist/
+npm run start   # Starts production backend</code></pre>
+
+<h2>Key Commands</h2>
+<table>
+  <tr><th>Command</th><th>Scope</th><th>Action</th></tr>
+  <tr><td><code>npm run dev</code></td><td>Root</td><td>Starts frontend + backend concurrently</td></tr>
+  <tr><td><code>npm run build</code></td><td>Root</td><td>Vite production build</td></tr>
+  <tr><td><code>npm run start</code></td><td>Root</td><td>Starts backend in production mode</td></tr>
+</table>
+
+<!-- SECTION 14 -->
+<h1 id="s14" class="page-break">14. Summary for Client KT (Non-Technical)</h1>
+
+<h2>What is LATRICS?</h2>
+<p>Think of it as a <strong>company's interactive brochure website</strong> &mdash; but much more advanced than a static page. It's like visiting a car dealership's website where you can:</p>
+<ul>
+  <li>See a <strong>3D model</strong> of the product (drone) that you can rotate and zoom</li>
+  <li>Watch <strong>live operational stats</strong> updating in real-time</li>
+  <li>Fill out a <strong>"Request Demo" form</strong> to get in touch with sales</li>
+  <li><strong>Subscribe to a newsletter</strong> for updates</li>
+</ul>
+
+<h2>How Does It Work?</h2>
+<p>Imagine a restaurant:</p>
+<ul>
+  <li>The <strong>dining room</strong> (Frontend) is what customers see &mdash; the beautiful UI</li>
+  <li>The <strong>kitchen</strong> (Backend) is behind the scenes &mdash; receives orders, stores them</li>
+  <li>The <strong>intercom</strong> (WebSocket) lets the kitchen send real-time updates without anyone walking back and forth</li>
+</ul>
+
+<h2>Key Takeaways</h2>
+<ol>
+  <li>It's a <strong>single-page application</strong> &mdash; loads once, never refreshes</li>
+  <li>The backend has only <strong>3 API endpoints</strong> &mdash; lightweight by design</li>
+  <li>Live metrics are <strong>simulated</strong> (random numbers within realistic ranges)</li>
+  <li>Form data is <strong>persisted to a cloud database</strong> (MongoDB Atlas)</li>
+  <li>The codebase is <strong>well-structured</strong> with clear separation of concerns</li>
+</ol>
+
+<hr>
+
+<p style="text-align: center; color: var(--fg-subtle); margin-top: 40px; font-size: 10pt;">
+  <strong>End of Knowledge Transfer Document</strong><br>
+  LATRICS KT &mdash; April 2026
+</p>
+
+<!-- Print Instructions -->
+<div class="no-print" style="margin-top: 60px; padding: 24px; background: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; text-align: center;">
+  <h3 style="color: #16a34a; margin-bottom: 8px;">Save as PDF</h3>
+  <p>Press <strong>Ctrl + P</strong> (or Cmd + P on Mac) &rarr; select <strong>"Save as PDF"</strong> as the destination &rarr; click <strong>Save</strong>.</p>
+  <p style="font-size: 10pt; color: #666;">Tip: Uncheck "Headers and footers" for a cleaner output.</p>
+</div>
+
+</body>
+</html>

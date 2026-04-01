@@ -1,0 +1,16 @@
+{
+  "name": "latrics-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^4.21.2",
+    "mongoose": "^9.3.3",
+    "socket.io": "^4.8.1"
+  }
+}

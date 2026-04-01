@@ -1,0 +1,280 @@
+@import "tailwindcss";
+
+/**
+ * Latrics design system
+ * ---------------------
+ * Primary:   brand (actions, key emphasis)
+ * Secondary: surface / elevate (structure, chips)
+ * Accent:    accent (highlights, decorative gradients)
+ * Neutral:   canvas, fg, border (typography & chrome)
+ *
+ * Layering: canvas → section (elevate/band) → card (surface) → inset (nested forms)
+ */
+@theme {
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #08090d;
+  --color-canvas-mid: #0b0d14;
+  --color-canvas-deep: #06070a;
+
+  --color-elevate: #0e1018;
+  --color-elevate-2: #11141f;
+
+  --color-surface: #131620;
+  --color-surface-hover: #181b27;
+  --color-surface-inset: #0c0e16;
+
+  --color-border: rgb(255 255 255 / 0.055);
+  --color-border-muted: rgb(255 255 255 / 0.038);
+  --color-border-strong: rgb(255 255 255 / 0.095);
+
+  --color-fg: #eef0f6;
+  --color-fg-secondary: #a9b0bc;
+  --color-fg-muted: #7a828f;
+  --color-fg-subtle: #5c6370;
+
+  --color-brand: #da291c;
+  --color-brand-hover: #ff6a56;
+  --color-brand-mid: #f25545;
+  --color-brand-deep: #9e241c;
+  --color-brand-glow: rgb(218 41 28 / 0.09);
+  --color-brand-softer: rgb(218 41 28 / 0.12);
+
+  --color-accent: #d4a85e;
+  --color-accent-glow: rgb(212 168 94 / 0.09);
+
+  --color-success-fg: #9ed4ae;
+  --color-danger-fg: #f0b8b0;
+
+  --color-card-light-from: #faf6ee;
+  --color-card-light-to: #f2e8d4;
+  --color-card-light-border: rgb(17 24 39 / 0.08);
+  --color-card-light-fg: #111318;
+  --color-card-light-muted: rgb(17 24 39 / 0.55);
+  --color-card-light-body: rgb(17 24 39 / 0.72);
+
+  --shadow-card: 0 20px 56px rgb(0 0 0 / 0.4);
+  --shadow-soft: 0 10px 36px rgb(0 0 0 / 0.26);
+  --shadow-brand: 0 14px 44px rgb(218 41 28 / 0.18);
+
+  --radius-card: 1.5rem;
+  --radius-card-lg: 1.75rem;
+  --radius-pill: 9999px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --color-ink: var(--color-fg);
+  --color-slate: var(--color-fg-secondary);
+  --color-muted: var(--color-fg-muted);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --ui-border-brand: rgb(218 41 28 / 0.3);
+    --ui-border-focus: rgb(218 41 28 / 0.55);
+    --section-y-sm: clamp(3.5rem, 5vw, 5rem);
+    --section-y: clamp(4rem, 7vw, 7.5rem);
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background-color: var(--color-canvas);
+    background-image:
+      radial-gradient(ellipse 100% 70% at 0% -25%, var(--color-brand-softer), transparent 46%),
+      radial-gradient(ellipse 80% 55% at 100% -15%, var(--color-accent-glow), transparent 48%),
+      linear-gradient(180deg, var(--color-canvas) 0%, var(--color-canvas-mid) 44%, var(--color-canvas) 100%);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-feature-settings: "ss01" on, "cv02" on;
+    line-height: 1.625;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.26;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.014) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.014) 1px, transparent 1px);
+    background-size: 88px 88px;
+    mask-image: radial-gradient(circle at center, black 38%, transparent 86%);
+  }
+
+  ::selection {
+    background: rgb(218 41 28 / 0.22);
+    color: var(--color-fg);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-wrap: balance;
+    color: var(--color-fg);
+  }
+
+  h1 { font-size: clamp(2.5rem, 5.5vw + 1rem, 4.25rem); }
+  h2 { font-size: clamp(1.875rem, 3.5vw + 0.75rem, 3.25rem); }
+  h3 { font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem); }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a,
+  button,
+  input {
+    font: inherit;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+/* Typography scale — hierarchy */
+@utility text-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.5vw + 1rem, 4.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+@utility text-title-1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 3.5vw + 0.75rem, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+@utility text-title-2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.12;
+}
+
+@utility text-body-lg {
+  font-size: clamp(1.0625rem, 0.5vw + 1rem, 1.125rem);
+  line-height: 1.65;
+}
+
+@utility text-label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* Vertical rhythm — multiples of 8px */
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility section-y-sm {
+  padding-block: var(--section-y-sm);
+}
+
+@layer components {
+  .hero-backdrop {
+    opacity: 0.97;
+    background-image:
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--color-canvas) 94%, transparent) 8%,
+        color-mix(in srgb, var(--color-canvas) 72%, transparent) 48%,
+        color-mix(in srgb, var(--color-canvas) 26%, transparent) 72%,
+        color-mix(in srgb, var(--color-canvas) 91%, transparent) 100%
+      ),
+      url(/hero_bg.png);
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@layer utilities {
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 22s linear infinite;
+  }
+
+  @keyframes slow-spin {
+    from {
+      transform: rotate(45deg);
+    }
+    to {
+      transform: rotate(405deg);
+    }
+  }
+
+  .animate-spin-slow {
+    display: inline-block;
+    animation: slow-spin 8s linear infinite;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-marquee {
+    animation: none;
+  }
+}

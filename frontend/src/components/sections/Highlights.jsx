@@ -3,6 +3,8 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 import { highlightItems } from "../../data/siteContent";
 import Section from "../common/Section";
+import SectionHeading from "../common/SectionHeading";
+import Container from "../common/Container";
 
 function HighlightCard({ item }) {
   const cardRef = useRef(null);
@@ -36,32 +38,39 @@ function HighlightCard({ item }) {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    setIsExpanded(false); // Auto-shrink back when cursor moves away
+    setIsExpanded(false); // Shrink back when cursor leaves
     x.set(0);
     y.set(0);
   };
 
-  const MAX_DESC_LENGTH = 110;
+  const MAX_DESC_LENGTH = 150; // Approx 2 lines of text at the current font size
   const isLongDesc = item.desc.length > MAX_DESC_LENGTH;
+  const isCurrentlyExpanded = isExpanded || (isHovered && isLongDesc);
 
   return (
     <motion.article
       ref={cardRef}
+      layout
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
+      initial={{ height: "160px" }}
       animate={{
-        height: isExpanded ? "auto" : "180px",
+        height: isCurrentlyExpanded ? "auto" : "160px",
+        zIndex: isHovered ? 50 : 1,
       }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+        height: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+      }}
       style={{
         rotateX,
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="group relative grid w-full gap-4 overflow-hidden rounded-[2.25rem] border-transparent bg-[#E8E3D3] px-5 py-4 shadow-xl transition-all duration-500 ease-out sm:grid-cols-[160px_1fr] sm:gap-6 flex-shrink-0"
+      className={`group relative grid w-full gap-4 items-start overflow-hidden rounded-[2.25rem] border-transparent bg-[#1B1A1A]/80 px-5 py-5 shadow-xl transition-all duration-500 ease-out sm:grid-cols-[130px_1fr] sm:gap-6 flex-shrink-0 ${isHovered ? 'ring-1 ring-[#DA291C]/50 shadow-2xl' : ''}`}
     >
-      <div className="relative h-32 overflow-hidden rounded-2xl sm:h-full" style={{ transform: "translateZ(20px)" }}>
+      <div className="relative h-30 w-full overflow-hidden rounded-2xl" style={{ transform: "translateZ(20px)" }}>
         <motion.img
           src={item.image}
           alt=""
@@ -73,15 +82,15 @@ function HighlightCard({ item }) {
         />
       </div>
 
-      <div className="flex flex-col justify-center gap-1 pr-2 pb-1" style={{ transform: "translateZ(30px)" }}>
-        <span className="text-[0.65rem] font-bold uppercase tracking-wider text-black/50">
+      <div className="flex flex-col justify-start gap-2 pr-2 pb-2 pt-0" style={{ transform: "translateZ(30px)" }}>
+        <span className="text-[0.75rem] font-bold uppercase tracking-wider text-white/50">
           {item.date}
         </span>
-        <h3 className="font-display text-lg font-black leading-tight text-[#DA291C] md:text-xl">
+        <h3 className="font-display text-lg font-black leading-tight text-[#FFF5E0] md:text-xl">
           {item.title}
         </h3>
-        <p className="text-[0.825rem] font-medium leading-relaxed text-black/80 md:text-[0.875rem]">
-          {!isExpanded && isLongDesc ? (
+        <p className="text-[1rem] font-regular leading-tight text-white/80 md:text-[1rem]">
+          {!isCurrentlyExpanded && isLongDesc ? (
             <>
               {item.desc.substring(0, MAX_DESC_LENGTH)}
               <span
@@ -89,8 +98,8 @@ function HighlightCard({ item }) {
                   e.stopPropagation();
                   setIsExpanded(true);
                 }}
-                className="text-[#DA291C] font-semibold cursor-pointer hover:underline"
-              > ...read more</span>
+                className="text-[#DA291C] font-semibold ml-1 cursor-pointer hover:underline"
+              >...read more</span>
             </>
           ) : (
             item.desc
@@ -107,7 +116,7 @@ export default function Highlights() {
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
       const { scrollTop } = scrollContainerRef.current;
-      const scrollAmount = 200; // Exact height of one card + one gap (180 + 20)
+      const scrollAmount = 180; // Height of one card + gap (160 + 20)
       scrollContainerRef.current.scrollTo({
         top: direction === "up" ? scrollTop - scrollAmount : scrollTop + scrollAmount,
         behavior: "smooth"
@@ -116,37 +125,25 @@ export default function Highlights() {
   };
 
   return (
-    <Section id="highlights" className="bg-[#1B1A1A] relative min-h-screen py-24 flex items-center justify-center">
-      <div className="mx-auto w-full max-w-[1430px] px-6 lg:px-12">
+    <Section id="highlights" className="bg-[#1B1A1A] relative">
+      <Container className="mx-auto max-w-[1400px] px-2">
         {/* Main 'Box' Container */}
-        <div className="relative overflow-hidden rounded-[3.5rem] border border-white/5 bg-[#121212] p-8 md:p-12 lg:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
+        <div className="relative overflow-hidden rounded-[3.5rem] border border-white/40 bg-[#2C2B2B]/60 px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
           {/* Subtle Ambient Glow inside the box */}
           <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-glow blur-[100px] opacity-20" />
 
-          <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 relative z-10">
-            {/* Left Column: Fixed Content */}
+          <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+            {/* Left Column: Text & Navigation Controls */}
             <div className="flex flex-col gap-6">
-              <div className="flex justify-start">
-                <div className="inline-flex items-center gap-3 rounded-lg bg-white p-1 pr-5 shadow-xl transition-transform hover:scale-105">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E33B26] shadow-sm">
-                    <Flame className="size-5 fill-white text-white" strokeWidth={2.5} />
-                  </div>
-                  <span className="text-[0.7rem] font-black uppercase tracking-[0.15em] text-black pt-0.5">
-                    Highlights
-                  </span>
-                </div>
-              </div>
+              <SectionHeading
+                badgeIcon={Flame}
+                badgeText="Highlights"
+                title="Transforming Industries Through Intelligent Innovation"
+                description="At Latrics, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter."
+                className="mb-2"
+              />
 
-              <h2 className="text-title-1 text-white">
-                Transforming Industries Through Intelligent Innovation
-              </h2>
-
-              <p className="text-body-lg text-white/50 max-w-sm">
-                At Latrix, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter.
-              </p>
-
-              {/* Navigation Arrows */}
-              <div className="mt-4 flex gap-4">
+              <div className="flex gap-4">
                 <button
                   onClick={() => scroll("up")}
                   aria-label="Scroll up"
@@ -165,17 +162,18 @@ export default function Highlights() {
             </div>
 
             {/* Right Column: Discrete 3-Card Scroll Container */}
-            <div
+            <motion.div
+              layout
               ref={scrollContainerRef}
-              className="flex flex-col gap-5 md:h-[580px] md:overflow-hidden no-scrollbar pr-1"
+              className="flex flex-col gap-5 md:h-[520px] md:overflow-y-auto overflow-x-hidden no-scrollbar pr-1 scroll-smooth"
             >
               {highlightItems.map((item, index) => (
                 <HighlightCard key={index} item={item} />
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
-      </div>
+      </Container>
     </Section>
   );
 }

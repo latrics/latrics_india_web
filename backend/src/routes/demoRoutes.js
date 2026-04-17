@@ -17,8 +17,10 @@ const router = express.Router();
  * @param {import("express").Response} response - Returns 201 (Created), 400 (Bad Request), or 500 (Server Error)
  */
 router.post("/demo-request", async (request, response) => {
-  const { name, email, phone } = request.body;
+  const { name, email, phone, message } = request.body;
 
+  // 1. Structural Validation
+  // Ensures that all required fields are present, correctly typed, and not just whitespace.
   if (
     !name || typeof name !== "string" || name.trim() === "" ||
     !email || typeof email !== "string" || email.trim() === "" ||
@@ -32,7 +34,8 @@ router.post("/demo-request", async (request, response) => {
       const newContact = new Contact({
         name: name.trim(),
         email: email.trim(),
-        phone: phone.trim()
+        phone: phone.trim(),
+        message: message ? message.trim() : ""
       });
       await newContact.save();
       console.log(`[Demo Request] Saved to DB: ${name.trim()} (${email.trim()})`);

@@ -15,8 +15,8 @@ export default function TextField({
   ...inputProps
 }) {
   return (
-    <div className={cn("grid gap-2", className)}>
-      <label htmlFor={id} className="text-label text-fg-secondary">
+    <div className={cn("grid gap-1", className)}>
+      <label htmlFor={id} className="text-label text-fg-secondary pl-3">
         {label}
       </label>
       <input id={id} type={type} className={cn(inputClass, inputClassName)} {...inputProps} />

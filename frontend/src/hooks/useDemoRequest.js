@@ -4,12 +4,16 @@ import { postDemoRequest } from "../services/api";
 const initialFormData = {
   name: "",
   email: "",
-  phone: ""
+  phone: "",
+  message: ""
 };
 
+/**
+ * State shape for tracking the outcome of the last submission attempt.
+ */
 const initialSubmitState = {
-  type: "",
-  message: ""
+  type: "", // 'success' or 'error'
+  message: "" // User-friendly feedback string
 };
 
 /**
@@ -26,12 +30,18 @@ export function useDemoRequest() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitState, setSubmitState] = useState(initialSubmitState);
 
+  /**
+   * Main submission handler triggered by the form's onSubmit event.
+   * Handles preventing default behavior, toggling loading states, 
+   * performing the network request, and updating feedback state.
+   */
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
-    setSubmitState(initialSubmitState);
+    setSubmitState(initialSubmitState); // Reset previous message
 
     try {
+      // Abstraction layer: separates form logic from API endpoint knowledge
       const result = await postDemoRequest(formData);
 
       if (result.ok) {
@@ -39,14 +49,16 @@ export function useDemoRequest() {
           type: "success",
           message: result.data.message || "Demo request sent successfully."
         });
-        setFormData(initialFormData);
+        setFormData(initialFormData); // Clear inputs on success
       } else {
+        // Backend validation errors or controlled failures
         setSubmitState({
           type: "error",
           message: result.data.message || "We couldn't send your request. Please try again."
         });
       }
     } catch (error) {
+      // Fatal network failures (e.g. server down, offline)
       console.error("[Form Error]", error);
       setSubmitState({
         type: "error",

@@ -1,95 +1,145 @@
 import { Grid, ArrowRight, ChevronRight, Flame, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { caseStudies } from "../../data/siteContent";
 import Button from "../common/Button";
 import Container from "../common/Container";
 import Section from "../common/Section";
+import SectionHeading from "../common/SectionHeading";
 import Tag from "../common/Tag";
+import SectionBadge from "../common/SectionBadge";
+import ActionLink from "../common/ActionLink";
 
+/**
+ * CaseStudies Component
+ * 
+ * Logic & Workflow:
+ * 1. Data Mapping: Iterates through the `caseStudies` array from `siteContent.js`.
+ * 2. Interaction State: Uses `hoveredIdx` state to track which card is currently being hovered.
+ * 3. Dynamic Layout (AER - Automated Expansion/Reduction):
+ *    - On desktop (`lg`), the hovered card expands (`flex-[2.5]`) while siblings shrink (`flex-1`).
+ *    - This creates a sophisticated, interactive gallery feel without complex JS calculations.
+ * 4. Visual Layering:
+ *    - Base: Background image with hover scale effect.
+ *    - Overlay 1: Dark gradient & glassmorphism backdrop (active on hover).
+ *    - Overlay 2: Text content (active on hover, with a slight delay for smooth entry).
+ * 5. Animations: Uses Framer Motion for stagger entry and Tailwind transitions for layout shifts.
+ * 
+ * @param {Object} props
+ * @param {Object} props.staggerContainer - Framer motion variants for the parent container.
+ * @param {Object} props.staggerItem - Framer motion variants for individual cards.
+ */
 export default function CaseStudies({ staggerContainer, staggerItem }) {
+  // State to track the currently hovered index for the expansion effect
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
   return (
-    <Section variant="default" className="bg-[#1B1A1A]">
+    <Section variant="default">
       <Container>
-        <div className="mb-12 flex flex-col items-start gap-8">
-          {/* Custom Header Badge */}
-          <div className="mb-10 flex justify-start">
-            <div className="inline-flex items-center gap-3 rounded-lg bg-white p-1 pr-5 shadow-xl transition-transform hover:scale-105">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E33B26] shadow-sm">
-                <Flame className="size-5 fill-white text-white" strokeWidth={2.5} />
-              </div>
-              <span className="text-[0.7rem] font-black uppercase tracking-[0.15em] text-black pt-0.5">
-                Recent Articles
-              </span>
-            </div>
-          </div>
+        {/* Section header with localized badges/icons for brand consistency */}
+        <SectionHeading
+          badgeIcon={Flame}
+          badgeText="Recent Articles"
+          title="Transforming Industries Through Intelligent Innovation"
+          description="At Latrics, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter. We fuse advanced drone hardware with proprietary AI analytics to give manufacturer and facility operators real-time visibility, safer inspections, and data-driven decision-making at scale."
+          titleClassName="max-w-none"
+          descriptionClassName="max-w-none"
+        />
 
-          <div className="max-w-10xl space-y-6">
-            <h2 className="text-title-1 text-white">
-              Transforming Industries Through Intelligent Innovation
-            </h2>
-            <p className="text-body-lg text-white/70 max-w-10xl">
-              At Latrics, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter.
-              We fuse advanced drone hardware with proprietary AI analytics to give manufacturer and facility operators
-            </p>
-          </div>
-        </div>
-
+        {/* 
+          Grid Container:
+          - Uses flex-col for mobile and flex-row for desktop to enable the expansion effect.
+          - Fixed height on desktop ensures cards remain consistent during expansion.
+        */}
         <motion.div
           variants={staggerContainer}
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true, margin: "-70px" }}
-          className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-16"
+          className="flex flex-col lg:flex-row gap-6 mb-16 h-auto lg:h-[372px]"
         >
-          {caseStudies.map((item, idx) => (
-            <motion.article
-              key={idx}
-              variants={staggerItem}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group relative h-[520px] rounded-[3.5rem] border-8 border-white/70 bg-white/5 shadow-2xl transition-all duration-300 hover:border-white/30"
-            >
-              {/* Image gets its own overflow-hidden so the zoom effect still works */}
-              <div className="absolute inset-0 overflow-hidden rounded-[3rem]">
-                <img src={item.img} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+          {caseStudies.map((item, idx) => {
+            const isActive = hoveredIdx === idx;
 
-                {/* Gradient Overlay for text legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+            return (
+              <motion.article
+                key={idx}
+                variants={staggerItem}
+                onMouseEnter={() => setHoveredIdx(idx)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                whileHover={{ y: -4, transition: { duration: 0.3 } }}
+                // Logic: flex property changes from 1 to 2.5 on hover for the expansion effect
+                className={`group relative overflow-visible rounded-[3.5rem] border-8 border-white/70 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[372px] lg:h-full w-full lg:w-auto ${isActive ? "lg:flex-[2.5]" : "lg:flex-1"
+                  }`}
+              >
+                {/* Image Container with overflow-hidden for the inner zoom effect */}
+                <div className="absolute inset-0 overflow-hidden rounded-[3rem]">
+                  {/* Zoom Effect: Scale 110 on group-hover */}
+                  <img 
+                    src={item.img} 
+                    alt={item.title} 
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                  />
 
-                {/* Text Content Overlay (Inspired by Image 1) */}
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/50">
-                    {item.meta}
-                  </p>
-                  <h3 className="mb-2 text-2xl font-bold leading-tight text-white max-w-[90%]">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm font-medium leading-relaxed text-white/70 max-w-[85%]">
-                    {item.desc}
-                  </p>
+                  {/* 
+                    Glassmorphism Overlay:
+                    - Fades in using opacity-100 on active state.
+                    - backdrop-blur adds a premium feel to the text background.
+                  */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500 ${isActive ? "opacity-100 backdrop-blur-[2px]" : "lg:opacity-0 opacity-100"
+                      }`}
+                  />
+
+                  {/* 
+                    Text Content Overlay:
+                    - Controlled by isActive state.
+                    - delay-100 ensures the background starts fading before text appears for readability.
+                  */}
+                  <div
+                    className={`absolute inset-0 p-8 pt-12 pr-12 flex flex-col justify-end transition-opacity duration-500 ${isActive ? "opacity-100 delay-100" : "lg:opacity-0 opacity-100"
+                      }`}
+                  >
+                    <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/50">
+                      {item.meta}
+                    </p>
+                    <h3 className="mb-2 text-2xl font-bold leading-tight text-white max-w-[90%]">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm font-medium leading-relaxed text-white/70 max-w-[85%] line-clamp-3">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              {/* Arrow button — lives outside overflow-hidden so it's never clipped */}
-              <div className="absolute -bottom-5 -right-3 z-10">
-                <div className="grid size-20 place-items-center rounded-full border-[8px] border-[#1B1A1A] bg-[#2C2B2B] text-white transition-all duration-300 group-hover:bg-white group-hover:text-black">
-                  <ChevronRight className="size-6 transition-transform duration-300" />
+                {/* 
+                  Interactive Redirect Button:
+                  - Custom styling to mimic a floating action button.
+                  - Inverts colors on group hover (White bg, Black icon).
+                */}
+                <div 
+                  className="absolute -bottom-5 -right-3 z-20 cursor-default"
+                >
+                  <div className="grid size-20 place-items-center rounded-full border-[8px] border-[#1B1A1A] bg-[#2C2B2B] text-white transition-all duration-300 group-hover:bg-white group-hover:text-black">
+                    {isActive ? (
+                      <ArrowUpRight className="size-6 transition-transform duration-300" />
+                    ) : (
+                      <ChevronRight className="size-6 transition-transform duration-300" />
+                    )}
+                  </div>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            );
+          })}
         </motion.div>
 
-        {/* View More Button */}
+        {/* CTA to link to a dedicated case studies or articles page */}
         <div className="flex justify-center">
-          <button className="flex items-center gap-6 bg-[#2A2A2A] hover:bg-[#333] transition-all px-4 py-2 rounded-lg border border-white/10 group">
-            <span className="text-white font-bold text-lg">View More</span>
-            <div className="bg-[#E23F2E] p-2.5 rounded-lg flex items-center justify-center transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
-              <ArrowUpRight className="w-4 h-4 text-white" strokeWidth={2.5} />
-            </div>
-          </button>
+          <ActionLink href="#">View More</ActionLink>
         </div>
       </Container>
     </Section>
   );
 }
+
 

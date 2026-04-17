@@ -4,53 +4,89 @@ import { whyCards } from "../../data/siteContent";
 import Card from "../common/Card";
 import Container from "../common/Container";
 import Section from "../common/Section";
+import SectionBadge from "../common/SectionBadge";
 
+/**
+ * WhyLatrics - High-precision styling for the core value proposition.
+ */
 export default function WhyLatrics({ staggerContainer, staggerItem }) {
   return (
-    <Section variant="elevate">
-      <Container>
-        <div className="mb-10 flex flex-col gap-5 md:mb-14 lg:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-          <div className="max-w-2xl space-y-4 md:space-y-5">
-            <div className="mb-4 flex justify-start">
-              <div className="inline-flex items-center gap-3 rounded-lg bg-white p-1 pr-5 shadow-xl transition-transform hover:scale-105">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E33B26] shadow-sm">
-                  <Zap className="size-5 fill-white text-white" strokeWidth={2.5} />
-                </div>
-                <span className="text-[0.7rem] font-black uppercase tracking-[0.15em] text-black pt-0.5">
-                  Why Latrics
-                </span>
-              </div>
-            </div>
-            <h2 className="text-title-1 text-fg">Unmatched precision, unrivaled reliability</h2>
+    <Section variant="elevate" className="relative overflow-hidden">
+      <BackgroundDecor />
+
+      <Container className="relative z-10">
+        <header className="mb-12 flex flex-col items-start gap-6 lg:mb-16">
+          <SectionBadge icon={Zap} text="Why Latrics" iconClassName="bg-brand" />
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
+            <h2 className="text-title-1 leading-tight text-white lg:max-w-2xl">
+              Unmatched precision, unrivaled reliability
+            </h2>
+            <p className="text-body-lg text-white/50 lg:pt-2 lg:text-right lg:leading-relaxed">
+              Every deployment is built around dependable sensing, repeatable workflows, and operator confidence in the field.
+            </p>
           </div>
-          <p className="max-w-md text-body-lg text-fg-secondary lg:max-w-sm lg:text-right lg:leading-relaxed">
-            Every deployment is built around dependable sensing, repeatable workflows, and operator confidence in the field.
-          </p>
-        </div>
+        </header>
 
         <motion.div
           variants={staggerContainer}
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3"
+          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {whyCards.map((item) => (
-            <motion.div key={item.title} variants={staggerItem} whileHover={{ y: -4 }}>
-              <Card
-                variant="elevated"
-                className="h-full p-6 transition-[border-color,box-shadow] duration-200 hover:border-[var(--ui-border-brand)]"
-              >
-                <div className="mb-4 inline-grid size-12 place-items-center rounded-xl bg-gradient-to-b from-brand to-brand-deep shadow-brand">
-                  <ShieldCheck className="size-6 text-white" strokeWidth={2} aria-hidden />
-                </div>
-                <h3 className="font-display text-lg font-bold text-fg">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-fg-secondary sm:text-[0.9375rem]">{item.desc}</p>
-              </Card>
-            </motion.div>
+          {whyCards.map((card, idx) => (
+            <WhyCard
+              key={idx}
+              title={card.title}
+              desc={card.desc}
+              variants={staggerItem}
+            />
           ))}
         </motion.div>
       </Container>
     </Section>
+  );
+}
+
+/**
+ * Individual Benefit Card with premium glassmorphism and glow effects.
+ */
+function WhyCard({ title, desc, variants }) {
+  return (
+    <motion.div variants={variants} whileHover={{ y: -8 }} className="h-full">
+      <Card
+        variant="elevated"
+        className="group relative flex h-full flex-col overflow-hidden p-8 transition-all duration-500 hover:border-brand/30 hover:shadow-brand"
+      >
+        {/* Subtle Inner Glow */}
+        <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-brand/10 blur-[60px] transition-opacity duration-500 group-hover:opacity-100" />
+
+        <div className="relative z-10 flex flex-col h-full">
+          <div className="mb-8 inline-grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-brand via-brand-mid to-brand-deep shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+            <ShieldCheck className="size-7 text-white" strokeWidth={2.5} />
+          </div>
+
+          <h3 className="font-display text-xl font-bold text-white transition-colors duration-300 group-hover:text-brand">
+            {title}
+          </h3>
+
+          <p className="mt-4 flex-grow text-[0.9375rem] leading-relaxed text-white/60 transition-colors duration-300 group-hover:text-white/80">
+            {desc}
+          </p>
+        </div>
+      </Card>
+    </motion.div>
+  );
+}
+
+/**
+ * Decorative atmospheric background elements.
+ */
+function BackgroundDecor() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div className="absolute -left-20 top-0 h-[500px] w-[500px] rounded-full bg-brand-glow blur-[120px] opacity-20" />
+      <div className="absolute -right-20 bottom-0 h-[600px] w-[600px] rounded-full bg-accent-glow blur-[130px] opacity-10" />
+    </div>
   );
 }

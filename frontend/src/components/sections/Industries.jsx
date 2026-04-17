@@ -5,30 +5,21 @@ import Container from "../common/Container";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
 import Tag from "../common/Tag";
+import SectionBadge from "../common/SectionBadge";
 
 export default function Industries({ activeTab, setActiveTab, industryImages }) {
   return (
-    <Section id="industries" className="py-24 bg-[#1B1A1A]">
+    <Section id="industries">
       <Container>
-        <div className="mb-10 flex justify-start">
-          <div className="inline-flex items-center gap-3 rounded-lg bg-white p-1 pr-5 shadow-xl transition-transform hover:scale-105">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E33B26] shadow-sm">
-              <Flame className="size-5 fill-white text-white" strokeWidth={2.5} />
-            </div>
-            <span className="text-[0.7rem] font-black uppercase tracking-[0.15em] text-black pt-0.5">
-              Industries
-            </span>
-          </div>
-        </div>
+        <SectionHeading
+          badgeIcon={Flame}
+          badgeText="Industries"
+          badgeAlign="start"
+          title="Solutions tailored for every frontier"
+          description="At Latrics, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter."
+          align="center"
+        />
 
-        <div className="mx-auto mb-12 flex max-w-10xl flex-col items-center text-center">
-          <h2 className="text-title-1 text-[rgba(255,255,255,0.96)]" style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
-            Solutions tailored for every frontier
-          </h2>
-          <p className="mt-5 text-body-lg text-white/60">
-            At Latrics, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter.
-          </p>
-        </div>
 
         <div
           className="mx-auto mb-10 flex max-w-fit flex-wrap justify-center gap-2 rounded-lg border border-white/[0.08] bg-[#1a1a1a]/50 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl"

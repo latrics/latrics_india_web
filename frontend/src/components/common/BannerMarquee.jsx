@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { marqueePartners } from "../../data/siteContent";
 
 // Items displayed in the marquee strip — mirroring "Company" labels from the reference image
@@ -9,8 +10,19 @@ export default function BannerMarquee() {
       style={{ backgroundColor: "#1a1b1f" }}
       className="relative overflow-hidden border-y border-border-muted py-3.5 md:py-4"
     >
-      <div className="animate-marquee flex w-max items-center gap-12 md:gap-20 px-6 md:px-10">
-        {[0, 1].map((dup) =>
+      <motion.div
+        animate={{ x: [0, "-50%"] }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 30, // Slightly slower for better readability across wide screens
+            ease: "linear",
+          },
+        }}
+        className="flex w-max items-center gap-12 md:gap-20 px-2"
+      >
+        {[0, 1, 2, 3].map((dup) =>
           items.map((name, index) => (
             <div
               key={`${dup}-${name}-${index}`}
@@ -31,7 +43,7 @@ export default function BannerMarquee() {
             </div>
           ))
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

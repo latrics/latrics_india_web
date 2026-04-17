@@ -6,44 +6,55 @@ import Container from "../common/Container";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
 
-const MilestoneCard = memo(({ item, index, variants }) => (
-  <motion.div
-    variants={variants}
-    className="group relative flex h-full min-h-[190px] flex-col items-center justify-center overflow-hidden rounded-[24px] border border-white/[0.03] bg-[#1B1A1A] p-8 text-center transition-all duration-500 hover:border-white/10 sm:p-10"
-  >
-    {/* Atmospheric Red Glow - Exact Replica scale/intensity */}
-    <div
-      className={`pointer-events-none absolute h-48 w-48 rounded-full bg-[#E33B26] opacity-[0.12] mix-blend-screen blur-[60px] transition-all duration-700 group-hover:scale-150 group-hover:opacity-[0.2] ${index % 2 === 0 ? "-left-16 -bottom-16" : "-right-16 -top-16"
-        }`}
-    />
+const MilestoneCard = memo(({ item, index, variants }) => {
+  const glowPositions = [
+    "-left-16 -top-16",    // Card 1: Top Left
+    "-right-16 -top-16",   // Card 2: Top Right
+    "-left-16 -bottom-16", // Card 3: Bottom Left
+    "-right-16 -bottom-16" // Card 4: Bottom Right
+  ];
+  
+  const secondaryGlowPositions = [
+    "-right-12 -bottom-12", // Card 1 Opp: Bottom Right
+    "-left-12 -bottom-12",  // Card 2 Opp: Bottom Left
+    "-right-12 -top-12",    // Card 3 Opp: Top Right
+    "-left-12 -top-12"      // Card 4 Opp: Top Left
+  ];
 
-    <div className="relative z-10 flex flex-col items-center gap-1">
-      <div className="font-display text-5xl font-bold tracking-[-0.04em] text-white sm:text-6xl">
-        {item.value}
+  return (
+    <motion.div
+      variants={variants}
+      className="group relative flex h-full min-h-[190px] flex-col items-center justify-center overflow-hidden rounded-[24px] border border-white/[0.05] bg-gradient-to-br from-[#222] to-[#111] p-8 text-center transition-all duration-500 hover:border-brand/30 hover:shadow-[0_20px_50px_rgba(218,41,28,0.1)] sm:p-10"
+    >
+      {/* Primary Red Glow - Dynamic Corner Position */}
+      <div
+        className={`pointer-events-none absolute h-56 w-56 rounded-full bg-brand opacity-[0.15] mix-blend-screen blur-[70px] transition-all duration-700 group-hover:scale-150 group-hover:opacity-[0.25] ${glowPositions[index % 4]}`}
+      />
+      
+      {/* Secondary Accent Glow - Opposite Corner Corner Position */}
+      <div
+        className={`pointer-events-none absolute h-48 w-48 rounded-full bg-accent-glow opacity-[0.08] mix-blend-screen blur-[60px] transition-all duration-700 group-hover:scale-125 group-hover:opacity-[0.15] ${secondaryGlowPositions[index % 4]}`}
+      />
+
+      <div className="relative z-10 flex flex-col items-center gap-1">
+        <div className="font-display text-5xl font-bold tracking-[-0.04em] text-white sm:text-6xl transition-transform group-hover:scale-110 duration-500">
+          {item.value}
+        </div>
+        <div className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/40">
+          {item.label}
+        </div>
       </div>
-      <div className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/40">
-        {item.label}
-      </div>
-    </div>
-  </motion.div>
-));
+    </motion.div>
+  );
+});
 
 export default function Milestones({ staggerContainer, staggerItem }) {
   return (
-    <Section className="relative overflow-hidden bg-[#1B1A1A] py-28">
+    <Section className="relative overflow-hidden">
       <Container className="relative z-10">
         <SectionHeading
-          align="start"
-          eyebrow={
-            <div className="inline-flex items-center gap-3 rounded-lg bg-white p-1 pr-4 shadow-xl">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#E33B26] shadow-sm">
-                <Flame className="size-4 fill-white text-white" strokeWidth={2.5} />
-              </div>
-              <span className="text-[0.65rem] font-black uppercase tracking-[0.15em] text-black pr-1">
-                Milestones
-              </span>
-            </div>
-          }
+          badgeIcon={Flame}
+          badgeText="Milestones"
           title="Transforming Industries Through Intelligent Innovation"
           description="At Latrics, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter."
           className="max-w-4xl"

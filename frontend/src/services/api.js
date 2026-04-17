@@ -8,9 +8,10 @@ import { frontendConfig } from "../app/config";
  * JSON serialization, and try/catch block mapping manually. It returns a normalized
  * object `{ ok, status, data }` that is easy for React hooks to consume.
  * 
- * @param {Object} payload - { name, email, phone }
+ * @param {Object} payload - The form data object { name, email, phone, message }
  */
 export async function postDemoRequest(payload) {
+  // Construct the absolute URL from injected config to remain environment-agnostic
   const response = await fetch(`${frontendConfig.apiBaseUrl}/api/demo-request`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

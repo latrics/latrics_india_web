@@ -50,6 +50,7 @@ export default function App() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="relative isolate min-h-screen"
     >
+      {/* Global Background Glow Accents - these provide the premium "atmospheric" depth */}
       <div
         className="pointer-events-none absolute left-[-6rem] top-32 -z-10 h-80 w-80 rounded-full bg-brand-glow blur-[60px]"
         aria-hidden

@@ -91,6 +91,11 @@ export const industryCopy = {
   }
 };
 
+/**
+ * Case Studies Data Table
+ * Used in the CaseStudies section to populate the interactive gallery.
+ * Each object represents a success story or industrial application.
+ */
 export const caseStudies = [
   {
     title: "Intelligent AI Ethics",
@@ -118,9 +123,10 @@ export const caseStudies = [
   }
 ];
 
+
 export const milestoneItems = [
-  { value: "700+", label: "Years of Experience" },
-  { value: "30+", label: "Years of Experience" },
+  { value: "15+", label: "Years of Experience" },
+  { value: "20+", label: "Active Drones" },
   { value: "1000", label: "Years of Experience" },
   { value: "200+", label: "Years of Experience" }
 ];

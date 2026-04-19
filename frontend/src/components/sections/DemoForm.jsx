@@ -43,7 +43,7 @@ export default function DemoForm({
     <Section id="contact" variant="default">
       <Container>
         {/* Outer Grid: 0.9fr left for text/map, 1.1fr right for the form card */}
-        <Card variant="elevated" className="grid gap-6 p-5 sm:p-8 md:gap-8 md:p-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,1.1fr)] lg:p-10">
+        <Card variant="elevated" className="grid gap-6 p-5 sm:p-8 md:gap-8 md:p-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,1.1fr)] lg:p-10 bg-[#121212]/90 border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
           <div className="flex flex-col gap-5 md:gap-6">
             <SectionHeading
               badgeIcon={Cloud}

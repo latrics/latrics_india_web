@@ -68,7 +68,7 @@ function HighlightCard({ item }) {
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className={`group relative grid w-full gap-4 items-start overflow-hidden rounded-[2.25rem] border-transparent bg-[#1B1A1A]/80 px-5 py-5 shadow-xl transition-all duration-500 ease-out sm:grid-cols-[130px_1fr] sm:gap-6 flex-shrink-0 ${isHovered ? 'ring-1 ring-[#DA291C]/50 shadow-2xl' : ''}`}
+      className={`group relative grid w-full gap-4 items-start overflow-hidden rounded-[2.25rem] border border-white/[0.07] bg-white/[0.04] px-5 py-5 shadow-xl transition-all duration-500 ease-out sm:grid-cols-[130px_1fr] sm:gap-6 flex-shrink-0 ${isHovered ? 'ring-1 ring-[#DA291C]/50 shadow-2xl bg-white/[0.07]' : ''}`}
     >
       <div className="relative h-30 w-full overflow-hidden rounded-2xl" style={{ transform: "translateZ(20px)" }}>
         <motion.img
@@ -125,10 +125,10 @@ export default function Highlights() {
   };
 
   return (
-    <Section id="highlights" className="bg-[#1B1A1A] relative">
+    <Section id="highlights" className="relative">
       <Container className="mx-auto max-w-[1400px] px-2">
         {/* Main 'Box' Container */}
-        <div className="relative overflow-hidden rounded-[3.5rem] border border-white/40 bg-[#2C2B2B]/60 px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
+        <div className="relative overflow-hidden rounded-[3.5rem] border border-white/40 bg-[#121212]/90 px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
           {/* Subtle Ambient Glow inside the box */}
           <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-glow blur-[100px] opacity-20" />
 

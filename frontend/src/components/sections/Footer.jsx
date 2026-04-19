@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { postNewsletterSubscription } from "../../services/api";
 import Button from "../common/Button";
@@ -38,7 +39,26 @@ export default function Footer() {
 
   return (
     <footer className="relative z-[1] border-t border-white/10 bg-[#DA291C]">
-      <Container className="section-y-sm pt-14 pb-10 md:pt-20 md:pb-12">
+      {/* Top Section: Building Better Tomorrow Marquee */}
+      <div className="overflow-hidden border-b border-white/5 py-1 md:py-0.5 select-none">
+        <motion.div
+          animate={{ x: [0, "-20%"] }}
+          transition={{
+            repeat: Infinity,
+            duration: 20,
+            ease: "linear"
+          }}
+          className="flex w-max whitespace-nowrap text-[6vw] md:text-[4vw] font-black uppercase tracking-tighter text-[#800F0F]/80"
+        >
+          {[...Array(6)].map((_, i) => (
+            <span className="px-8 md:px-12" style={{ wordSpacing: "12px" }}>
+              Building Better Tomorrow
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
+      <Container className="section-y-sm pt-6 pb-8 md:pt-6 md:pb-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.05fr] lg:gap-12">
           <div className="space-y-5">
             <div className="flex items-center gap-3">

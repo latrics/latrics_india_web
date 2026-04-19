@@ -121,19 +121,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.26;
-    background-image:
-      linear-gradient(rgb(255 255 255 / 0.014) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.014) 1px, transparent 1px);
-    background-size: 88px 88px;
-    mask-image: radial-gradient(circle at center, black 38%, transparent 86%);
-  }
+
 
   ::selection {
     background: rgb(218 41 28 / 0.22);

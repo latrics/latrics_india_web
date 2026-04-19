@@ -27,7 +27,7 @@ export default function Section({
   return (
     <Comp
       className={cn(
-        "bg-[#1B1A1A] scroll-mt-20 md:scroll-mt-24",
+        "scroll-mt-20 md:scroll-mt-24",
         paddings[spacing] ?? paddings.default,
         shells[variant] ?? shells.default,
         className

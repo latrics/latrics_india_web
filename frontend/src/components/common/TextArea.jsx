@@ -17,18 +17,19 @@ export default function TextArea({
   id,
   label,
   className,
+  labelClassName,
   textareaClassName,
   ...textareaProps
 }) {
   return (
     <div className={cn("grid gap-1", className)}>
-      <label htmlFor={id} className="text-label text-fg-secondary pl-4">
+      <label htmlFor={id} className={cn("text-label text-fg-secondary pl-4", labelClassName)}>
         {label}
       </label>
-      <textarea 
-        id={id} 
-        className={cn(textareaClass, textareaClassName)} 
-        {...textareaProps} 
+      <textarea
+        id={id}
+        className={cn(textareaClass, textareaClassName)}
+        {...textareaProps}
       />
     </div>
   );

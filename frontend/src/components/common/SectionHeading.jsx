@@ -21,6 +21,7 @@ export default function SectionHeading({
   badgeIcon,
   badgeText,
   badgeAlign,
+  badgeProps,
   title,
   description,
   className,
@@ -45,7 +46,7 @@ export default function SectionHeading({
           "mb-8 w-full flex",
           effectiveBadgeAlign === "center" ? "justify-center" : "justify-start"
         )}>
-          <SectionBadge icon={badgeIcon} text={badgeText} />
+          <SectionBadge icon={badgeIcon} text={badgeText} {...badgeProps} />
         </div>
       )}
       <h2 className={cn(

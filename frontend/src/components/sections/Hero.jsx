@@ -64,7 +64,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative flex min-h-[100dvh] w-full flex-col justify-end pb-16 sm:pb-24 lg:pb-6 overflow-hidden bg-[#1B1A1A]">
+    <section className="relative flex min-h-[100dvh] w-full flex-col justify-end pb-16 sm:pb-24 lg:pb-6 overflow-hidden">
       <Background crossfadeKey={currentContent.bgImage} imageUrl={currentContent.bgImage} />
 
       {/* Main Content */}
@@ -111,7 +111,13 @@ export default function Hero() {
  * Handles the cross-fading image transitions using Framer Motion's AnimatePresence.
  */
 const Background = memo(({ crossfadeKey, imageUrl }) => (
-  <>
+  <div 
+    className="absolute inset-0 z-0 pointer-events-none"
+    style={{
+      WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)",
+      maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)"
+    }}
+  >
     <AnimatePresence>
       <motion.div
         key={crossfadeKey}
@@ -124,7 +130,7 @@ const Background = memo(({ crossfadeKey, imageUrl }) => (
       />
     </AnimatePresence>
     <div className="absolute inset-0 z-0 bg-black/50 transition-colors duration-700" />
-  </>
+  </div>
 ));
 Background.displayName = "Background";
 

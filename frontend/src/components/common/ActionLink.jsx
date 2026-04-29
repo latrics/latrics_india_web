@@ -1,7 +1,19 @@
 import { ArrowUpRight } from "lucide-react";
-import { cn } from "../../lib/cn";
+import { cn } from "../../utils/cn";
 
-export default function ActionLink({ children, href, className, iconClassName, ...props }) {
+/**
+ * ActionLink component - a specialized button/link with a distinctive icon box.
+ * Often used for "Discover More" or "Download" calls to action.
+ * 
+ * @param {Object} props - Component props.
+ * @param {React.ReactNode} props.children - Label text for the action.
+ * @param {string} [props.href] - Optional URL. If provided, renders as an <a> tag.
+ * @param {string} [props.className] - Additional Tailwind classes for the main container.
+ * @param {string} [props.iconClassName] - Optional classes for the icon container (e.g. background gradient).
+ * @param {React.ElementType} [props.icon=ArrowUpRight] - Lucide icon component.
+ * @returns {JSX.Element} The rendered action link.
+ */
+export default function ActionLink({ children, href, className, iconClassName, icon: Icon = ArrowUpRight, ...props }) {
   const Component = href ? "a" : "button";
   return (
     <Component
@@ -19,7 +31,7 @@ export default function ActionLink({ children, href, className, iconClassName, .
           iconClassName || "bg-gradient-to-br from-[#DA291C] to-[#8f1208]"
         )}
       >
-        <ArrowUpRight className="size-4 text-white" strokeWidth={2.5} />
+        <Icon className="size-4 text-white" strokeWidth={2.5} />
       </div>
     </Component>
   );

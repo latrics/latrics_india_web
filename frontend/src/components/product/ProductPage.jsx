@@ -5,7 +5,9 @@ import ProductAdvantages from "./ProductAdvantages";
 import ProductTechSpecs from "./ProductTechSpecs";
 import ProductPayloads from "./ProductPayloads";
 import ProductSoftware from "./ProductSoftware";
+import ProductLicopterWorks from "./ProductLicopterWorks";
 import ProductAnalysis from "./ProductAnalysis";
+import ProductStatsBanner from "./ProductStatsBanner";
 import ProductDemo from "./ProductDemo";
 
 export default function ProductPage({
@@ -41,7 +43,9 @@ export default function ProductPage({
       <ProductTechSpecs />
       <ProductPayloads />
       <ProductSoftware />
+      <ProductLicopterWorks />
       <ProductAnalysis />
+      <ProductStatsBanner />
       <ProductDemo 
         formData={formData}
         setFormData={setFormData}

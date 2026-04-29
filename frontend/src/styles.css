@@ -35,11 +35,11 @@
   --color-fg-subtle: #5c6370;
 
   --color-brand: #da291c;
-  --color-brand-hover: #ff6a56;
+  --color-brand-hover: #ff4d3d;
   --color-brand-mid: #f25545;
   --color-brand-deep: #9e241c;
-  --color-brand-glow: rgb(218 41 28 / 0.09);
-  --color-brand-softer: rgb(218 41 28 / 0.12);
+  --color-brand-glow: rgb(218 41 28 / 0.15);
+  --color-brand-softer: rgb(218 41 28 / 0.1);
 
   --color-accent: #d4a85e;
   --color-accent-glow: rgb(212 168 94 / 0.09);
@@ -162,6 +162,21 @@
     font: inherit;
   }
 
+  a,
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"],
+  input:disabled {
+    cursor: not-allowed;
+  }
+
   img {
     display: block;
     max-width: 100%;
@@ -251,6 +266,25 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+
+/* ── 3D Flip Card Utilities ── */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
 }
 
 @media (prefers-reduced-motion: reduce) {

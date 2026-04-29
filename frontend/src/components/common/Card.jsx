@@ -1,4 +1,4 @@
-import { cn } from "../../lib/cn";
+import { cn } from "../../utils/cn";
 
 const shells = {
   elevated:
@@ -9,7 +9,11 @@ const shells = {
   inset:
     "rounded-[var(--radius-card-lg)] border border-border bg-surface-inset/92 shadow-soft backdrop-blur-md",
   flat: "rounded-[var(--radius-card-lg)] border border-border bg-surface/45 backdrop-blur-sm",
-  glass: "rounded-[var(--radius-card)] border border-border bg-surface/35 backdrop-blur-md"
+  glass: "rounded-[var(--radius-card)] border border-border bg-surface/35 backdrop-blur-md",
+  
+  /* New Refactored Dark Layout Variants */
+  "dark-solid": "bg-[#1A1A1A] rounded-xl border border-white/10 shadow-2xl",
+  "dark-glass": "bg-[#121212]/90 rounded-xl border border-white/[0.08] backdrop-blur-xl shadow-[0_48px_96px_rgba(0,0,0,0.5)]"
 };
 
 /**

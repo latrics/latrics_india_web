@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Flame } from "lucide-react";
 import { motion } from "framer-motion";
-import { milestoneItems } from "../../data/siteContent";
+import { milestoneItems } from "../../constants/siteContent";
 import Container from "../common/Container";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
@@ -24,7 +24,7 @@ const MilestoneCard = memo(({ item, index, variants }) => {
   return (
     <motion.div
       variants={variants}
-      className="group relative flex h-full min-h-[190px] flex-col items-center justify-center overflow-hidden rounded-[24px] border border-white/[0.05] bg-gradient-to-br from-[#222] to-[#111] p-8 text-center transition-all duration-500 hover:border-brand/30 hover:shadow-[0_20px_50px_rgba(218,41,28,0.1)] sm:p-10"
+      className="group relative flex h-full min-h-[190px] flex-col items-center justify-center overflow-hidden rounded-xl border border-white/[0.05] bg-gradient-to-br from-[#222] to-[#111] p-8 text-center transition-all duration-500 hover:border-brand/30 hover:shadow-[0_20px_50px_rgba(218,41,28,0.1)] sm:p-10"
     >
       {/* Primary Red Glow - Dynamic Corner Position */}
       <div

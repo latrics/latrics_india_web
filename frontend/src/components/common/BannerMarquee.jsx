@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { marqueePartners } from "../../data/siteContent";
+import { marqueePartners } from "../../constants/siteContent";
 
 // Items displayed in the marquee strip — mirroring "Company" labels from the reference image
 const items = marqueePartners;

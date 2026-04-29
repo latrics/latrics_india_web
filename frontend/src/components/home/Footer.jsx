@@ -33,7 +33,7 @@ export default function Footer() {
       setStatus({ type: "error", message: "Network error. Try again." });
     } finally {
       setIsSubmitting(false);
-      setTimeout(() => setStatus({ type: "", message: "" }), 5000);
+      setTimeout(() => setStatus({ type: "", message: "" }), 50000);
     }
   };
 
@@ -42,16 +42,17 @@ export default function Footer() {
       {/* Top Section: Building Better Tomorrow Marquee */}
       <div className="overflow-hidden border-b border-white/5 py-1 md:py-0.5 select-none">
         <motion.div
-          animate={{ x: [0, "-20%"] }}
+          animate={{ x: [0, "-50%"] }}
           transition={{
             repeat: Infinity,
-            duration: 20,
+            duration: 80,
             ease: "linear"
           }}
           className="flex w-max whitespace-nowrap text-[6vw] md:text-[4vw] font-black uppercase tracking-tighter text-[#800F0F]/80"
         >
-          {[...Array(6)].map((_, i) => (
-            <span className="px-8 md:px-12" style={{ wordSpacing: "12px" }}>
+          {/* Render double the items for a mathematically perfect seamless loop (0 to -50%) */}
+          {[...Array(12)].map((_, i) => (
+            <span key={i} className="font-sans px-8 md:px-12" style={{ wordSpacing: "12px" }}>
               Building Better Tomorrow
             </span>
           ))}
@@ -68,13 +69,13 @@ export default function Footer() {
                 className="h-8 w-auto shrink-0"
               />
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-white/80">
+            <p className="font-sans max-w-xs text-sm leading-relaxed text-white/80">
               Leading the intelligence layer for global industrial operations through LiDAR, AI analytics, and autonomous aerospace systems.
             </p>
           </div>
 
           <div>
-            <h4 className="mb-4 text-label text-fg">Quick links</h4>
+            <h4 className="font-display mb-4 text-label text-fg">Quick links</h4>
             <ul className="grid gap-3">
               {[
                 ["#simulation", "Simulation"],
@@ -94,7 +95,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-label text-fg">Company</h4>
+            <h4 className="font-display mb-4 text-label text-fg">Company</h4>
             <ul className="grid gap-3">
               {[
                 ["#about", "About us"],
@@ -114,8 +115,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-label text-fg">Newsletter</h4>
-            <p className="mb-4 text-sm leading-relaxed text-white/80">Stay updated with our latest breakthroughs.</p>
+            <h4 className="font-display mb-4 text-label text-fg">Newsletter</h4>
+            <p className="font-sans mb-4 text-sm leading-relaxed text-white/80">Stay updated with our latest breakthroughs.</p>
             <form onSubmit={handleSubscribe} className="flex gap-2">
               <label className="sr-only" htmlFor="newsletter-email">
                 Email address

@@ -1,6 +1,6 @@
 import { ShieldCheck, Zap } from "lucide-react";
 import { motion } from "framer-motion";
-import { whyCards } from "../../data/siteContent";
+import { whyCards } from "../../constants/siteContent";
 import Card from "../common/Card";
 import Container from "../common/Container";
 import Section from "../common/Section";
@@ -18,10 +18,10 @@ export default function WhyLatrics({ staggerContainer, staggerItem }) {
         <header className="mb-12 flex flex-col items-start gap-6 lg:mb-16">
           <SectionBadge icon={Zap} text="Why Latrics" iconClassName="bg-brand" />
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
-            <h2 className="text-title-1 leading-tight text-white lg:max-w-2xl">
+            <h2 className="font-display text-title-1 leading-tight text-white lg:max-w-2xl">
               Unmatched precision, unrivaled reliability
             </h2>
-            <p className="text-body-lg text-white/50 lg:pt-2 lg:text-right lg:leading-relaxed">
+            <p className="font-sans text-body-lg text-white/50 lg:pt-2 lg:text-right lg:leading-relaxed">
               Every deployment is built around dependable sensing, repeatable workflows, and operator confidence in the field.
             </p>
           </div>
@@ -62,7 +62,7 @@ function WhyCard({ title, desc, variants }) {
         <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-brand/10 blur-[60px] transition-opacity duration-500 group-hover:opacity-100" />
 
         <div className="relative z-10 flex flex-col h-full">
-          <div className="mb-8 inline-grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-brand via-brand-mid to-brand-deep shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+          <div className="mb-8 inline-grid size-14 place-items-center rounded-xl bg-gradient-to-br from-brand via-brand-mid to-brand-deep shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
             <ShieldCheck className="size-7 text-white" strokeWidth={2.5} />
           </div>
 
@@ -70,7 +70,7 @@ function WhyCard({ title, desc, variants }) {
             {title}
           </h3>
 
-          <p className="mt-4 flex-grow text-[0.9375rem] leading-relaxed text-white/60 transition-colors duration-300 group-hover:text-white/80">
+          <p className="font-sans mt-4 flex-grow text-[0.9375rem] leading-relaxed text-white/60 transition-colors duration-300 group-hover:text-white/80">
             {desc}
           </p>
         </div>

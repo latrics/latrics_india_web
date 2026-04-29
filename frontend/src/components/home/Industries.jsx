@@ -1,11 +1,13 @@
 import { Flame, ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { industryCopy, industryTabs } from "../../data/siteContent";
+import { industryCopy, industryTabs } from "../../constants/siteContent";
 import Container from "../common/Container";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
 import Tag from "../common/Tag";
 import SectionBadge from "../common/SectionBadge";
+import Button from "../common/Button";
+import { cn } from "../../utils/cn";
 
 export default function Industries({ activeTab, setActiveTab, industryImages }) {
   return (
@@ -26,18 +28,20 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
           role="tablist"
         >
           {industryTabs.map((tab) => (
-            <button
+            <Button
               key={tab}
-              type="button"
+              variant="ghost"
               role="tab"
               aria-selected={activeTab === tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative overflow-hidden rounded-lg px-5 py-2.5 text-sm font-bold transition-all duration-300 ${activeTab === tab
-                ? "text-white shadow-[0_4px_16px_rgba(218,41,28,0.3)] bg-[#DA291C]"
-                : "text-white/50 hover:bg-white/5 hover:text-white/90"
-                }`}
+              className={cn(
+                "relative overflow-hidden rounded-lg px-5 py-2.5 text-sm font-bold transition-all duration-300 min-h-0",
+                activeTab === tab
+                  ? "text-white shadow-[0_4px_16px_rgba(218,41,28,0.3)] bg-brand"
+                  : "text-white/50 border-transparent hover:bg-white/5 hover:text-white/90"
+              )}
             >
-              <span className="relative z-10">{tab}</span>
+              <span className="font-sans relative z-10">{tab}</span>
               {activeTab === tab && (
                 <motion.div
                   layoutId="activeIndustry"
@@ -45,11 +49,11 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}
-            </button>
+            </Button>
           ))}
         </div>
 
-        <div className="group relative aspect-[16/11] min-h-[360px] overflow-hidden rounded-[24px] border border-white/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.6)] sm:min-h-[440px] lg:aspect-auto lg:h-[600px]">
+        <div className="group relative aspect-[16/11] min-h-[360px] overflow-hidden rounded-xl border border-white/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.6)] sm:min-h-[440px] lg:aspect-auto lg:h-[600px]">
           <AnimatePresence mode="wait">
             <motion.img
               key={activeTab}
@@ -66,7 +70,7 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
 
           {/* Top Right Decorative Arrow Button (Replica) */}
           <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-20">
-            <div className="flex h-10 w-10 sm:h-16 sm:w-16 items-center justify-center rounded-xl sm:rounded-2xl border border-white/20 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-500 hover:scale-105 hover:bg-white/10 group/btn cursor-pointer">
+            <div className="flex h-10 w-10 sm:h-16 sm:w-16 items-center justify-center rounded-xl sm:rounded-xl border border-white/20 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-500 hover:scale-105 hover:bg-white/10 group/btn cursor-pointer">
               <ArrowUpRight className="h-5 w-5 sm:h-8 sm:w-8 text-white transition-transform duration-500 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" strokeWidth={1.5} />
             </div>
           </div>
@@ -77,7 +81,7 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
                 Active sector
               </span>
               <h3 className="font-sans text-3xl sm:text-4xl font-bold text-white tracking-tight drop-shadow-lg">{industryCopy[activeTab].title}</h3>
-              <p className="mt-4 text-base sm:text-[1.1rem] leading-[1.6] text-white/70 drop-shadow-md">{industryCopy[activeTab].description}</p>
+              <p className="font-sans mt-4 text-base sm:text-[1.1rem] leading-[1.6] text-white/70 drop-shadow-md">{industryCopy[activeTab].description}</p>
               <div className="mt-6 flex flex-wrap gap-2.5">
                 {["Precision", "Autonomy", "Scale"].map((t) => (
                   <span

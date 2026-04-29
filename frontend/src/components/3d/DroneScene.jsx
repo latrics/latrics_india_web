@@ -30,7 +30,7 @@ function AtmosphericBackground() {
 export default function DroneScene() {
   return (
     <div
-      className="w-full cursor-grab active:cursor-grabbing relative overflow-hidden rounded-2xl"
+      className="w-full cursor-grab active:cursor-grabbing relative overflow-hidden rounded-xl"
       style={{
         height: '70vh',
         minHeight: '520px',

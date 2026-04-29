@@ -21,6 +21,13 @@ export default function GridBackground() {
       body.style.setProperty("--mouse-y", `${e.clientY}px`);
     };
 
+    const onTouchMove = (e) => {
+      if (e.touches.length > 0) {
+        body.style.setProperty("--mouse-x", `${e.touches[0].clientX}px`);
+        body.style.setProperty("--mouse-y", `${e.touches[0].clientY}px`);
+      }
+    };
+
     const onMouseLeave = () => {
       body.style.setProperty("--mouse-x", "-9999px");
       body.style.setProperty("--mouse-y", "-9999px");
@@ -28,20 +35,24 @@ export default function GridBackground() {
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     window.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchstart", onTouchMove, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchstart", onTouchMove);
     };
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: -1 }}>
+    <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: -1 }}>
       {/* 
         Fixed container sitting securely underneath all relative/absolute elements 
         inside the React application but tracking the viewport via fixed positioning.
       */}
-      
+
       {/* Layer 1: Faint base grid (always visible) */}
       <div
         aria-hidden="true"
@@ -51,7 +62,7 @@ export default function GridBackground() {
             linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)
           `,
-          backgroundSize: "54px 54px",
+          backgroundSize: "60px 60px",
         }}
       />
 
@@ -61,10 +72,10 @@ export default function GridBackground() {
         className="pointer-events-none fixed inset-0"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px)
+            linear-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px)
           `,
-          backgroundSize: "54px 54px",
+          backgroundSize: "60px 60px",
           WebkitMaskImage: "radial-gradient(400px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px), black, transparent 100%)",
           maskImage: "radial-gradient(400px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px), black, transparent 100%)",
         }}

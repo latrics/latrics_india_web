@@ -23,11 +23,12 @@ export default function ProductDemo({
       <Container>
         {/* Outer red card */}
         <div
-          className="relative overflow-hidden rounded-3xl bg-[#C0251B]"
+          className="relative overflow-hidden rounded-xl"
           style={{
             backgroundImage: `
-              radial-gradient(ellipse at 0% 0%, rgba(255,255,255,0.08) 0%, transparent 55%),
-              radial-gradient(ellipse at 100% 100%, rgba(0,0,0,0.2) 0%, transparent 55%)
+              radial-gradient(ellipse at 20% 0%, rgba(255,255,255,0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 100%, rgba(0,0,0,0.15) 0%, transparent 50%),
+              linear-gradient(to bottom, #E32B1E 0%, #9E1B12 100%)
             `
           }}
         >
@@ -41,19 +42,19 @@ export default function ProductDemo({
 
               {/* Headline */}
               <div className="space-y-5">
-                <h2 className="font-display text-5xl md:text-6xl font-extrabold leading-[1.0] tracking-tight text-white uppercase">
+                <h2 className="font-display text-5xl md:text-5xl font-extrabold leading-[1.0] tracking-tight text-white uppercase">
                   SEE HOW<br />
                   LICOPTER CAN<br />
                   WORK FOR YOU
                 </h2>
-                <p className="text-base md:text-lg font-medium leading-relaxed text-white/85 max-w-sm">
+                <p className="text-base md:text-lg font-regular leading-relaxed text-white/85 max-w-sm">
                   We fuse advanced drone hardware with proprietary AI analytics to give
                   manufacturer and facility operators real-time visibility.
                 </p>
               </div>
 
               {/* Get Quotation button with ActionLink styling */}
-              <ActionLink 
+              <ActionLink
                 href="#contact"
                 className="mt-4"
               >
@@ -63,7 +64,7 @@ export default function ProductDemo({
 
             {/* ── Right Column: Dark Form Card ── */}
             <div className="px-6 py-8 md:px-10 md:py-10 lg:py-8">
-              <div className="rounded-[28px] bg-[#1A1714] px-8 py-8 md:px-10 md:py-10 shadow-[0_32px_64px_rgba(0,0,0,0.5)]">
+              <div className="rounded-xl bg-[#1A1714] px-8 py-8 md:px-10 md:py-10 shadow-[0_32px_64px_rgba(0,0,0,0.5)]">
 
                 {/* Card header */}
                 <div className="mb-7">
@@ -73,9 +74,9 @@ export default function ProductDemo({
                 <form onSubmit={handleFormSubmit} className="space-y-5">
 
                   {/* Name + Phone row */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="demo-name" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase">
+                      <label htmlFor="demo-name" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase pl-5">
                         NAME
                       </label>
                       <input
@@ -86,11 +87,11 @@ export default function ProductDemo({
                         onChange={handleFieldChange("name")}
                         autoComplete="name"
                         required
-                        className="w-full rounded-2xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
+                        className="w-full rounded-xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="demo-phone" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase">
+                      <label htmlFor="demo-phone" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase pl-5">
                         PHONE NO.
                       </label>
                       <input
@@ -101,14 +102,14 @@ export default function ProductDemo({
                         onChange={handleFieldChange("phone")}
                         autoComplete="tel"
                         required
-                        className="w-full rounded-2xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
+                        className="w-full rounded-xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
                       />
                     </div>
                   </div>
 
                   {/* Email */}
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="demo-email" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase">
+                    <label htmlFor="demo-email" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase pl-5">
                       EMAIL
                     </label>
                     <input
@@ -119,13 +120,13 @@ export default function ProductDemo({
                       onChange={handleFieldChange("email")}
                       autoComplete="email"
                       required
-                      className="w-full rounded-2xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
+                      className="w-full rounded-xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
                     />
                   </div>
 
                   {/* Message */}
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="demo-message" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase">
+                    <label htmlFor="demo-message" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase pl-5">
                       MESSAGE
                     </label>
                     <textarea
@@ -134,23 +135,23 @@ export default function ProductDemo({
                       value={formData.message}
                       onChange={handleFieldChange("message")}
                       rows={4}
-                      className="w-full resize-y rounded-2xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all min-h-[110px]"
+                      className="w-full resize-y rounded-xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all min-h-[110px]"
                     />
                   </div>
 
                   {/* Submit */}
-                  <button
+                  <Button
                     type="submit"
+                    variant="brand-solid"
                     disabled={isSubmitting}
-                    className="w-full rounded-2xl bg-[#DA291C] py-4 text-base font-bold text-white hover:bg-[#C1251A] active:bg-[#A8200F] disabled:opacity-60 transition-colors duration-200 shadow-lg shadow-[#DA291C]/25"
+                    className="w-full py-4 text-base"
                   >
                     {isSubmitting ? "Processing…" : "Book Demo"}
-                  </button>
+                  </Button>
 
                   {submitState.message && (
-                    <p className={`text-sm text-center font-medium ${
-                      submitState.type === "error" ? "text-red-400" : "text-green-400"
-                    }`}>
+                    <p className={`text-sm text-center font-medium ${submitState.type === "error" ? "text-red-400" : "text-green-400"
+                      }`}>
                       {submitState.message}
                     </p>
                   )}

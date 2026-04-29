@@ -4,7 +4,7 @@ import Container from "../common/Container";
 export default function ProductHero() {
   return (
     <Container className="pt-28 pb-10">
-      <section className="relative w-full h-[520px] flex items-center justify-center overflow-hidden rounded-[2.5rem] shadow-2xl">
+      <section className="relative w-full h-[400px] md:h-[520px] flex items-center justify-center overflow-hidden rounded-xl shadow-2xl">
         {/* Background Image Container */}
         <div
           className="absolute inset-0 z-0 bg-cover bg-center"
@@ -23,8 +23,8 @@ export default function ProductHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">LiCOPTER-P</span>
-            <span className="text-brand drop-shadow-[0_10px_30px_rgba(218,41,28,0.4)] ml-1">720</span>
+            <span className="font-sans text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">LiCOPTER-P</span>
+            <span className="font-sans text-brand drop-shadow-[0_10px_30px_rgba(218,41,28,0.4)] ml-1">720</span>
           </motion.h1>
         </div>
       </section>

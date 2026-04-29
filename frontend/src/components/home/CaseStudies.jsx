@@ -1,7 +1,7 @@
 import { Grid, ArrowRight, ChevronRight, Flame, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { caseStudies } from "../../data/siteContent";
+import { caseStudies } from "../../constants/siteContent";
 import Button from "../common/Button";
 import Container from "../common/Container";
 import Section from "../common/Section";
@@ -34,7 +34,7 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
   const [hoveredIdx, setHoveredIdx] = useState(null);
 
   return (
-    <Section variant="default">
+    <Section id="case-studies" variant="default">
       <Container>
         {/* Section header with localized badges/icons for brand consistency */}
         <SectionHeading
@@ -69,11 +69,11 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
                 onMouseLeave={() => setHoveredIdx(null)}
                 whileHover={{ y: -4, transition: { duration: 0.3 } }}
                 // Logic: flex property changes from 1 to 2.5 on hover for the expansion effect
-                className={`group relative overflow-visible rounded-[3.5rem] border-8 border-white/70 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[372px] lg:h-full w-full lg:w-auto ${isActive ? "lg:flex-[2.5]" : "lg:flex-1"
+                className={`group relative overflow-visible rounded-xl border-8 border-white/70 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[372px] lg:h-full w-full lg:w-auto ${isActive ? "lg:flex-[2.5]" : "lg:flex-1"
                   }`}
               >
                 {/* Image Container with overflow-hidden for the inner zoom effect */}
-                <div className="absolute inset-0 overflow-hidden rounded-[3rem]">
+                <div className="absolute inset-0 overflow-hidden rounded-xl">
                   {/* Zoom Effect: Scale 110 on group-hover */}
                   <img 
                     src={item.img} 

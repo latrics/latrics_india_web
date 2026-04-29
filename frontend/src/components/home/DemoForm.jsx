@@ -51,7 +51,7 @@ export default function DemoForm({
               title="We'd love to show you around."
               description="Book a walkthrough to see how Latrics can fit into your inspection, mapping, or monitoring workflow with a tailored operational demo."
             />
-            <div className="relative mt-auto h-full min-h-[180px] overflow-hidden rounded-2xl border border-border">
+            <div className="relative mt-auto h-full min-h-[180px] overflow-hidden rounded-xl border border-border">
               <iframe
                 title="Latrics Headquarters Location"
                 src="https://maps.google.com/maps?q=Latrics,%20Plot%20No.%2087,%20TNGO's%20Colony%20Phase%202,%20Financial%20District,%20Gachibowli,%20Nanakramguda,%20Hyderabad,%20Telangana%20500032&t=&z=15&ie=UTF8&iwloc=&output=embed"

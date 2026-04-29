@@ -1,6 +1,6 @@
 import { Flame, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { aboutFeatures } from "../../data/siteContent";
+import { aboutFeatures } from "../../constants/siteContent";
 import Container from "../common/Container";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
@@ -9,10 +9,10 @@ import ActionLink from "../common/ActionLink";
 export default function About({ fadeInUp }) {
   return (
     <Section id="about" variant="default">
-      <Container className="mx-auto max-w-[1400px] px-2">
+      <Container>
         <motion.div
           {...fadeInUp}
-          className="group relative overflow-hidden rounded-[24px] border border-white/[0.06] bg-[#121212]/90 px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-700 hover:border-white/[0.12] hover:shadow-[0_16px_48px_rgba(0,0,0,0.6)]"
+          className="group relative overflow-hidden rounded-xl border border-white/[0.06] bg-[#121212]/90 px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-700 hover:border-white/[0.12] hover:shadow-[0_16px_48px_rgba(0,0,0,0.6)]"
         >
           {/* Subtle Atmospheric Background Glow */}
           <div className="pointer-events-none absolute -top-32 -left-32 h-[300px] w-[300px] rounded-full bg-[#DA291C] opacity-5 mix-blend-screen blur-[80px] transition-opacity duration-700 group-hover:opacity-10" />
@@ -35,9 +35,9 @@ export default function About({ fadeInUp }) {
             {/* List Items */}
             <ul className="mb-10 grid gap-4">
               {aboutFeatures.map((text) => (
-                <li key={text} className="flex gap-4 items-start group/item">
-                  <span className="mt-1.5 grid h-[1.125rem] w-[1.125rem] shrink-0 place-items-center rounded-sm bg-white/10 border border-white/20 shadow-sm transition-colors duration-300 group-hover/item:border-[#DA291C]/50 group-hover/item:bg-[#DA291C]/20" />
-                  <p className="text-[0.95rem] leading-relaxed text-white/70">{text}</p>
+                <li key={text} className="font-sans flex gap-4 items-start group/item">
+                  <span className="font-sans mt-1.5 grid h-[1.125rem] w-[1.125rem] shrink-0 place-items-center rounded-sm bg-white/10 border border-white/20 shadow-sm transition-colors duration-300 group-hover/item:border-[#DA291C]/50 group-hover/item:bg-[#DA291C]/20" />
+                  <p className="font-sans text-[0.95rem] leading-relaxed text-white/70">{text}</p>
                 </li>
               ))}
             </ul>

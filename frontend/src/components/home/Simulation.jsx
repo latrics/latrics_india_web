@@ -31,10 +31,10 @@ export default function Simulation() {
             
             {/* Right Buttons */}
             <div className="flex gap-4 mt-2">
-              <button className="bg-[#702C26] border border-[#8C3A35] p-3 rounded-xl transition-colors hover:opacity-80 flex items-center justify-center">
+              <button className="font-sans bg-[#702C26] border border-[#8C3A35] p-3 rounded-xl transition-colors hover:opacity-80 flex items-center justify-center">
                 <ArrowUpRight className="w-5 h-5 text-white" />
               </button>
-              <button className="bg-transparent border border-white/20 p-3 rounded-xl transition-colors hover:bg-white/5 flex items-center justify-center shadow-sm">
+              <button className="font-sans bg-transparent border border-white/20 p-3 rounded-xl transition-colors hover:bg-white/5 flex items-center justify-center shadow-sm">
                 <ArrowUpRight className="w-5 h-5 text-white" />
               </button>
             </div>

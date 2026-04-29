@@ -1,12 +1,12 @@
 import { Flame } from "lucide-react";
-import { cn } from "../../lib/cn";
+import { cn } from "../../utils/cn";
 import Container from "../common/Container";
 import SectionHeading from "../common/SectionHeading";
 
 function AdvantageCard({ title, description, className }) {
   return (
     <div className={cn(
-      "relative rounded-2xl p-8 border border-white/10 bg-[#1A1A1A]/50 backdrop-blur-sm",
+      "relative rounded-xl p-8 border border-white/10 bg-[#1A1A1A]/50 backdrop-blur-sm",
       "transition-all duration-300 overflow-hidden group",
       "hover:border-brand/30 hover:shadow-[0_10px_40px_-10px_rgba(218,41,28,0.2)]",
       className
@@ -40,9 +40,9 @@ const CARDS = [
 export default function ProductAdvantages() {
   return (
     <Container className="mb-8">
-      <div className="group relative overflow-hidden rounded-[24px] border border-white/[0.06] bg-[#121212]/90 px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-700 hover:border-white/[0.12] hover:shadow-[0_16px_48px_rgba(0,0,0,0.6)]">
+      <div className="group/section relative overflow-hidden rounded-xl border border-white/[0.06] bg-[#121212]/90 px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-700 hover:border-white/[0.12] hover:shadow-[0_16px_48px_rgba(0,0,0,0.6)]">
         {/* Subtle Atmospheric Background Glow */}
-        <div className="pointer-events-none absolute -top-32 -left-32 h-[300px] w-[300px] rounded-full bg-[#DA291C] opacity-5 mix-blend-screen blur-[80px] transition-opacity duration-700 group-hover:opacity-10" />
+        <div className="pointer-events-none absolute -top-32 -left-32 h-[300px] w-[300px] rounded-full bg-[#DA291C] opacity-5 mix-blend-screen blur-[80px] transition-opacity duration-700 group-hover/section:opacity-10" />
 
         <div className="relative z-10">
           <SectionHeading

@@ -5,7 +5,7 @@ import { postNewsletterSubscription } from "../../services/api";
 import Button from "../common/Button";
 import Container from "../common/Container";
 
-export default function Footer() {
+export default function Footer({ isHomePage = true }) {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
@@ -38,7 +38,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative z-[1] border-t border-white/10 bg-[#DA291C]">
+    <footer 
+      className="relative z-[1] border-t border-white/10 transition-colors duration-500 mt-[var(--section-spacing)]"
+      style={{ backgroundColor: isHomePage ? "#DA291C" : "#54585A" }}
+    >
       {/* Top Section: Building Better Tomorrow Marquee */}
       <div className="overflow-hidden border-b border-white/5 py-1 md:py-0.5 select-none">
         <motion.div
@@ -48,7 +51,9 @@ export default function Footer() {
             duration: 80,
             ease: "linear"
           }}
-          className="flex w-max whitespace-nowrap text-[6vw] md:text-[4vw] font-black uppercase tracking-tighter text-[#800F0F]/80"
+          className={`flex w-max whitespace-nowrap text-[6vw] md:text-[4vw] font-black uppercase tracking-tighter transition-colors duration-500 ${
+            isHomePage ? "text-[#800F0F]/80" : "text-white/10"
+          }`}
         >
           {/* Render double the items for a mathematically perfect seamless loop (0 to -50%) */}
           {[...Array(12)].map((_, i) => (

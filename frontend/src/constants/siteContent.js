@@ -3,9 +3,12 @@
  * Debugging is much easier when text, images, and section lists live in one place.
  */
 export const industryImages = {
-  Aerospace: "/industry_aerospace.png",
-  "Digital Intelligence": "/industry_digital.png",
-  "Sustainable Energy": "/industry_energy.png"
+  Mining: "/case_3.png",
+  "Highways and Railways": "/industry_digital.png",
+  "Urban Development": "/topographic_map.jpg",
+  "Energy and Utilities": "/industry_energy.png",
+  "Water Resources": "/hero_bg.png",
+  "Emergency Services": "/industry_aerospace.png"
 };
 
 export const marqueePartners = ["COMPANY", "COMPANY", "COMPANY", "COMPANY", "COMPANY", "COMPANY"];
@@ -74,21 +77,46 @@ export const whyCards = [
   { title: "Unrivaled Support", desc: "Operational specialists stay close to high-stakes deployments from onboarding through rollout." }
 ];
 
-export const industryTabs = ["Aerospace", "Digital Intelligence", "Sustainable Energy"];
+export const industryTabs = [
+  "Mining",
+  "Highways and Railways",
+  "Urban Development",
+  "Energy and Utilities",
+  "Water Resources",
+  "Emergency Services"
+];
 
 export const industryCopy = {
-  Aerospace: {
-    title: "Aerospace operations with mission-grade visibility",
-    description: "Inspect fuselage, corridors, and restricted airside zones with autonomous missions that are easier to validate and safer to repeat."
+  Mining: {
+    title: "Precision Mining with Autonomous Visibility",
+    description: "Monitor stockpiles, track site changes, and optimize excavation workflows with high-accuracy LiDAR mapping and AI analytics.",
+    tags: ["HIGH-PRECISION MAPPING", "DGCA-CERTIFIED", "AI-POWERED ANALYTICS"]
   },
-  "Digital Intelligence": {
-    title: "Digital intelligence for critical infrastructure",
-    description: "Unify imagery, telemetry, and AI alerts into one operating picture for asset-heavy environments that move too fast for manual review."
+  "Highways and Railways": {
+    title: "Rapid Corridor Mapping for Infrastructure",
+    description: "Enable faster corridor surveys, precise gradient analysis, and seamless alignment planning with autonomous LiDAR drones built for long-distance infrastructure projects.",
+    tags: ["CORRIDOR MAPPING", "DGCA-CERTIFIED", "GPS-DENIED NAVIGATION"]
   },
-  "Sustainable Energy": {
-    title: "Sustainable energy fleets that stay inspection-ready",
-    description: "Detect thermal anomalies, map blade surfaces, and prioritize maintenance windows before downtime turns into lost output."
-  }
+  "Urban Development": {
+    title: "3D Digital Twins for Smarter Cities",
+    description: "Enable precise urban planning, infrastructure optimization, and zoning compliance with autonomous LiDAR drones that generate intelligent 3D city models.",
+    tags: ["DIGITAL TWIN", "DGCA-CERTIFIED", "AI-POWERED ANALYTICS"]
+  },
+  "Energy and Utilities": {
+    title: "Autonomous Solutions for Power & Utilities",
+    description: "Enable safer powerline inspections, precise solar farm planning, and predictive maintenance with autonomous drones built to operate safely near high-interference infrastructure.",
+    tags: ["THERMAL VISION", "DGCA-CERTIFIED", "ASSET MANAGEMENT"]
+  },
+  "Water Resources": {
+    title: "Autonomous Solutions for Water Body Management",
+    description: "Enable precise reservoir mapping, flood risk prediction, and catchment area analysis with autonomous drones that support intelligent water conservation and management.",
+    tags: ["FLOOD PREDICTION", "REAL-TIME MONITORING", "AQUIFER ANALYSIS"]
+  },
+  "Emergency Services": {
+    title: "Rapid Response for Critical Situations",
+    description: "Enable faster damage assessment, precise rescue planning, and real-time situational awareness with autonomous drones built for rapid deployment in challenging conditions.",
+    tags: ["3D DAMAGE MAPPING", "DGCA-CERTIFIED", "GPS-DENIED OPERATION"]
+  },
 };
 
 /**
@@ -101,25 +129,29 @@ export const caseStudies = [
     title: "Intelligent AI Ethics",
     desc: "Precision LiDAR workflows for high-speed rail corridors.",
     img: "/case_1.png",
-    meta: "AI & ROBOTICS"
+    meta: "AI & ROBOTICS",
+    href: "#"
   },
   {
     title: "Sustainable Energy",
     desc: "A 30% maintenance reduction across utility-scale solar farms.",
     img: "/case_2.png",
-    meta: "RENEWABLE ENERGY"
+    meta: "RENEWABLE ENERGY",
+    href: "#"
   },
   {
     title: "Precision Mining",
     desc: "AI-assisted monitoring that gives operators faster visibility.",
     img: "/case_3.png",
-    meta: "INDUSTRIAL DRONES"
+    meta: "INDUSTRIAL DRONES",
+    href: "#"
   },
   {
     title: "Urban Logistics",
     desc: "Offshore blade inspection workflows capable of identifying defects.",
     img: "/case_4.png",
-    meta: "AEROSPACE AI"
+    meta: "AEROSPACE AI",
+    href: "#"
   }
 ];
 
@@ -266,12 +298,12 @@ export const expertisePageData = {
     title: "SEE HOW LICOPTER CAN WORK FOR YOU",
     description: "We fuse advanced drone hardware with proprietary AI analytics to give manufacturer .",
     steps: [
-      { 
-        title: "Project Planning", 
-        description: "Comprehensive mission assessment and logistics coordination. We define flight paths, safety protocols, and data requirements to ensure a seamless industrial operation." 
+      {
+        title: "Project Planning",
+        description: "Comprehensive mission assessment and logistics coordination. We define flight paths, safety protocols, and data requirements to ensure a seamless industrial operation."
       },
-      { 
-        title: "Survey & Scanning", 
+      {
+        title: "Survey & Scanning",
         isGroup: true,
         subSteps: [
           {
@@ -284,17 +316,17 @@ export const expertisePageData = {
           }
         ]
       },
-      { 
-        title: "Data Processing", 
-        description: "Advanced AI-driven analytics translate raw telemetry into actionable intelligence. Our cloud-native platform processes massive datasets in real-time." 
+      {
+        title: "Data Processing",
+        description: "Advanced AI-driven analytics translate raw telemetry into actionable intelligence. Our cloud-native platform processes massive datasets in real-time."
       },
-      { 
-        title: "Insights & Processing", 
-        description: "Delivery of industrial-grade reports and predictive maintenance alerts. We provide the clarity needed for data-driven decision-making and safety review." 
+      {
+        title: "Insights & Processing",
+        description: "Delivery of industrial-grade reports and predictive maintenance alerts. We provide the clarity needed for data-driven decision-making and safety review."
       },
-      { 
-        title: "Deliverables", 
-        description: "Final delivery of high-precision datasets, inspection reports, and 3D models. We ensure all mission objectives are met and data is integrated into your existing asset management workflows." 
+      {
+        title: "Deliverables",
+        description: "Final delivery of high-precision datasets, inspection reports, and 3D models. We ensure all mission objectives are met and data is integrated into your existing asset management workflows."
       }
     ]
   },

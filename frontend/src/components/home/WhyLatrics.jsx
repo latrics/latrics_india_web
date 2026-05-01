@@ -15,34 +15,36 @@ export default function WhyLatrics({ staggerContainer, staggerItem }) {
       <BackgroundDecor />
 
       <Container className="relative z-10">
-        <header className="mb-12 flex flex-col items-start gap-6 lg:mb-16">
-          <SectionBadge icon={Zap} text="Why Latrics" iconClassName="bg-brand" />
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
-            <h2 className="font-display text-title-1 leading-tight text-white lg:max-w-2xl">
-              Unmatched precision, unrivaled reliability
-            </h2>
-            <p className="font-sans text-body-lg text-white/50 lg:pt-2 lg:text-right lg:leading-relaxed">
-              Every deployment is built around dependable sensing, repeatable workflows, and operator confidence in the field.
-            </p>
-          </div>
-        </header>
+        <div className="island-card">
+          <header className="mb-12 flex flex-col items-start gap-8 lg:mb-16">
+            <SectionBadge icon={Zap} text="Why Latrics" iconClassName="bg-brand" />
+            <div className="flex flex-col gap-6">
+              <h2 className="font-display text-title-1 leading-tight text-white">
+                Engineering India's Autonomous Future
+              </h2>
+              <p className="font-sans text-body-lg text-white/50 leading-relaxed">
+                Building indigenous aerospace systems, intelligent analytics, and sustainable infrastructure to transform India's critical sectors from mining and corridors to urban development, utilities, water conservation, and emergency response. By combining autonomous aerial systems with   AI-powered insights and clean technology, we enable industries to operate safer, smarter, and more sustainably, strengthening India's path toward self-reliance and technological sovereignty.
+              </p>
+            </div>
+          </header>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="whileInView"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {whyCards.map((card, idx) => (
-            <WhyCard
-              key={idx}
-              title={card.title}
-              desc={card.desc}
-              variants={staggerItem}
-            />
-          ))}
-        </motion.div>
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {whyCards.map((card, idx) => (
+              <WhyCard
+                key={idx}
+                title={card.title}
+                desc={card.desc}
+                variants={staggerItem}
+              />
+            ))}
+          </motion.div>
+        </div>
       </Container>
     </Section>
   );

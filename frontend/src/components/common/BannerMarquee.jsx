@@ -1,26 +1,24 @@
 import { motion } from "framer-motion";
 import { marqueePartners } from "../../constants/siteContent";
+import Section from "./Section";
 
 // Items displayed in the marquee strip — mirroring "Company" labels from the reference image
 const items = marqueePartners;
 
 export default function BannerMarquee() {
   return (
-    <div
-      style={{ backgroundColor: "#1a1b1f" }}
-      className="relative overflow-hidden border-y border-border-muted py-3.5 md:py-4"
-    >
+    <Section id="partners" spacing="default" className="relative overflow-hidden border-y border-border-muted !bg-[#1a1b1f]">
       <motion.div
+        className="py-6 flex w-max items-center gap-12 md:gap-20 px-2"
         animate={{ x: [0, "-50%"] }}
         transition={{
           x: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: 30, // Slightly slower for better readability across wide screens
+            duration: 100, // Slightly slower for better readability across wide screens
             ease: "linear",
           },
         }}
-        className="flex w-max items-center gap-12 md:gap-20 px-2"
       >
         {[0, 1, 2, 3].map((dup) =>
           items.map((name, index) => (
@@ -44,6 +42,6 @@ export default function BannerMarquee() {
           ))
         )}
       </motion.div>
-    </div>
+    </Section>
   );
 }

@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, staggerItem } from "./motion";
 import { industryImages } from "../constants/siteContent";
 import { useNavbarScroll } from "../hooks/useNavbarScroll";
 import { useDemoRequest } from "../hooks/useDemoRequest";
 import GridBackground from "../components/common/GridBackground";
-import LoadingScreen from "../components/common/LoadingScreen";
+
 import BannerMarquee from "../components/common/BannerMarquee";
 import Navbar from "../components/home/Navbar";
 import Hero from "../components/home/Hero";
 import About from "../components/home/About";
-import Simulation from "../components/home/Simulation";
 import Highlights from "../components/home/Highlights";
 import WhyLatrics from "../components/home/WhyLatrics";
 import Industries from "../components/home/Industries";
@@ -39,8 +38,8 @@ import ExpertisePage from "../components/expertise/ExpertisePage";
  */
 export default function App() {
   const isScrolled = useNavbarScroll();
-  const [isAppLoading, setIsAppLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("Aerospace");
+
+  const [activeTab, setActiveTab] = useState("Mining");
   const {
     formData,
     setFormData,
@@ -50,17 +49,12 @@ export default function App() {
   } = useDemoRequest();
 
   const [currentRoute, setCurrentRoute] = useState(
-    window.location.hash.includes("product") ? "product" : 
-    window.location.hash.includes("about") ? "about" : 
-    window.location.hash.includes("expertise") ? "expertise" : "home"
+    window.location.hash.includes("product") ? "product" :
+      window.location.hash.includes("about") ? "about" :
+        window.location.hash.includes("expertise") ? "expertise" : "home"
   );
 
   useEffect(() => {
-    // Simulate initial loading time for assets
-    const timer = setTimeout(() => {
-      setIsAppLoading(false);
-    }, 2000);
-
     const handleHashChange = () => {
       if (window.location.hash.includes("product")) {
         setCurrentRoute("product");
@@ -73,10 +67,9 @@ export default function App() {
       }
     };
     window.addEventListener("hashchange", handleHashChange);
-    
+
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
-      clearTimeout(timer);
     };
   }, []);
 
@@ -86,70 +79,64 @@ export default function App() {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {isAppLoading && <LoadingScreen key="loader" />}
-      </AnimatePresence>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+
+      <div
         className="relative isolate min-h-screen overflow-x-hidden w-full"
       >
         {/* Site-wide interactive grid spotlight */}
         <GridBackground />
 
-      {/* Global Background Glow Accents - these provide the premium "atmospheric" depth */}
-      <div
-        className="pointer-events-none absolute left-[-6rem] top-32 -z-10 h-80 w-80 rounded-full bg-brand-glow blur-[60px]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute right-[-8rem] top-[36rem] -z-10 h-96 w-96 rounded-full bg-accent-glow blur-[60px]"
-        aria-hidden
-      />
-
-      <Navbar isScrolled={isScrolled} currentRoute={currentRoute} />
-
-      {currentRoute === "product" ? (
-        <ProductPage 
-          formData={formData}
-          setFormData={setFormData}
-          handleFormSubmit={handleFormSubmit}
-          isSubmitting={isSubmitting}
-          submitState={submitState}
+        {/* Global Background Glow Accents - these provide the premium "atmospheric" depth */}
+        <div
+          className="pointer-events-none absolute left-[-6rem] top-32 -z-10 h-80 w-80 rounded-full bg-brand-glow blur-[60px]"
+          aria-hidden
         />
-      ) : currentRoute === "about" ? (
-        <AboutPage />
-      ) : currentRoute === "expertise" ? (
-        <ExpertisePage />
-      ) : (
-        <main id="top" className="relative z-[1]">
-          <Hero staggerContainer={staggerContainer} staggerItem={staggerItem} />
-          <About fadeInUp={fadeInUp} />
-          <Simulation />
-          <BannerMarquee />
-          <Highlights staggerContainer={staggerContainer} staggerItem={staggerItem} />
-          <WhyLatrics staggerContainer={staggerContainer} staggerItem={staggerItem} />
-          <Industries
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            industryImages={industryImages}
-          />
-          <CaseStudies staggerContainer={staggerContainer} staggerItem={staggerItem} />
-          <Milestones staggerContainer={staggerContainer} staggerItem={staggerItem} />
-          <DemoForm
+        <div
+          className="pointer-events-none absolute right-[-8rem] top-[36rem] -z-10 h-96 w-96 rounded-full bg-accent-glow blur-[60px]"
+          aria-hidden
+        />
+
+        <Navbar isScrolled={isScrolled} currentRoute={currentRoute} />
+
+        {currentRoute === "product" ? (
+          <ProductPage
             formData={formData}
             setFormData={setFormData}
             handleFormSubmit={handleFormSubmit}
             isSubmitting={isSubmitting}
             submitState={submitState}
           />
-        </main>
-      )}
+        ) : currentRoute === "about" ? (
+          <AboutPage />
+        ) : currentRoute === "expertise" ? (
+          <ExpertisePage />
+        ) : (
+          <main id="top" className="relative z-[1]">
+            <Hero staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <Highlights staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            {/* <BannerMarquee /> */}
+            <Industries
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              industryImages={industryImages}
+            />
+            <WhyLatrics staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <Milestones staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <CaseStudies staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <About fadeInUp={fadeInUp} />
+            <DemoForm
+              formData={formData}
+              setFormData={setFormData}
+              handleFormSubmit={handleFormSubmit}
+              isSubmitting={isSubmitting}
+              submitState={submitState}
+            />
+          </main>
+        )}
 
-      <Footer />
-    </motion.div>
+        <Footer isHomePage={currentRoute === "home"} />
+      </div>
     </>
   );
 }

@@ -12,7 +12,7 @@ import { frontendConfig } from "../app/config";
  */
 export async function postDemoRequest(payload) {
   // Construct the absolute URL from injected config to remain environment-agnostic
-  const response = await fetch(`${frontendConfig.apiBaseUrl}/api/demo-request`, {
+  const response = await fetch(`${frontendConfig.apiBaseUrl}/api/contact`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)

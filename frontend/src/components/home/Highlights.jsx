@@ -54,9 +54,9 @@ function HighlightCard({ item }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      initial={{ height: "160px" }}
+      initial={{ height: "auto" }}
       animate={{
-        height: isCurrentlyExpanded ? "auto" : "160px",
+        height: "auto",
         zIndex: isHovered ? 50 : 1,
       }}
       transition={{
@@ -128,7 +128,7 @@ export default function Highlights() {
     <Section id="highlights" className="relative">
       <Container>
         {/* Main 'Box' Container */}
-        <div className="relative overflow-hidden rounded-xl border border-white/40 bg-[#121212]/90 px-6 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
+        <div className="island-card">
           {/* Subtle Ambient Glow inside the box */}
           <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-glow blur-[100px] opacity-20" />
 
@@ -138,8 +138,9 @@ export default function Highlights() {
               <SectionHeading
                 badgeIcon={Flame}
                 badgeText="Highlights"
-                title="Transforming Industries Through Intelligent Innovation"
-                description="At Latrics, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter."
+                title="Pioneering Indigenous Technology"
+                description="From DGCA certification to PM showcase - see how India's first 
+indigenous LiDAR platform is transforming industries."
                 className="mb-2"
               />
 

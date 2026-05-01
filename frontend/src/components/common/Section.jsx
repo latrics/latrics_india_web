@@ -8,7 +8,8 @@ const shells = {
 };
 
 const paddings = {
-  default: "section-y-xs",
+  default: "section-y",
+  base: "section-y",
   sm: "section-y-sm",
   xs: "section-y-xs"
 };

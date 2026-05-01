@@ -71,6 +71,7 @@ export default function DemoForm({
             <p className="font-display text-regular text-base mb-4 max-w-md mx-auto text-center opacity-80">Fill in the details below and we&apos;ll get back to you shortly</p>
             <form onSubmit={handleFormSubmit} className="flex flex-col flex-1 gap-3">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Go to TextField to check for label styling and text spacings pl-3 shifts it to the right */}
                 <TextField
                   id={nameFieldId}
                   label="Name"

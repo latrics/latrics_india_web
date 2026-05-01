@@ -13,7 +13,7 @@ const MilestoneCard = memo(({ item, index, variants }) => {
     "-left-16 -bottom-16", // Card 3: Bottom Left
     "-right-16 -bottom-16" // Card 4: Bottom Right
   ];
-  
+
   const secondaryGlowPositions = [
     "-right-12 -bottom-12", // Card 1 Opp: Bottom Right
     "-left-12 -bottom-12",  // Card 2 Opp: Bottom Left
@@ -30,7 +30,7 @@ const MilestoneCard = memo(({ item, index, variants }) => {
       <div
         className={`pointer-events-none absolute h-56 w-56 rounded-full bg-brand opacity-[0.15] mix-blend-screen blur-[70px] transition-all duration-700 group-hover:scale-150 group-hover:opacity-[0.25] ${glowPositions[index % 4]}`}
       />
-      
+
       {/* Secondary Accent Glow - Opposite Corner Corner Position */}
       <div
         className={`pointer-events-none absolute h-48 w-48 rounded-full bg-accent-glow opacity-[0.08] mix-blend-screen blur-[60px] transition-all duration-700 group-hover:scale-125 group-hover:opacity-[0.15] ${secondaryGlowPositions[index % 4]}`}
@@ -52,30 +52,33 @@ export default function Milestones({ staggerContainer, staggerItem }) {
   return (
     <Section className="relative overflow-hidden">
       <Container className="relative z-10">
-        <SectionHeading
-          badgeIcon={Flame}
-          badgeText="Milestones"
-          title="Transforming Industries Through Intelligent Innovation"
-          description="At Latrics, we build precision-driven LiDAR and aerospace solutions that help industries operate smarter."
-          className="max-w-4xl"
-        />
+        <div className="island-card">
+          <SectionHeading
+            badgeIcon={Flame}
+            badgeText="Milestones"
+            title="Milestones Strengthening India's Path to Technological Sovereignty"
+            description="Bridging traditional practices since 2022 - transforming mining, corridors, urban development, utilities, water conservation, and emergency response with indigenous aerial intelligence."
+            titleClassName="max-w-none"
+            descriptionClassName="max-w-none"
+          />
 
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="whileInView"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {milestoneItems.map((item, index) => (
-            <MilestoneCard
-              key={index}
-              item={item}
-              index={index}
-              variants={staggerItem}
-            />
-          ))}
-        </motion.div>
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+          >
+            {milestoneItems.map((item, index) => (
+              <MilestoneCard
+                key={index}
+                item={item}
+                index={index}
+                variants={staggerItem}
+              />
+            ))}
+          </motion.div>
+        </div>
       </Container>
     </Section>
   );

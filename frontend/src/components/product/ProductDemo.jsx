@@ -67,87 +67,72 @@ export default function ProductDemo({
               <div className="rounded-xl bg-[#1A1714] px-8 py-8 md:px-10 md:py-10 shadow-[0_32px_64px_rgba(0,0,0,0.5)]">
 
                 {/* Card header */}
-                <div className="mb-7">
-                  <h3 className="font-display text-3xl font-bold text-white text-center">Get Started</h3>
+                <div className="mb-6">
+                  <h3 className="font-display mt-0 mb-2 text-title-2 text-white text-center">Get started</h3>
+                  <p className="font-display text-regular text-base mb-4 max-w-md mx-auto text-center opacity-80 text-white/80">Fill in the details below and we&apos;ll get back to you shortly</p>
                 </div>
 
-                <form onSubmit={handleFormSubmit} className="space-y-5">
+                <form onSubmit={handleFormSubmit} className="flex flex-col flex-1 gap-3">
 
                   {/* Name + Phone row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="demo-name" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase pl-5">
-                        NAME
-                      </label>
-                      <input
-                        id="demo-name"
-                        type="text"
-                        placeholder="Your Name"
-                        value={formData.name}
-                        onChange={handleFieldChange("name")}
-                        autoComplete="name"
-                        required
-                        className="w-full rounded-xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="demo-phone" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase pl-5">
-                        PHONE NO.
-                      </label>
-                      <input
-                        id="demo-phone"
-                        type="tel"
-                        placeholder="Your Phone Number"
-                        value={formData.phone}
-                        onChange={handleFieldChange("phone")}
-                        autoComplete="tel"
-                        required
-                        className="w-full rounded-xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
-                      />
-                    </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <TextField
+                      id="demo-name"
+                      label="Name"
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleFieldChange("name")}
+                      autoComplete="name"
+                      inputClassName="bg-[#2A2622] border-white/[0.06] text-white placeholder:text-white/20 py-3"
+                      required
+                    />
+                    <TextField
+                      id="demo-phone"
+                      label="Phone no."
+                      type="tel"
+                      placeholder="Your Phone Number"
+                      value={formData.phone}
+                      onChange={handleFieldChange("phone")}
+                      autoComplete="tel"
+                      inputClassName="bg-[#2A2622] border-white/[0.06] text-white placeholder:text-white/20 py-3"
+                      required
+                    />
                   </div>
 
                   {/* Email */}
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="demo-email" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase pl-5">
-                      EMAIL
-                    </label>
-                    <input
-                      id="demo-email"
-                      type="email"
-                      placeholder="Your Email Address"
-                      value={formData.email}
-                      onChange={handleFieldChange("email")}
-                      autoComplete="email"
-                      required
-                      className="w-full rounded-xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all"
-                    />
-                  </div>
+                  <TextField
+                    id="demo-email"
+                    label="Email"
+                    type="email"
+                    placeholder="Your Email Address"
+                    value={formData.email}
+                    onChange={handleFieldChange("email")}
+                    autoComplete="email"
+                    inputClassName="bg-[#2A2622] border-white/[0.06] text-white placeholder:text-white/20 py-3"
+                    required
+                  />
 
                   {/* Message */}
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="demo-message" className="text-[10px] font-black tracking-[0.18em] text-white/50 uppercase pl-5">
-                      MESSAGE
-                    </label>
-                    <textarea
-                      id="demo-message"
-                      placeholder="How can we help you?"
-                      value={formData.message}
-                      onChange={handleFieldChange("message")}
-                      rows={4}
-                      className="w-full resize-y rounded-xl bg-[#2A2622] border border-white/[0.06] px-4 py-3.5 text-sm text-white placeholder:text-white/20 focus:border-[#DA291C]/60 focus:outline-none focus:ring-2 focus:ring-[#DA291C]/20 transition-all min-h-[110px]"
-                    />
-                  </div>
+                  <TextArea
+                    id="demo-message"
+                    label="Message"
+                    placeholder="How can we help you?"
+                    value={formData.message}
+                    onChange={handleFieldChange("message")}
+                    textareaClassName="bg-[#2A2622] border-white/[0.06] text-white placeholder:text-white/20 py-3 min-h-[110px]"
+                  />
 
                   {/* Submit */}
-                  <Button
-                    type="submit"
-                    variant="brand-solid"
-                    disabled={isSubmitting}
-                    className="w-full py-4 text-base"
-                  >
-                    {isSubmitting ? "Processing…" : "Book Demo"}
-                  </Button>
+                  <div className="mt-4">
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      disabled={isSubmitting}
+                      className="w-full min-h-[58px] text-base bg-none bg-[#DA291C] hover:bg-[#C1251A] transition-colors"
+                    >
+                      {isSubmitting ? "Processing…" : "Book Demo"}
+                    </Button>
+                  </div>
 
                   {submitState.message && (
                     <p className={`text-sm text-center font-medium ${submitState.type === "error" ? "text-red-400" : "text-green-400"

@@ -1,29 +1,36 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import contactRoutes from './routes/contact.routes.js';
-import { errorHandler } from './middlewares/error.middleware.js';
-import { contactRateLimit } from './middlewares/rateLimit.middleware.js';
-import { config } from './config/env.js';
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const env = require("./config/env");
 
 const app = express();
 
 // Middlewares
 app.use(helmet());
-app.use(cors({
-  origin: config.corsOrigin,
-}));
+app.use(
+  cors({
+    origin: env.CORS_ORIGINS.length > 0 ? env.CORS_ORIGINS : "*",
+  })
+);
 app.use(express.json());
 
-// Routes
-app.use('/api/contact', contactRateLimit, contactRoutes);
-
-// Root route
-app.get('/', (req, res) => {
-  res.json({ message: 'Latrics API is running' });
+const limiter = rateLimit({
+  windowMs: env.RATE_LIMIT_WINDOW_MS,
+  max: env.RATE_LIMIT_MAX,
+  message: { success: false, message: "Too many requests, please try again later." }
 });
 
-// Error Handler
-app.use(errorHandler);
+app.use("/api/contact", limiter, require("./routes/contact.routes"));
 
-export default app;
+app.get("/health", (req, res) => {
+  res.json({ success: true, status: "UP", uptime: process.uptime() });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error("[ERROR]", err.stack);
+  res.status(500).json({ success: false, message: "Internal server error" });
+});
+
+module.exports = app;

@@ -12,8 +12,8 @@ const verticals = [
     label: "Aerospace",
     title: "Mission-Grade Visibility for Flight Ops",
     description: "Inspect fuselage and restricted airside zones with autonomous drone hardware paired with proprietary AI analytics.",
-    bgImage: "/industry_aerospace.png",
-    thumbnail: "/industry_aerospace.png"
+    bgImage: "/aerospace_hero.png",
+    thumbnail: "/aerospace_hero.png"
   },
   {
     id: "digital",
@@ -28,8 +28,8 @@ const verticals = [
     label: "Energy",
     title: "Powering the Future of Clean Energy & Storage",
     description: "From 20MW solar deployments to next-gen battery R&D - building self-reliant energy solutions for drones, infrastructure, and the grid.",
-    bgImage: "/industry_energy.png",
-    thumbnail: "/industry_energy.png"
+    bgImage: "/energy_hero.png",
+    thumbnail: "/energy_hero.png"
   }
 ];
 

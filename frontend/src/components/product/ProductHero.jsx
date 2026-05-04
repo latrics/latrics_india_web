@@ -3,7 +3,7 @@ import Container from "../common/Container";
 
 export default function ProductHero() {
   return (
-    <Container className="pt-28 pb-10">
+    <Container className="pt-28">
       <section className="relative w-full h-[400px] md:h-[520px] flex items-center justify-center overflow-hidden rounded-xl shadow-2xl">
         {/* Background Image Container */}
         <div

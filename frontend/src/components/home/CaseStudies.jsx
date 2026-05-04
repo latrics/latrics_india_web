@@ -70,11 +70,11 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
                   onMouseLeave={() => setHoveredIdx(null)}
                   whileHover={{ y: -4, transition: { duration: 0.3 } }}
                   // Logic: flex property changes from 1 to 2.5 on hover for the expansion effect
-                  className={`group relative overflow-visible rounded-xl border-4 lg:border-8 border-white/70 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[372px] lg:h-full w-full lg:w-auto ${isActive ? "lg:flex-[2.5]" : "lg:flex-1"
+                  className={`group relative overflow-visible rounded-lg border-4 lg:border-8 border-white/70 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[372px] lg:h-full w-full lg:w-auto ${isActive ? "lg:flex-[2.5]" : "lg:flex-1"
                     }`}
                 >
                   {/* Image Container with overflow-hidden for the inner zoom effect */}
-                  <div className="absolute inset-0 overflow-hidden rounded-sm">
+                  <div className="absolute inset-0 overflow-hidden rounded-xs">
                     {/* Zoom Effect: Scale 110 on group-hover */}
                     <img
                       src={item.img}

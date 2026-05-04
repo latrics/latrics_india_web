@@ -1,25 +1,34 @@
-import Contact from '../models/Contact.js';
+const { z } = require("zod");
+const Contact = require("../models/Contact");
 
-export const createContact = async (req, res, next) => {
+const contactSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Please provide a valid email address"),
+  phone: z.string().min(1, "Phone number is required"),
+  message: z.string().min(1, "Message is required"),
+});
+
+exports.submitContact = async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body;
-
-    if (!name || !email || !phone || !message) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    const contact = await Contact.create({
-      name,
-      email,
-      phone,
-      message,
-    });
-
+    const validatedData = contactSchema.parse(req.body);
+    const newContact = await Contact.create(validatedData);
+    
+    console.log(`[CONTACT] New submission saved: ${newContact._id}`);
+    
     res.status(201).json({
       success: true,
-      data: contact,
+      message: "Thank you! We'll be in touch soon.",
+      id: newContact._id,
     });
   } catch (error) {
-    next(error);
+    if (error instanceof z.ZodError) {
+      const errors = error.errors.map((e) => ({
+        field: e.path.join("."),
+        message: e.message,
+      }));
+      return res.status(422).json({ success: false, errors });
+    }
+    console.error("[CONTACT ERROR]", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };

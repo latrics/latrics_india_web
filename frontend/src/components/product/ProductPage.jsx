@@ -36,16 +36,16 @@ export default function ProductPage({
   }, []);
 
   return (
-    <div className="pb-20 relative z-[1] w-full isolate">
+    <div className="relative z-[1] w-full isolate">
       <ProductHero />
       <ProductAbout />
+      <ProductStatsBanner />
       <ProductAdvantages />
       <ProductTechSpecs />
       <ProductPayloads />
       <ProductSoftware />
       <ProductLicopterWorks />
       <ProductAnalysis />
-      <ProductStatsBanner />
       <ProductDemo 
         formData={formData}
         setFormData={setFormData}

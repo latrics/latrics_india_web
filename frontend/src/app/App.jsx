@@ -5,6 +5,7 @@ import { industryImages } from "../constants/siteContent";
 import { useNavbarScroll } from "../hooks/useNavbarScroll";
 import { useDemoRequest } from "../hooks/useDemoRequest";
 import GridBackground from "../components/common/GridBackground";
+import { cn } from "../utils/cn";
 
 import BannerMarquee from "../components/common/BannerMarquee";
 import Navbar from "../components/home/Navbar";
@@ -20,6 +21,10 @@ import Footer from "../components/home/Footer";
 import ProductPage from "../components/product/ProductPage";
 import AboutPage from "../components/about/AboutPage";
 import ExpertisePage from "../components/expertise/ExpertisePage";
+import BlogPage from "../components/blog/BlogPage";
+import OutcomesPage from "../components/outcomes/OutcomesPage";
+import ComingSoon from "../components/common/ComingSoon";
+import { Rocket, ShieldAlert, Layers, Flame } from "lucide-react";
 
 /**
  * Main Application Composition Root.
@@ -56,12 +61,23 @@ export default function App() {
 
   useEffect(() => {
     const handleHashChange = () => {
-      if (window.location.hash.includes("product")) {
+      const hash = window.location.hash.toLowerCase();
+      if (hash.includes("product") && !hash.includes("sudarshana") && !hash.includes("guardian")) {
         setCurrentRoute("product");
-      } else if (window.location.hash.includes("about")) {
+      } else if (hash.includes("about")) {
         setCurrentRoute("about");
-      } else if (window.location.hash.includes("expertise")) {
+      } else if (hash.includes("expertise")) {
         setCurrentRoute("expertise");
+      } else if (hash.includes("sudarshana")) {
+        setCurrentRoute("sudarshana");
+      } else if (hash.includes("guardian")) {
+        setCurrentRoute("guardian");
+      } else if (hash.includes("terrain-desk")) {
+        setCurrentRoute("terrain-desk");
+      } else if (hash.includes("highlights")) {
+        setCurrentRoute("highlights");
+      } else if (hash.includes("outcomes") || hash.includes("case-studies")) {
+        setCurrentRoute("outcomes");
       } else {
         setCurrentRoute("home");
       }
@@ -82,7 +98,10 @@ export default function App() {
 
 
       <div
-        className="relative isolate min-h-screen overflow-x-hidden w-full"
+        className={cn(
+          "relative isolate min-h-screen overflow-x-hidden w-full",
+          ["about", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes"].includes(currentRoute) && "h-[100dvh] overflow-hidden"
+        )}
       >
         {/* Site-wide interactive grid spotlight */}
         <GridBackground />
@@ -108,9 +127,35 @@ export default function App() {
             submitState={submitState}
           />
         ) : currentRoute === "about" ? (
-          <AboutPage />
+          <ComingSoon 
+            title="About Latrics" 
+            subtitle="We're building a company focused on precision, innovation, and real-world impact. Our journey, vision, and the people behind Latrics will be shared here soon. Stay tuned."
+            icon={Flame}
+          />
         ) : currentRoute === "expertise" ? (
           <ExpertisePage />
+        ) : currentRoute === "sudarshana" ? (
+          <ComingSoon 
+            title="Sudarshana Series" 
+            subtitle="Our next-generation tactical drone platform is undergoing final mission-readiness testing. Stay tuned for the unveiling."
+            icon={Rocket}
+          />
+        ) : currentRoute === "guardian" ? (
+          <ComingSoon 
+            title="Guardian Series" 
+            subtitle="Advanced defensive aerial surveillance systems currently in the R&D pipeline. Precision and protection, redefined."
+            icon={ShieldAlert}
+          />
+        ) : currentRoute === "terrain-desk" ? (
+          <ComingSoon 
+            title="Terrain Desk" 
+            subtitle="Our proprietary geospatial analysis platform is being integrated with next-gen AI capabilities."
+            icon={Layers}
+          />
+        ) : currentRoute === "highlights" ? (
+          <BlogPage />
+        ) : currentRoute === "outcomes" ? (
+          <OutcomesPage />
         ) : (
           <main id="top" className="relative z-[1]">
             <Hero staggerContainer={staggerContainer} staggerItem={staggerItem} />
@@ -135,7 +180,10 @@ export default function App() {
           </main>
         )}
 
-        <Footer isHomePage={currentRoute === "home"} />
+        {/* Global Footer - Hidden on 'Coming Soon' pages to maintain aesthetic focus */}
+        {!["about", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes"].includes(currentRoute) && (
+          <Footer isHomePage={currentRoute === "home"} />
+        )}
       </div>
     </>
   );

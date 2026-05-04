@@ -19,7 +19,7 @@ export default function ProductDemo({
   };
 
   return (
-    <Section id="demo" className="py-16">
+    <Section id="demo">
       <Container>
         {/* Outer red card */}
         <div

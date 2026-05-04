@@ -122,37 +122,23 @@ export default function Navbar({ isScrolled, currentRoute }) {
   const [scrolled, setScrolled] = useState(false); // Internal scroll tracking
   const [activeDropdown, setActiveDropdown] = useState(null); // Currently open desktop dropdown (label)
   const [isSearchExpanded, setIsSearchExpanded] = useState(false); // Search bar expansion state
+  const [isDropdownClosing, setIsDropdownClosing] = useState(false); // Track if search dropdown is in exit animation
+  const [searchQuery, setSearchQuery] = useState(""); // Current search input value
 
   // --- Refs ---
   const navRef = useRef(null); // Reference to the entire navbar for click-away logic
   const searchInputRef = useRef(null); // Reference to search input for auto-focus
 
   /**
-   * Effect: Global Event Listeners
-   * Handles scroll detection and outside-click menu closing.
+   * Helper: Close search with animation sync
    */
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    const handleClickOutside = (event) => {
-      // Close all menus if user clicks outside the navbar area
-      if (navRef.current && !navRef.current.contains(event.target)) {
-        setActiveDropdown(null);
-        setOpen(false);
-        setIsSearchExpanded(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const closeSearch = () => {
+    if (isSearchExpanded) {
+      setIsDropdownClosing(true);
+    }
+    setIsSearchExpanded(false);
+    setSearchQuery("");
+  };
 
   /**
    * Effect: Search Auto-focus
@@ -163,6 +149,41 @@ export default function Navbar({ isScrolled, currentRoute }) {
       searchInputRef.current.focus();
     }
   }, [isSearchExpanded]);
+
+  /**
+   * Effect: Route Change Cleanup
+   * Automatically closes the search bar when the user navigates to a new page.
+   */
+  useEffect(() => {
+    closeSearch();
+  }, [currentRoute]);
+
+  const handleClickOutside = (event) => {
+    // Close all menus if user clicks outside the navbar area
+    if (navRef.current && !navRef.current.contains(event.target)) {
+      setActiveDropdown(null);
+      setOpen(false);
+      closeSearch();
+    }
+  };
+
+  /**
+   * Effect: Global Event Listeners
+   * Handles scroll detection and outside-click menu closing.
+   */
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSearchExpanded]); // Re-bind with latest state for handleClickOutside
 
   // Combined scrolled state (prop + internal)
   const navScrolled = isScrolled || scrolled;
@@ -189,8 +210,46 @@ export default function Navbar({ isScrolled, currentRoute }) {
     } else {
       setActiveDropdown(null);
       setOpen(false);
+      closeSearch();
     }
   };
+
+  /**
+   * Search Logic: Gather all searchable entities from the navigation structure.
+   */
+  const allSearchableItems = [
+    ...links.map(l => ({ label: l.label, href: l.href, category: "Pages" })),
+    ...productDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Products" }))),
+    ...expertiseDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Expertise" }))),
+    ...outcomesDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Outcomes" }))),
+    ...blogDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Updates" }))),
+    ...aboutDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Company" })))
+  ];
+
+  // Filter out duplicates and items without names
+  const uniqueItems = allSearchableItems.reduce((acc, current) => {
+    const x = acc.find(item => item.label === current.label);
+    if (!x) return acc.concat([current]);
+    return acc;
+  }, []);
+
+  const searchResults = searchQuery.trim().length >= 2
+    ? uniqueItems.filter(item =>
+      item.label.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 8)
+    : [];
+
+  /**
+   * Suggestions Logic: Show top-tier products and sections when query is empty or short.
+   */
+  const trendingSuggestions = [
+    { label: "LiCOPTER-P720", href: "#product", category: "Featured" },
+
+    // Todo: Uncomment these 3 lines later for Search Suggestions or may Add more options
+    // { label: "Sudarshana", href: "#sudarshana", category: "Drone Series" },
+    // { label: "Terrain Desk", href: "#terrain-desk", category: "Platforms" },
+    // { label: "Expertise", href: "#expertise", category: "Pages" }
+  ];
 
   return (
     <header
@@ -337,27 +396,118 @@ export default function Navbar({ isScrolled, currentRoute }) {
             {/* Search Bar - Animated Expansion */}
             <motion.div
               initial={false}
-              animate={{ width: isSearchExpanded ? (window.innerWidth < 640 ? "180px" : "280px") : (window.innerWidth < 1024 ? "40px" : "44px") }}
+              animate={{ 
+                width: (isSearchExpanded || isDropdownClosing) 
+                  ? (window.innerWidth < 640 ? "180px" : "280px") 
+                  : (window.innerWidth < 1024 ? "40px" : "44px") 
+              }}
               className={cn(
-                "relative flex items-center h-10 lg:h-11 rounded-xl border border-white/10 bg-white/5 overflow-hidden transition-colors",
-                isSearchExpanded ? "bg-white/10 border-white/30" : "hover:bg-white/10"
+                "relative flex items-center h-10 lg:h-11 rounded-xl border border-white/10 bg-white/5 transition-colors",
+                (isSearchExpanded || isDropdownClosing) ? "bg-white/10 border-white/30 shadow-lg" : "hover:bg-white/10"
               )}
             >
-              <button
-                onClick={() => setIsSearchExpanded(!isSearchExpanded)}
-                className="flex items-center justify-center min-w-[40px] lg:min-w-[44px] h-full text-white outline-none"
-              >
-                <Search className="w-5 h-5" />
-              </button>
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Search..."
-                className={cn(
-                  "bg-transparent border-none outline-none text-white text-sm w-full transition-opacity duration-300",
-                  isSearchExpanded ? "opacity-100 pr-4" : "opacity-0 pointer-events-none"
+              <div className="flex items-center w-full h-full overflow-hidden rounded-xl">
+                <button
+                  onClick={() => {
+                    if (isSearchExpanded) {
+                      setIsDropdownClosing(true);
+                    }
+                    setIsSearchExpanded(!isSearchExpanded);
+                  }}
+                  className="flex items-center justify-center min-w-[40px] lg:min-w-[44px] h-full text-white outline-none"
+                >
+                  <Search className="w-5 h-5" />
+                </button>
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && searchResults.length > 0) {
+                      window.location.href = searchResults[0].href;
+                      closeSearch();
+                    }
+                  }}
+                  placeholder="Search..."
+                  className={cn(
+                    "bg-transparent border-none outline-none text-white text-sm w-full transition-all duration-300",
+                    isSearchExpanded ? "opacity-100 pr-4 flex" : "opacity-0 pointer-events-none hidden"
+                  )}
+                />
+              </div>
+
+              {/* Search Suggestions & Results Dropdown */}
+              <AnimatePresence onExitComplete={() => setIsDropdownClosing(false)}>
+                {isSearchExpanded && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full left-0 right-0 mt-2 bg-[#050A11]/20 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl overflow-hidden z-[100]"
+                  >
+                    <div className="py-2 max-h-[400px] overflow-y-auto custom-scrollbar">
+                      {/* --- SUGGESTIONS (When query is short) --- */}
+                      {searchQuery.trim().length < 2 && (
+                        <div className="px-4 py-2 border-b border-white/5 bg-white/5">
+                          <span className="text-[0.6rem] font-black uppercase tracking-[0.2em] text-white/30">Trending Searches</span>
+                          <div className="mt-3 flex flex-col gap-1">
+                            {trendingSuggestions.map((s) => (
+                              <button
+                                key={s.label}
+                                onClick={() => {
+                                  window.location.href = s.href;
+                                  closeSearch();
+                                }}
+                                className="flex items-center justify-between py-2 text-left hover:text-brand transition-colors group"
+                              >
+                                <span className="text-white/80 text-sm font-bold group-hover:text-brand">{s.label}</span>
+                                <span className="text-[0.6rem] text-white/20 uppercase font-black">{s.category}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* --- SEARCH RESULTS (When query >= 2 chars) --- */}
+                      {searchQuery.trim().length >= 2 && searchResults.length > 0 && (
+                        <div>
+                          <div className="px-4 py-2 bg-white/[0.02] border-b border-white/5">
+                            <span className="text-[0.6rem] font-black uppercase tracking-[0.2em] text-brand">Matching Results</span>
+                          </div>
+                          {searchResults.map((result, idx) => (
+                            <a
+                              key={`${result.label}-${idx}`}
+                              href={result.href}
+                              onClick={() => {
+                                closeSearch();
+                              }}
+                              className="flex flex-col px-4 py-3 hover:bg-white/5 transition-colors group"
+                            >
+                              <span className="text-white text-sm font-bold group-hover:text-brand transition-colors">
+                                {result.label}
+                              </span>
+                              <span className="text-[0.65rem] text-white/40 uppercase tracking-widest font-black">
+                                {result.category}
+                              </span>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* --- NO RESULTS STATE --- */}
+                      {searchQuery.trim().length >= 2 && searchResults.length === 0 && (
+                        <div className="p-8 text-center">
+                          <div className="mb-2 text-white/20">
+                            <Search className="w-8 h-8 mx-auto opacity-20 mb-4" />
+                          </div>
+                          <span className="text-white/40 text-xs font-bold uppercase tracking-widest">No matching results found</span>
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
                 )}
-              />
+              </AnimatePresence>
             </motion.div>
 
             {/* Primary Contact CTA */}

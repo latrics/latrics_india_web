@@ -24,6 +24,15 @@ const limiter = rateLimit({
 app.use("/api/contact", limiter, require("./routes/contact.routes"));
 app.use("/api/newsletter-subscribe", limiter, require("./routes/newsletterRoutes"));
 
+app.get("/", (req, res) => {
+  res.json({ 
+    success: true, 
+    message: "Latrics India API is running",
+    version: "1.0.0",
+    docs: "Contact/Newsletter endpoints active"
+  });
+});
+
 app.get("/health", (req, res) => {
   res.json({ success: true, status: "UP", uptime: process.uptime() });
 });

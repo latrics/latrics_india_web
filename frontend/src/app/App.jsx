@@ -24,7 +24,7 @@ import ExpertisePage from "../components/expertise/ExpertisePage";
 import BlogPage from "../components/blog/BlogPage";
 import OutcomesPage from "../components/outcomes/OutcomesPage";
 import ComingSoon from "../components/common/ComingSoon";
-import { Rocket, ShieldAlert, Layers, Flame } from "lucide-react";
+import { Rocket, ShieldAlert, Layers, Flame, Activity } from "lucide-react";
 
 /**
  * Main Application Composition Root.
@@ -56,7 +56,10 @@ export default function App() {
   const [currentRoute, setCurrentRoute] = useState(
     window.location.hash.includes("product") ? "product" :
       window.location.hash.includes("about") ? "about" :
-        window.location.hash.includes("expertise") ? "expertise" : "home"
+        window.location.hash.includes("expertise") ? "expertise" :
+          window.location.hash.includes("aerospace") ? "aerospace" :
+            window.location.hash.includes("digital-intelligence") ? "digital-intelligence" :
+              window.location.hash.includes("energy") ? "energy" : "home"
   );
 
   useEffect(() => {
@@ -78,6 +81,12 @@ export default function App() {
         setCurrentRoute("highlights");
       } else if (hash.includes("outcomes") || hash.includes("case-studies")) {
         setCurrentRoute("outcomes");
+      } else if (hash.includes("aerospace")) {
+        setCurrentRoute("aerospace");
+      } else if (hash.includes("digital-intelligence")) {
+        setCurrentRoute("digital-intelligence");
+      } else if (hash.includes("energy")) {
+        setCurrentRoute("energy");
       } else {
         setCurrentRoute("home");
       }
@@ -100,7 +109,7 @@ export default function App() {
       <div
         className={cn(
           "relative isolate min-h-screen overflow-x-hidden w-full",
-          ["about", "expertise", "product", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes"].includes(currentRoute) && "h-[100dvh] overflow-hidden"
+          ["about", "expertise", "product", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes", "aerospace", "digital-intelligence", "energy"].includes(currentRoute) && "h-[100dvh] overflow-hidden"
         )}
       >
         {/* Site-wide interactive grid spotlight */}
@@ -154,6 +163,24 @@ export default function App() {
             subtitle="Our proprietary geospatial analysis platform is being integrated with next-gen AI capabilities."
             icon={Layers}
           />
+        ) : currentRoute === "aerospace" ? (
+          <ComingSoon 
+            title="Aerospace Solutions" 
+            subtitle="Pioneering the next frontier of aerial intelligence. Our aerospace division is crafting advanced flight systems for the future of Indian industry."
+            icon={Rocket}
+          />
+        ) : currentRoute === "digital-intelligence" ? (
+          <ComingSoon 
+            title="Digital Intelligence" 
+            subtitle="Harnessing the power of AI and Big Data to transform raw aerial telemetry into actionable industrial insights."
+            icon={Activity}
+          />
+        ) : currentRoute === "energy" ? (
+          <ComingSoon 
+            title="Sustainable Energy" 
+            subtitle="Optimizing the energy landscape through precise LiDAR monitoring and autonomous infrastructure inspection."
+            icon={Flame}
+          />
         ) : currentRoute === "highlights" ? (
           <BlogPage />
         ) : currentRoute === "outcomes" ? (
@@ -183,7 +210,7 @@ export default function App() {
         )}
 
         {/* Global Footer - Hidden on 'Coming Soon' pages to maintain aesthetic focus */}
-        {!["about", "expertise", "product", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes"].includes(currentRoute) && (
+        {!["about", "expertise", "product", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes", "aerospace", "digital-intelligence", "energy"].includes(currentRoute) && (
           <Footer isHomePage={currentRoute === "home"} />
         )}
       </div>

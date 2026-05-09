@@ -12,7 +12,7 @@ import { cn } from "../../utils/cn";
 const links = [
   { href: "#", label: "Home" },
   { href: "#product", label: "Products", hasDropdown: true },
-  { href: "#expertise", label: "Expertise", hasDropdown: false },
+  { href: "#expertise", label: "Expertise", hasDropdown: true },
   { href: "#case-studies", label: "Outcomes", hasDropdown: false },
   { href: "#highlights", label: "Blog", hasDropdown: false },
   { href: "#about", label: "About", hasDropdown: false }
@@ -56,9 +56,9 @@ const expertiseDropdown = {
     {
       title: "INDUSTRIES",
       items: [
-        { name: "Aerospace", href: "#expertise" },
-        { name: "Digital Intelligence", href: "#expertise" },
-        { name: "Sustainable Energy", href: "#expertise" }
+        { name: "Aerospace", href: "#aerospace" },
+        { name: "Digital Intelligence", href: "#digital-intelligence" },
+        { name: "Sustainable Energy", href: "#energy" }
       ]
     }
   ]

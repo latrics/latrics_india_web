@@ -25,7 +25,7 @@ const limiter = rateLimit({
 app.use("/api/contact", limiter, require("./routes/contact.routes"));
 app.use("/api/newsletter-subscribe", limiter, require("./routes/newsletterRoutes"));
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.json({ 
     success: true, 
     message: "Latrics India API is running",

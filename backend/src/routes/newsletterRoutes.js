@@ -1,42 +1,29 @@
-import express from "express";
-import { Newsletter } from "../models/Newsletter.js";
+const express = require("express");
+const NewsletterStage = require("../models/NewsletterStage");
 
 const router = express.Router();
 
 /**
  * POST /api/newsletter-subscribe
- * Handles email newsletter subscriptions from the frontend footer.
- * 
- * Business Logic:
- * 1. Validates string format (checks for '@' presence).
- * 2. Checks MongoDB if the email is already in the system (prevents primary key collisions).
- * 3. Saves new emails in lowercase for clean querying.
- * 
- * @param {import("express").Request} request - Expects JSON body { email }
- * @param {import("express").Response} response - Returns 201 (Created), 400 (Invalid), 409 (Conflict/Exists)
+ * Saves subscription to newsletters_stage.
+ * The merge job will deduplicate and push to the target newsletters collection.
  */
-router.post("/newsletter-subscribe", async (request, response) => {
+router.post("/", async (request, response) => {
   const { email } = request.body;
 
   if (!email || typeof email !== "string" || !email.includes("@")) {
-    return response.status(400).json({ message: "A valid email address is required." });
+    return response.status(400).json({ success: false, message: "A valid email address is required." });
   }
 
   try {
-    const existing = await Newsletter.findOne({ email: email.toLowerCase() });
-    if (existing) {
-      return response.status(409).json({ message: "This email is already subscribed." });
-    }
+    const staged = await NewsletterStage.create({ email: email.toLowerCase().trim() });
 
-    const newSub = new Newsletter({ email: email.toLowerCase() });
-    await newSub.save();
-
-    console.log(`[Newsletter] New subscription: ${email}`);
-    response.status(201).json({ message: "Successfully subscribed to newsletter." });
+    console.log(`[Newsletter] Staged subscription: ${staged.email}`);
+    response.status(201).json({ success: true, message: "Successfully subscribed to newsletter." });
   } catch (error) {
     console.error("[Newsletter Error]", error.message);
-    response.status(500).json({ message: "Server error. Please try again later." });
+    response.status(500).json({ success: false, message: "Server error. Please try again later." });
   }
 });
 
-export default router;
+module.exports = router;

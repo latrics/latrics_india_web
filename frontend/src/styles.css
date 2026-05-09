@@ -58,8 +58,8 @@
   --shadow-soft: 0 10px 36px rgb(0 0 0 / 0.26);
   --shadow-brand: 0 14px 44px rgb(218 41 28 / 0.18);
 
-  --radius-card: 1.5rem;
-  --radius-card-lg: 1.75rem;
+  --radius-card: 0.75rem;
+  --radius-card-lg: 0.75rem;
   --radius-pill: 9999px;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

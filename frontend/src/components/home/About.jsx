@@ -1,12 +1,28 @@
-import { Flame, ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Flame, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "../../utils/cn";
 import { aboutFeatures } from "../../constants/siteContent";
 import Container from "../common/Container";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
 import ActionLink from "../common/ActionLink";
+import Logo3D from "../3d/Logo3D";
 
 export default function About({ fadeInUp }) {
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  useEffect(() => {
+    const total = aboutFeatures.length;
+    const interval = setInterval(() => {
+      setActiveIndex((current) => {
+        if (current >= total - 1) return -1; // Reset to "none checked"
+        return current + 1;
+      });
+    }, 1500); // Change every 1.5s
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <Section id="about" variant="default">
       <Container>
@@ -22,30 +38,69 @@ export default function About({ fadeInUp }) {
               badgeIcon={Flame}
               badgeText="About Latrics"
               title={
-                <>The Intelligence Layer for<br className="hidden sm:block" /> Industrial Operations</>
+                <>India's Autonomous Technology Company<br /> Building Tomorrow's Aerial Infrastructure</>
               }
-              description={
-                <>We fuse advanced drone hardware with proprietary AI analytics to give
-                  manufacturer and facility operators real-time visibility, safer inspections, and
-                  data-driven decision-making at scale.</>
-              }
-              className="max-w-4xl"
+              className="max-w-none mb-8"
+              titleClassName="max-w-none"
             />
 
-            {/* List Items */}
-            <ul className="mb-10 grid gap-4">
-              {aboutFeatures.map((text) => (
-                <li key={text} className="font-sans flex gap-4 items-start group/item">
-                  <span className="font-sans mt-1.5 grid h-[1.125rem] w-[1.125rem] shrink-0 place-items-center rounded-sm bg-white/10 border border-white/20 shadow-sm transition-colors duration-300 group-hover/item:border-[#DA291C]/50 group-hover/item:bg-[#DA291C]/20" />
-                  <p className="font-sans text-[0.95rem] leading-relaxed text-white/70">{text}</p>
-                </li>
-              ))}
-            </ul>
+            <div className="grid lg:grid-cols-5 gap-12 items-start">
+              <div className="lg:col-span-3">
+                <p className="text-body-lg text-white/70 mb-10 leading-relaxed max-w-none">
+                  We integrate indigenous aerospace systems, intelligent analytics, and sustainable infrastructure to deliver real time visibility, safer operations, and data driven decisions. Transforming mining, corridors, urban development, utilities, water conservation, and emergency response across India accelerating our journey toward a self reliant, technologically advanced nation
+                </p>
 
-            {/* Buttons */}
-            <div className="mt-4 flex flex-col gap-4 sm:flex-row">
-              <ActionLink>Read more</ActionLink>
-              <ActionLink>Read more</ActionLink>
+                {/* List Items */}
+                <ul className="mb-10 grid gap-4">
+                  {aboutFeatures.map((text, index) => {
+                    const isChecked = index <= activeIndex;
+                    return (
+                      <li key={text} className="font-sans flex gap-4 items-start group/item">
+                        <div
+                          className={cn(
+                            "font-sans mt-1.5 grid h-[1.125rem] w-[1.125rem] shrink-0 place-items-center rounded-sm border transition-all duration-500 shadow-sm",
+                            isChecked
+                              ? "bg-[#DA291C] border-[#DA291C] shadow-[#DA291C]/20 scale-110"
+                              : "bg-white/10 border-white/20"
+                          )}
+                        >
+                          <AnimatePresence>
+                            {isChecked && (
+                              <motion.div
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0, opacity: 0 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                              >
+                                <Check className="h-3 w-3 text-white stroke-[3]" />
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                        <p
+                          className={cn(
+                            "font-sans text-[0.95rem] leading-relaxed transition-colors duration-500",
+                            isChecked ? "text-white" : "text-white/70"
+                          )}
+                        >
+                          {text}
+                        </p>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                {/* Buttons */}
+                <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+                  <ActionLink>Read more</ActionLink> {/** This button is just for show, it will redirect to the about page */}
+                  <ActionLink>Download Brochures</ActionLink> {/** On clicking the button a popup card appears where the user need to provide their email and phone number and the brochure is sent to their email only after mobile number verification using OTP */}
+                </div>
+              </div>
+
+              {/* 3D Logo Section */}
+              <div className="lg:col-span-2 flex justify-center lg:justify-end">
+                <Logo3D />
+              </div>
             </div>
           </div>
 

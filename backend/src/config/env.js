@@ -10,12 +10,6 @@ require("dotenv").config();
 
 const REQUIRED = [
   "MONGO_URI",
-  "SMTP_HOST",
-  "SMTP_PORT",
-  "SMTP_USER",
-  "SMTP_PASS",
-  "EMAIL_FROM",
-  "EMAIL_TO",
 ];
 
 // Validate at startup — crash immediately with a clear message
@@ -37,6 +31,7 @@ const env = {
 
   // Database
   MONGO_URI: process.env.MONGO_URI,
+  DATABASE_NAME: (process.env.DATABASE_NAME || "latrics_db").trim(),
 
   // Email / SMTP
   SMTP: {
@@ -64,6 +59,9 @@ const env = {
     10
   ),
   RATE_LIMIT_MAX: parseInt(process.env.RATE_LIMIT_MAX || "20", 10),
+
+  // Send email mode: "sendmail" | "savemongodb" | "both"
+  SEND_EMAIL: (process.env.SEND_EMAIL || "savemongodb").trim().toLowerCase(),
 };
 
 module.exports = env;

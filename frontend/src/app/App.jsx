@@ -100,7 +100,7 @@ export default function App() {
       <div
         className={cn(
           "relative isolate min-h-screen overflow-x-hidden w-full",
-          ["about", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes"].includes(currentRoute) && "h-[100dvh] overflow-hidden"
+          ["about", "expertise", "product", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes"].includes(currentRoute) && "h-[100dvh] overflow-hidden"
         )}
       >
         {/* Site-wide interactive grid spotlight */}
@@ -119,12 +119,10 @@ export default function App() {
         <Navbar isScrolled={isScrolled} currentRoute={currentRoute} />
 
         {currentRoute === "product" ? (
-          <ProductPage
-            formData={formData}
-            setFormData={setFormData}
-            handleFormSubmit={handleFormSubmit}
-            isSubmitting={isSubmitting}
-            submitState={submitState}
+          <ComingSoon 
+            title="LiCOPTER-P720" 
+            subtitle="The next generation of industrial heavy-lift drone technology is being calibrated for peak performance. Stay tuned for the technical specifications."
+            icon={Rocket}
           />
         ) : currentRoute === "about" ? (
           <ComingSoon 
@@ -133,7 +131,11 @@ export default function App() {
             icon={Flame}
           />
         ) : currentRoute === "expertise" ? (
-          <ExpertisePage />
+          <ComingSoon 
+            title="Industrial Expertise" 
+            subtitle="We're detailing our specialized industrial capabilities and technical mastery. This section is currently being updated with our latest methodologies."
+            icon={Layers}
+          />
         ) : currentRoute === "sudarshana" ? (
           <ComingSoon 
             title="Sudarshana Series" 
@@ -181,7 +183,7 @@ export default function App() {
         )}
 
         {/* Global Footer - Hidden on 'Coming Soon' pages to maintain aesthetic focus */}
-        {!["about", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes"].includes(currentRoute) && (
+        {!["about", "expertise", "product", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes"].includes(currentRoute) && (
           <Footer isHomePage={currentRoute === "home"} />
         )}
       </div>

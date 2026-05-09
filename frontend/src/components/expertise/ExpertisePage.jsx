@@ -7,6 +7,7 @@ import ExpertiseSolutions from "./ExpertiseSolutions";
 import ExpertiseWorkflow from "./ExpertiseWorkflow";
 import ExpertiseDeliverables from "./ExpertiseDeliverables";
 import ExpertiseAnalysis from "./ExpertiseAnalysis";
+import ExpertiseAccomplishments from "./ExpertiseAccomplishments";
 import ExpertiseOutcomes from "./ExpertiseOutcomes";
 import ExpertiseQuote from "./ExpertiseQuote";
 import ExpertiseCTA from "./ExpertiseCTA";
@@ -36,6 +37,7 @@ export default function ExpertisePage() {
       <ExpertiseSolutions data={solutions} />
       <ExpertiseWorkflow data={workflow} />
       <ExpertiseDeliverables data={deliverables} />
+      <ExpertiseAccomplishments />
       <ExpertiseOutcomes data={outcomes} />
       <ExpertiseChooseUs data={chooseUs} />
       <ExpertiseFAQ data={faq} />

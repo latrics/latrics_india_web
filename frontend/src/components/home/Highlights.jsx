@@ -132,7 +132,7 @@ export default function Highlights() {
           {/* Subtle Ambient Glow inside the box */}
           <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-glow blur-[100px] opacity-20" />
 
-          <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div className="grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             {/* Left Column: Text & Navigation Controls */}
             <div className="flex flex-col gap-6">
               <SectionHeading
@@ -141,7 +141,7 @@ export default function Highlights() {
                 title="Pioneering Indigenous Technology"
                 description="From DGCA certification to PM showcase - see how India's first 
 indigenous LiDAR platform is transforming industries."
-                className="mb-2"
+                className="mb-6 md:mb-8"
               />
 
               <div className="flex gap-4">

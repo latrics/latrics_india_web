@@ -1,25 +1,21 @@
-import mongoose from "mongoose";
+// src/models/Newsletter.js
+// ─────────────────────────────────────────────────────────────
+//  Target table for newsletter subscriptions — deduplicated by email.
+//  Records are merged here from newsletters_stage by the merge job.
+// ─────────────────────────────────────────────────────────────
 
-/**
- * Mongoose Schema definition for Newsletter Subscriptions.
- * 
- * Unique Constraints:
- * - `unique: true` creates a MongoDB unique index on the 'email' path. 
- *   If a user tries to subscribe a 2nd time with the same email, MongoDB will throw a duplicate key error (E11000),
- *   which we explicitly handle in `newsletterRoutes.js`.
- */
-const newsletterSchema = new mongoose.Schema({
+const mongoose = require("mongoose");
+const { getIST } = require("../utils/ist");
+
+const NewsletterSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
     unique: true,
     trim: true,
-    lowercase: true
+    lowercase: true,
   },
-  subscribedAt: {
-    type: Date,
-    default: Date.now
-  }
+  subscribedAt: { type: String, default: getIST },
 });
 
-export const Newsletter = mongoose.model("Newsletter", newsletterSchema);
+module.exports = mongoose.model("Newsletter", NewsletterSchema);

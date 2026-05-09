@@ -22,6 +22,7 @@ const limiter = rateLimit({
 });
 
 app.use("/api/contact", limiter, require("./routes/contact.routes"));
+app.use("/api/newsletter-subscribe", limiter, require("./routes/newsletterRoutes"));
 
 app.get("/health", (req, res) => {
   res.json({ success: true, status: "UP", uptime: process.uptime() });

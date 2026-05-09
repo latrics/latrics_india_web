@@ -30,7 +30,7 @@ export default function ExpertiseCTA() {
                 Email Us
               </ActionLink>
               
-              <ActionLink href="#contact" icon={MessageSquare}>
+              <ActionLink href="/#contact" icon={MessageSquare}>
                 Talk to our Team
               </ActionLink>
             </div>

@@ -99,4 +99,70 @@ async function sendCSVReport(csvBuffer, filename, count) {
   );
 }
 
-module.exports = { sendCSVReport };
+/**
+ * Send a welcome email to new newsletter subscribers.
+ *
+ * @param {string} email - The subscriber's email address
+ */
+async function sendNewsletterWelcomeEmail(email) {
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const transporter = createTransporter();
+      await transporter.verify();
+
+      await transporter.sendMail({
+        from: env.EMAIL_FROM,
+        to: email,
+        subject: "Welcome to Latrics Newsletter! 🚀",
+        html: `
+          <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px;">
+            <div style="text-align: center; padding: 20px 0;">
+              <h1 style="color: #DA291C; margin: 0;">LATRICS</h1>
+              <p style="color: #666; font-size: 14px;">Autonomous Technology & Infrastructure</p>
+            </div>
+            
+            <div style="background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+              <h2 style="color: #333; margin-top: 0;">Thanks for subscribing!</h2>
+              <p style="color: #555; line-height: 1.6;">
+                We're thrilled to have you on board. You've successfully joined the Latrics newsletter. 
+                We'll keep you updated with the latest news on aerial infrastructure, intelligent analytics, 
+                and sustainable development across India.
+              </p>
+              
+              <div style="margin: 30px 0; padding: 20px; background-color: #fff5f5; border-left: 4px solid #DA291C;">
+                <p style="margin: 0; color: #DA291C; font-weight: bold;">What's next?</p>
+                <p style="margin: 5px 0 0; color: #666; font-size: 14px;">
+                  Stay tuned for our upcoming updates. In the meantime, feel free to explore our latest articles and projects on our website.
+                </p>
+              </div>
+              
+              <p style="color: #555; line-height: 1.6;">
+                If you have any questions or just want to say hi, feel free to reply to this email or contact our support team.
+              </p>
+              
+              <div style="text-align: center; margin-top: 30px;">
+                <a href="https://latrics.com" style="background-color: #DA291C; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Visit Our Website</a>
+              </div>
+            </div>
+            
+            <div style="text-align: center; padding-top: 20px; color: #999; font-size: 12px;">
+              <p>© 2026 Latrics India. All rights reserved.</p>
+              <p>You received this email because you subscribed to our newsletter.</p>
+            </div>
+          </div>
+        `,
+      });
+
+      console.log(`[EMAIL] ✅ Welcome email sent to ${email}`);
+      return;
+    } catch (err) {
+      console.warn(`[EMAIL] ⚠️  Welcome email attempt ${attempt}/${MAX_RETRIES} failed for ${email}: ${err.message}`);
+      if (attempt < MAX_RETRIES) {
+        const delay = BASE_DELAY_MS * Math.pow(2, attempt - 1);
+        await sleep(delay);
+      }
+    }
+  }
+}
+
+module.exports = { sendCSVReport, sendNewsletterWelcomeEmail };

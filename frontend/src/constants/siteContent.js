@@ -4,10 +4,10 @@
  */
 export const industryImages = {
   Mining: "/case_3.png",
-  "Highways and Railways": "/industry_digital.png",
+  "Highways and Railways": "/highways_railways.jpg",
   "Urban Development": "/topographic_map.jpg",
   "Energy and Utilities": "/industry_energy.png",
-  "Water Resources": "/hero_bg.png",
+  "Water Resources": "/water_resources.jpg",
   "Emergency Services": "/industry_aerospace.png"
 };
 
@@ -22,10 +22,9 @@ export const heroMetrics = [
 export const heroBadges = ["Autonomous", "Precision", "Scalable"];
 
 export const aboutFeatures = [
-  "FAA & EASA certified autonomous flight systems with obstacle avoidance",
-  "AI vision models processing 4K imagery at 60fps for real-time defect detection",
-  "Cloud-native platform integrating directly with SAP, SCADA, and ERP systems",
-  "ISO 27001 certified — your operational data stays in your region"
+  "First indigenous DGCA-certified LiDAR platform - built for Indian conditions with advanced safety systems",
+  "Intelligent analytics transforming raw aerial data into predictive insights for smarter operations",
+  "Flexible deployment architecture - cloud-based or on-premise to meet your data sovereignty requirements"
 ];
 
 export const simulationStats = [

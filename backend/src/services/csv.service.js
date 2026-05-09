@@ -9,7 +9,7 @@ function generateCSV(contacts) {
     `"${c.email.replace(/"/g, '""')}"`,
     `"${c.phone.replace(/"/g, '""')}"`,
     `"${c.message.replace(/"/g, '""')}"`,
-    c.createdAt.toISOString()
+    c.createdAt
   ]);
 
   const csvContent = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");

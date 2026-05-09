@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState, useEffect, memo } from "react";
 import { useReducedMotion, motion, AnimatePresence } from "framer-motion";
 import { Flame, ArrowRight } from "lucide-react";
 import { cn } from "../../utils/cn";
@@ -10,24 +10,24 @@ const verticals = [
   {
     id: "aerospace",
     label: "Aerospace",
-    title: "Mission-Grade Visibility for Flight Ops",
-    description: "Inspect fuselage and restricted airside zones with autonomous drone hardware paired with proprietary AI analytics.",
+    title: <>India's First Indigenous <br />DGCA-Certified LiDAR Platform</>,
+    description: "Autonomous drones + AI analytics for Mining, Highways, Urban Development, Energy, Water & Emergency Services",
     bgImage: "/aerospace_hero.png",
     thumbnail: "/aerospace_hero.png"
   },
   {
     id: "digital",
     label: "Digital",
-    title: "Digital Intelligence for Critical Assets",
-    description: "Unify imagery and telemetry into one operating picture for asset-heavy environments that move too fast for manual review.",
+    title: <>Digital Intelligence for<br />Critical Assets</>,
+    description: "Unify imagery and telemetry into one operating picture for asset-heavy environments that move too fast for manual review",
     bgImage: "/industry_digital.png",
     thumbnail: "/industry_digital.png"
   },
   {
     id: "energy",
     label: "Energy",
-    title: "Powering the Future of Clean Energy & Storage",
-    description: "From 20MW solar deployments to next-gen battery R&D - building self-reliant energy solutions for drones, infrastructure, and the grid.",
+    title: <>Powering the Future of<br />Clean Energy & Storage</>,
+    description: "From 20MW solar deployments to next-gen battery R&D - building self-reliant energy solutions for drones, infrastructure, and the grid",
     bgImage: "/energy_hero.png",
     thumbnail: "/energy_hero.png"
   }
@@ -47,12 +47,20 @@ const defaultContent = {
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const currentContent = selectedIndex !== null ? verticals[selectedIndex] : defaultContent;
+  // Auto-cycle effect: Switch verticals every 6 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSelectedIndex((prev) => (prev + 1) % verticals.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentContent = verticals[selectedIndex];
 
   const handleSelect = (idx) => {
-    setSelectedIndex((prev) => (prev === idx ? null : idx));
+    setSelectedIndex(idx);
   };
 
   return (
@@ -69,25 +77,24 @@ export default function Hero() {
           <div className="lg:col-span-9 flex flex-col items-start text-left gap-6 h-full pb-12">
             {/* Conditional "Visit Page" Button */}
             <div className="min-h-[50px]">
-              <AnimatePresence>
-                {selectedIndex !== null && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedIndex}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                  <ActionLink
+                    href={`#${verticals[selectedIndex].id}`}
+                    className="rounded-lg bg-black/40 backdrop-blur-[2px] border border-white/10 p-2 pl-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:scale-[1.02] active:scale-95 transition-all"
+                    iconClassName="size-11 bg-brand border border-white/10"
                   >
-                    <ActionLink
-                      href={`#${verticals[selectedIndex].id}`}
-                      className="rounded-lg bg-black/40 backdrop-blur-[2px] border border-white/10 p-2 pl-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:scale-[1.02] active:scale-95 transition-all"
-                      iconClassName="size-11 bg-brand border border-white/10"
-                    >
-                      <span className="text-[1rem] font-semibold tracking-wide text-white">
-                        Visit Page
-                      </span>
-                    </ActionLink>
-                  </motion.div>
-                )}
+                    <span className="text-[1rem] font-semibold tracking-wide text-white">
+                      Visit Page
+                    </span>
+                  </ActionLink>
+                </motion.div>
               </AnimatePresence>
             </div>
 

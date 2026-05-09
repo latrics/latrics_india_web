@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Search, Menu, X, ChevronDown, Rocket, Shield, Activity, RefreshCcw } from "lucide-react";
+import { ArrowUpRight, Search, Menu, X, ChevronDown, Rocket, Shield, Activity, RefreshCcw, History } from "lucide-react";
 import Container from "../common/Container";
 import Button from "../common/Button";
 import { cn } from "../../utils/cn";
@@ -396,10 +396,10 @@ export default function Navbar({ isScrolled, currentRoute }) {
             {/* Search Bar - Animated Expansion */}
             <motion.div
               initial={false}
-              animate={{ 
-                width: (isSearchExpanded || isDropdownClosing) 
-                  ? (window.innerWidth < 640 ? "180px" : "280px") 
-                  : (window.innerWidth < 1024 ? "40px" : "44px") 
+              animate={{
+                width: (isSearchExpanded || isDropdownClosing)
+                  ? (window.innerWidth < 640 ? "180px" : "280px")
+                  : (window.innerWidth < 1024 ? "40px" : "44px")
               }}
               className={cn(
                 "relative flex items-center h-10 lg:h-11 rounded-xl border border-white/10 bg-white/5 transition-colors",
@@ -444,14 +444,14 @@ export default function Navbar({ isScrolled, currentRoute }) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-0 right-0 mt-2 bg-[#050A11]/20 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl overflow-hidden z-[100]"
+                    className="absolute top-full left-0 right-0 mt-3 bg-[#0a0a0a]/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.8)] rounded-lg overflow-hidden z-[100]"
                   >
                     <div className="py-2 max-h-[400px] overflow-y-auto custom-scrollbar">
                       {/* --- SUGGESTIONS (When query is short) --- */}
                       {searchQuery.trim().length < 2 && (
-                        <div className="px-4 py-2 border-b border-white/5 bg-white/5">
-                          <span className="text-[0.6rem] font-black uppercase tracking-[0.2em] text-white/30">Trending Searches</span>
-                          <div className="mt-3 flex flex-col gap-1">
+                        <div className="px-5 py-5">
+                          <span className="block text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/80 mb-5 ml-1">Trending Searches</span>
+                          <div className="flex flex-col gap-2">
                             {trendingSuggestions.map((s) => (
                               <button
                                 key={s.label}
@@ -459,10 +459,10 @@ export default function Navbar({ isScrolled, currentRoute }) {
                                   window.location.href = s.href;
                                   closeSearch();
                                 }}
-                                className="flex items-center justify-between py-2 text-left hover:text-brand transition-colors group"
+                                className="w-full flex items-center justify-between px-4 py-3.5 rounded-lg bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.07] hover:border-white/[0.1] transition-all duration-300 group"
                               >
-                                <span className="text-white/80 text-sm font-bold group-hover:text-brand">{s.label}</span>
-                                <span className="text-[0.6rem] text-white/20 uppercase font-black">{s.category}</span>
+                                <span className="text-white/90 text-sm font-medium transition-colors group-hover:text-white">{s.label}</span>
+                                <History size={16} className="text-white/20 transition-colors group-hover:text-white/40" />
                               </button>
                             ))}
                           </div>

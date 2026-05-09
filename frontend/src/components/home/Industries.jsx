@@ -1,4 +1,4 @@
-import { Flame, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Globe, ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { industryCopy, industryTabs } from "../../constants/siteContent";
 import Container from "../common/Container";
@@ -14,8 +14,8 @@ const DIMENSIONS = {
   headingMargin: "mb-3 md:mb-5",
   tabsMargin: "mb-5 md:mb-8",
   // Image box dimensions (height and aspect ratio)
-  imageBoxHeight: "md:h-[280px] lg:h-[420px]",
-  imageBoxAspect: "aspect-[1.8/1] sm:aspect-[2.2/1] md:aspect-auto",
+  imageBoxHeight: "h-[480px] sm:h-[420px] md:h-[450px] lg:h-[480px]",
+  imageBoxAspect: "",
   // Content padding inside the image box (overlay text)
   contentPadding: "p-6 sm:p-8 md:p-10",
   // Toggle for the arrow button
@@ -28,7 +28,7 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
       <Container>
         <div className="island-card">
           <SectionHeading
-            badgeIcon={Flame}
+            badgeIcon={Globe}
             badgeText="Industries"
             badgeAlign="start"
             title="Solutions tailored for every frontier"
@@ -39,9 +39,10 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
           />
 
 
+          {/* Desktop Tabs */}
           <div
             className={cn(
-              "mx-auto flex max-w-fit flex-wrap justify-center gap-2 rounded-lg border border-white/[0.08] bg-[#1a1a1a]/50 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl",
+              "mx-auto hidden lg:flex max-w-fit flex-wrap justify-center gap-2 rounded-lg border border-white/[0.08] bg-[#1a1a1a]/50 p-2 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl",
               DIMENSIONS.tabsMargin
             )}
             role="tablist"
@@ -70,6 +71,28 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
                 )}
               </Button>
             ))}
+          </div>
+
+          {/* Mobile Dropdown */}
+          <div className={cn("mx-auto flex lg:hidden w-full max-w-xs justify-center", DIMENSIONS.tabsMargin)}>
+            <div className="relative w-full">
+              <select
+                value={activeTab}
+                onChange={(e) => setActiveTab(e.target.value)}
+                className="w-full appearance-none rounded-lg border border-white/20 bg-[#1a1a1a]/80 py-3.5 pl-5 pr-10 text-sm font-bold text-white shadow-xl outline-none backdrop-blur-xl focus:border-[#DA291C] focus:ring-1 focus:ring-[#DA291C]"
+              >
+                {industryTabs.map((tab) => (
+                  <option key={tab} value={tab} className="bg-[#121212] text-white">
+                    {tab}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-white/50">
+                <svg className="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                </svg>
+              </div>
+            </div>
           </div>
 
           <div className={cn(

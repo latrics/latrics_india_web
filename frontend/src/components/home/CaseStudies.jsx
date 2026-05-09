@@ -1,4 +1,4 @@
-import { Grid, ArrowRight, ChevronRight, Flame, ArrowUpRight, Lock, Unlock } from "lucide-react";
+import { Grid, ArrowRight, ChevronRight, FileText, ArrowUpRight, Lock, Unlock } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { caseStudies } from "../../constants/siteContent";
@@ -46,7 +46,7 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
         <div className="island-card">
           {/* Section header with localized badges/icons for brand consistency */}
           <SectionHeading
-            badgeIcon={Flame}
+            badgeIcon={FileText}
             badgeText="Recent Articles"
             title="Transforming Industries Through Intelligent Innovation"
             description="At Latrics, we build precision driven LiDAR and aerospace solutions that help industries operate smarter. We fuse advanced drone hardware with proprietary AI analytics to give manufacturer and facility operators real time visibility, safer inspections, and data driven decision making at scale"
@@ -79,7 +79,7 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
                   whileHover={{ y: -4, transition: { duration: 0.3 } }}
                   // Logic: flex property changes from 1 to 2.5 on hover or lock for the expansion effect
                   // If something is locked, it takes priority. Otherwise, use hover.
-                  className={`group relative overflow-visible rounded-[1rem] border-4 lg:border-[8px] border-white/70 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[372px] lg:h-full w-full lg:w-auto ${lockedIdx !== null
+                  className={`group relative overflow-visible rounded-[1rem] border-4 lg:border-[8px] border-white/70 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[280px] sm:h-[320px] lg:h-full w-full lg:w-auto ${lockedIdx !== null
                     ? (lockedIdx === idx ? "lg:flex-[2.5]" : "lg:flex-1")
                     : (hoveredIdx === idx ? "lg:flex-[2.5]" : "lg:flex-1")
                     }`}

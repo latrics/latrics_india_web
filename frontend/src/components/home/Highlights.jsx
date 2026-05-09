@@ -1,4 +1,4 @@
-import { Flame, ArrowUp, ArrowDown } from "lucide-react";
+import { Sparkles, ArrowUp, ArrowDown } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 import { highlightItems } from "../../constants/siteContent";
@@ -136,7 +136,7 @@ export default function Highlights() {
             {/* Left Column: Text & Navigation Controls */}
             <div className="flex flex-col gap-6">
               <SectionHeading
-                badgeIcon={Flame}
+                badgeIcon={Sparkles}
                 badgeText="Highlights"
                 title="Pioneering Indigenous Technology"
                 description="From DGCA certification to PM showcase - see how India's first 

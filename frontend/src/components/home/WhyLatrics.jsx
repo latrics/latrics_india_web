@@ -1,4 +1,4 @@
-import { ShieldCheck, Zap } from "lucide-react";
+import { ShieldCheck, Award } from "lucide-react";
 import { motion } from "framer-motion";
 import { whyCards } from "../../constants/siteContent";
 import Card from "../common/Card";
@@ -17,7 +17,7 @@ export default function WhyLatrics({ staggerContainer, staggerItem }) {
       <Container className="relative z-10">
         <div className="island-card">
           <header className="mb-12 flex flex-col items-start gap-8 lg:mb-16">
-            <SectionBadge icon={Zap} text="Why Latrics" iconClassName="bg-brand" />
+            <SectionBadge icon={Award} text="Why Latrics" iconClassName="bg-brand" />
             <div className="flex flex-col gap-6">
               <h2 className="font-display text-title-1 leading-tight text-white">
                 Engineering India's Autonomous Future

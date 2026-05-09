@@ -1,5 +1,5 @@
 import { useReducedMotion } from "framer-motion";
-import { Flame, ArrowUpRight } from "lucide-react";
+import { Activity, ArrowUpRight } from "lucide-react";
 import DroneScene from "../3d/DroneScene";
 import SectionHeading from "../common/SectionHeading";
 import Section from "../common/Section";
@@ -23,7 +23,7 @@ export default function Simulation() {
         <div className="flex flex-col items-center">
           <div className="w-full flex justify-between items-start mb-16 md:mb-20">
             <SectionHeading
-              badgeIcon={Flame}
+              badgeIcon={Activity}
               badgeText="3D Simulation"
               title="India's First DGCA Certified LiDAR Drone"
               className="mb-0 max-w-3xl" // disable mb-10 as we have wrapper margin

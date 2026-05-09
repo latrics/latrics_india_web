@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Flame } from "lucide-react";
+import { Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 import { milestoneItems } from "../../constants/siteContent";
 import Container from "../common/Container";
@@ -54,7 +54,7 @@ export default function Milestones({ staggerContainer, staggerItem }) {
       <Container className="relative z-10">
         <div className="island-card">
           <SectionHeading
-            badgeIcon={Flame}
+            badgeIcon={Trophy}
             badgeText="Milestones"
             title="Milestones Strengthening India's Path to Technological Sovereignty"
             description="Bridging traditional practices since 2022 - transforming mining, corridors, urban development, utilities, water conservation, and emergency response with indigenous aerial intelligence."

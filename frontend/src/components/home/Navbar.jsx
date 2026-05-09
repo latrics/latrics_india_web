@@ -398,8 +398,8 @@ export default function Navbar({ isScrolled, currentRoute }) {
               initial={false}
               animate={{
                 width: (isSearchExpanded || isDropdownClosing)
-                  ? (window.innerWidth < 640 ? "180px" : "280px")
-                  : (window.innerWidth < 1024 ? "40px" : "44px")
+                  ? (typeof window !== "undefined" && window.innerWidth < 400 ? "140px" : typeof window !== "undefined" && window.innerWidth < 640 ? "180px" : "280px")
+                  : (typeof window !== "undefined" && window.innerWidth < 1024 ? "40px" : "44px")
               }}
               className={cn(
                 "relative flex items-center h-10 lg:h-11 rounded-xl border border-white/10 bg-white/5 transition-colors",
@@ -510,18 +510,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
               </AnimatePresence>
             </motion.div>
 
-            {/* Primary Contact CTA */}
-            <Button
-              as="a"
-              href="#contact"
-              variant="brand-solid"
-              className={cn(
-                "hidden lg:flex items-center gap-2 px-6 py-2.5 rounded-xl text-base font-semibold shadow-[0_4px_14px_rgba(218,41,28,0.3)]",
-                isSearchExpanded && "lg:hidden xl:flex"
-              )}
-            >
-              Contact Us <ArrowUpRight className="w-5 h-5" />
-            </Button>
+
 
             {/* Mobile Menu Toggle Button */}
             <button
@@ -546,7 +535,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed inset-x-4 top-20 z-[60] lg:hidden"
           >
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-black/90 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.8)] backdrop-blur-2xl">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-[0_40px_100px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
               <div className="flex flex-col gap-1">
                 {links.map((link) => {
                   const active = isLinkActive(link.label);
@@ -571,14 +560,14 @@ export default function Navbar({ isScrolled, currentRoute }) {
                         {...contentProps}
                         className={cn(
                           "flex items-center justify-between py-4 text-xl font-bold transition-colors",
-                          active ? "text-brand" : "text-white"
+                          active ? "text-brand" : "text-gray-900"
                         )}
                       >
                         {link.label}
                         {link.hasDropdown && (
                           <ChevronDown className={cn(
                             "w-5 h-5 transition-transform duration-300",
-                            isExpanded ? "rotate-180 text-brand" : "text-white/40"
+                            isExpanded ? "rotate-180 text-brand" : "text-gray-400"
                           )} />
                         )}
                       </Content>
@@ -593,10 +582,10 @@ export default function Navbar({ isScrolled, currentRoute }) {
                             transition={{ duration: 0.3, ease: "easeInOut" }}
                             className="overflow-hidden"
                           >
-                            <div className="flex flex-col gap-4 pb-4 pl-4 border-l border-white/10 ml-1">
+                            <div className="flex flex-col gap-4 pb-4 pl-4 border-l border-gray-200 ml-1">
                               {dropdownData.categories.map((cat) => (
                                 <div key={cat.title} className="flex flex-col gap-2">
-                                  <span className="text-[0.65rem] font-black uppercase tracking-widest text-white/30 mt-2">
+                                  <span className="text-[0.65rem] font-black uppercase tracking-widest text-gray-400 mt-2">
                                     {cat.title}
                                   </span>
                                   {cat.items.map((item) => {
@@ -610,7 +599,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
                                           "text-base py-2 px-3 font-medium transition-colors rounded-lg w-fit",
                                           isTerrainDesk
                                             ? "text-brand bg-brand/10 border border-brand/20 backdrop-blur-md"
-                                            : "text-white/60 hover:text-brand"
+                                            : "text-gray-600 hover:text-brand"
                                         )}
                                       >
                                         {item.name}
@@ -629,7 +618,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
               </div>
 
               {/* Mobile Contact Button */}
-              <div className="mt-8 flex items-center border-t border-white/10 pt-8">
+              <div className="mt-8 flex items-center border-t border-gray-200 pt-8">
                 <Button
                   as="a"
                   href="#contact"

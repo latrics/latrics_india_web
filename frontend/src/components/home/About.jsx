@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Flame, Check } from "lucide-react";
+import { Info, Target, History, Rocket, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../utils/cn";
 import { aboutFeatures } from "../../constants/siteContent";
@@ -35,7 +35,7 @@ export default function About({ fadeInUp }) {
 
           <div className="relative z-10">
             <SectionHeading
-              badgeIcon={Flame}
+              badgeIcon={Target}
               badgeText="About Latrics"
               title={
                 <>India's Autonomous Technology Company<br /> Building Tomorrow's Aerial Infrastructure</>

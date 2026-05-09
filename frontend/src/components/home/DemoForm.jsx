@@ -1,5 +1,5 @@
 import { useReducedMotion } from "framer-motion";
-import { Cloud } from "lucide-react";
+import { Send } from "lucide-react";
 import { motion } from "framer-motion";
 import Button from "../common/Button";
 import Card from "../common/Card";
@@ -46,7 +46,7 @@ export default function DemoForm({
         <Card variant="elevated" className="grid gap-6 p-5 sm:p-8 md:gap-8 md:p-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(280px,1.1fr)] lg:p-10 bg-[#121212]/90 border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
           <div className="flex flex-col gap-5 md:gap-6">
             <SectionHeading
-              badgeIcon={Cloud}
+              badgeIcon={Send}
               badgeText="Request a Demo"
               title="We'd love to show you around."
               description="Book a walkthrough to see how Latrics can fit into your inspection, mapping, or monitoring workflow with a tailored operational demo."

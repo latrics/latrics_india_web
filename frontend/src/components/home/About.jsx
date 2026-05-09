@@ -93,7 +93,7 @@ export default function About({ fadeInUp }) {
                 {/* Buttons */}
                 <div className="mt-4 flex flex-col gap-4 sm:flex-row">
                   <ActionLink>Read more</ActionLink> {/** This button is just for show, it will redirect to the about page */}
-                  <ActionLink>Download Brochures</ActionLink> {/** On clicking the button a popup card appears where the user need to provide their email and phone number and the brochure is sent to their email only after mobile number verification using OTP */}
+                  {/* <ActionLink>Download Brochures</ActionLink> {/** On clicking the button a popup card appears where the user need to provide their email and phone number and the brochure is sent to their email only after mobile number verification using OTP */}
                 </div>
               </div>
 

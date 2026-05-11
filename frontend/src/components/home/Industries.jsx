@@ -1,4 +1,5 @@
-import { Globe, ArrowRight, ArrowUpRight } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Globe, ArrowRight, ArrowUpRight, ChevronDown, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { industryCopy, industryTabs } from "../../constants/siteContent";
 import Container from "../common/Container";
@@ -23,6 +24,19 @@ const DIMENSIONS = {
 };
 
 export default function Industries({ activeTab, setActiveTab, industryImages }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <Section id="industries">
       <Container>
@@ -73,25 +87,55 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
             ))}
           </div>
 
-          {/* Mobile Dropdown */}
-          <div className={cn("mx-auto flex lg:hidden w-full max-w-xs justify-center", DIMENSIONS.tabsMargin)}>
+          {/* Mobile Custom Dropdown */}
+          <div 
+            ref={dropdownRef}
+            className={cn("mx-auto flex lg:hidden w-full max-w-xs justify-center", DIMENSIONS.tabsMargin)}
+          >
             <div className="relative w-full">
-              <select
-                value={activeTab}
-                onChange={(e) => setActiveTab(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-white/20 bg-[#1a1a1a]/80 py-3.5 pl-5 pr-10 text-sm font-bold text-white shadow-xl outline-none backdrop-blur-xl focus:border-[#DA291C] focus:ring-1 focus:ring-[#DA291C]"
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex w-full items-center justify-between rounded-lg border border-white/20 bg-[#1a1a1a]/80 py-3.5 px-5 text-sm font-bold text-white shadow-xl outline-none backdrop-blur-xl transition-all hover:border-brand/50 focus:border-brand"
               >
-                {industryTabs.map((tab) => (
-                  <option key={tab} value={tab} className="bg-[#121212] text-white">
-                    {tab}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-white/50">
-                <svg className="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                </svg>
-              </div>
+                <span>{activeTab}</span>
+                <ChevronDown className={cn("h-5 w-5 transition-transform duration-300", isOpen ? "rotate-180" : "")} />
+              </button>
+
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]/95 p-1 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl"
+                  >
+                    <div className="flex flex-col gap-1">
+                      {industryTabs.map((tab) => {
+                        const isActive = activeTab === tab;
+                        return (
+                          <button
+                            key={tab}
+                            onClick={() => {
+                              setActiveTab(tab);
+                              setIsOpen(false);
+                            }}
+                            className={cn(
+                              "flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm font-bold transition-all",
+                              isActive
+                                ? "bg-brand text-white shadow-lg shadow-brand/20"
+                                : "text-white/60 hover:bg-white/10 hover:text-white"
+                            )}
+                          >
+                            {tab}
+                            {isActive && <Check className="h-4 w-4" strokeWidth={3} />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 

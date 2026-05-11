@@ -10,23 +10,24 @@ const verticals = [
   {
     id: "aerospace",
     label: "Aerospace",
-    title: <>India's First Indigenous <br />DGCA-Certified LiDAR Platform</>,
+    title: <>India's First Indigenous <br className="hidden lg:block" />DGCA-Certified LiDAR Platform</>,
     description: "Autonomous drones + AI analytics for Mining, Highways, Urban Development, Energy, Water & Emergency Services",
     bgImage: "/aerospace_hero.png",
-    thumbnail: "/aerospace_hero.png"
+    thumbnail: "/aerospace_hero.png",
+    bgClassName: "max-sm:bg-cover max-sm:bg-[75%_center]" // Ensures full coverage with drone slightly right of center on mobile
   },
   {
     id: "digital",
     label: "Digital",
-    title: <>Digital Intelligence for<br />Critical Assets</>,
+    title: <>Digital Intelligence for<br className="hidden lg:block" />Critical Assets</>,
     description: "Unify imagery and telemetry into one operating picture for asset-heavy environments that move too fast for manual review",
-    bgImage: "/industry_digital.png",
-    thumbnail: "/industry_digital.png"
+    bgImage: "/industry_digital.jpg",
+    thumbnail: "/industry_digital.jpg"
   },
   {
     id: "energy",
     label: "Energy",
-    title: <>Powering the Future of<br />Clean Energy & Storage</>,
+    title: <>Powering the Future of<br className="hidden lg:block" />Clean Energy & Storage</>,
     description: "From 20MW solar deployments to next-gen battery R&D - building self-reliant energy solutions for drones, infrastructure, and the grid",
     bgImage: "/energy_hero.png",
     thumbnail: "/energy_hero.png"
@@ -53,7 +54,7 @@ export default function Hero() {
   useEffect(() => {
     const timer = setInterval(() => {
       setSelectedIndex((prev) => (prev + 1) % verticals.length);
-    }, 6000);
+    }, 12000);
     return () => clearInterval(timer);
   }, []);
 
@@ -65,11 +66,15 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden pt-20 lg:pt-16 pb-0">
-      <Background crossfadeKey={currentContent.id} imageUrl={currentContent.bgImage} />
+      <Background
+        crossfadeKey={currentContent.id}
+        imageUrl={currentContent.bgImage}
+        customClassName={currentContent.bgClassName}
+      />
 
       <Container
         wrapperClassName="h-full"
-        className="relative z-10 w-full h-full flex flex-col justify-center px-6 md:px-8 py-6 md:py-10"
+        className="relative z-10 w-full h-full flex flex-col justify-center px-0 sm:px-6 md:px-8 py-6 md:py-10"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center h-full">
 
@@ -135,7 +140,7 @@ export default function Hero() {
 
 // --- Subcomponents ---
 
-const Background = memo(({ crossfadeKey, imageUrl }) => (
+const Background = memo(({ crossfadeKey, imageUrl, customClassName }) => (
   <div className="absolute inset-0 z-0 pointer-events-none">
     <AnimatePresence>
       <motion.div
@@ -144,7 +149,10 @@ const Background = memo(({ crossfadeKey, imageUrl }) => (
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1.2 }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105"
+        className={cn(
+          "absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105",
+          customClassName
+        )}
         style={{ backgroundImage: `url('${imageUrl}')` }}
       />
     </AnimatePresence>
@@ -165,10 +173,10 @@ const DynamicText = memo(({ content }) => (
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col items-start gap-8 w-full"
     >
-      <h1 className="text-title-1 leading-[1.2] text-white font-bold tracking-tight text-left max-w-5xl">
+      <h1 className="text-title-1 leading-[1.2] text-white font-bold tracking-tight text-left max-w-none lg:max-w-5xl">
         {content.title}
       </h1>
-      <p className="max-w-3xl text-lg md:text-[1.25rem] font-medium leading-relaxed text-white/70 text-left">
+      <p className="max-w-none lg:max-w-3xl text-lg md:text-[1.25rem] font-medium leading-relaxed text-white/70 text-left">
         {content.description}
       </p>
     </motion.div>
@@ -178,10 +186,10 @@ DynamicText.displayName = "DynamicText";
 
 const BadgeCard = ({ image, label, containerClassName, imageContainerClassName, textClassName }) => (
   <div className={cn(
-    "flex flex-col items-center gap-1 px-3 py-1 rounded-2xl bg-black/5 border border-white/10 backdrop-blur-[2px] shadow-2xl transition-all hover:bg-white/5 group w-full sm:w-60 lg:w-60",
+    "flex flex-col items-center gap-1 px-3 py-1 rounded-2xl bg-black/5 border border-white/10 backdrop-blur-[2px] shadow-2xl transition-all hover:bg-white/5 group w-[calc(50%-0.5rem)] sm:w-60 lg:w-60",
     containerClassName
   )}>
-    <div className={cn("relative h-24 sm:h-28 w-full flex items-center justify-center transition-transform group-hover:scale-105", imageContainerClassName)}>
+    <div className={cn("relative h-20 sm:h-28 w-full flex items-center justify-center transition-transform group-hover:scale-105", imageContainerClassName)}>
       <img
         src={image}
         alt={label}

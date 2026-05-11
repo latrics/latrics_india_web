@@ -510,7 +510,18 @@ export default function Navbar({ isScrolled, currentRoute }) {
               </AnimatePresence>
             </motion.div>
 
-
+            {/* Contact Button (Desktop Only) */}
+            <div className="hidden lg:block">
+              <Button
+                as="a"
+                href="#contact"
+                variant="brand-solid"
+                className="flex items-center gap-2 px-6 py-2 h-11 rounded-xl text-sm font-bold shadow-lg shadow-brand/20 hover:scale-[1.02] transition-all"
+              >
+                Contact Us
+                <ArrowUpRight className="w-4 h-4" />
+              </Button>
+            </div>
 
             {/* Mobile Menu Toggle Button */}
             <button

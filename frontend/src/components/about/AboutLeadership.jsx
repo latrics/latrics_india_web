@@ -60,7 +60,7 @@ export default function AboutLeadership() {
             </header>
 
             <div className="relative overflow-hidden">
-              <div 
+              <div
                 className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4"
                 onScroll={(e) => {
                   const scrollLeft = e.currentTarget.scrollLeft;
@@ -83,7 +83,7 @@ export default function AboutLeadership() {
                             className="w-full h-full object-cover transition-all duration-700"
                           />
                         </div>
-                        
+
                         <div className="mt-auto bg-[#121212] border border-white/5 px-8 py-6 rounded-xl text-center shadow-lg">
                           <h3 className="text-2xl font-bold text-white mb-1 font-display">
                             {slide.name}

@@ -88,7 +88,7 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
           </div>
 
           {/* Mobile Custom Dropdown */}
-          <div 
+          <div
             ref={dropdownRef}
             className={cn("mx-auto flex lg:hidden w-full max-w-xs justify-center", DIMENSIONS.tabsMargin)}
           >

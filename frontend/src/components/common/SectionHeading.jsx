@@ -35,9 +35,9 @@ export default function SectionHeading({
   return (
     <header
       className={cn(
-        "mb-10 w-full md:mb-12 flex flex-col",
-        align === "center" && "items-center text-center",
-        align === "start" && "items-start text-left",
+        "mb-10 w-full md:mb-12 flex flex-col items-center text-center",
+        align === "center" && "md:items-center md:text-center",
+        align === "start" && "md:items-start md:text-left",
         className
       )}
     >
@@ -50,7 +50,8 @@ export default function SectionHeading({
         </div>
       )}
       <h2 className={cn(
-        "text-title-1 text-white",
+        "text-title-1 text-white text-center md:text-start",
+        align === "center" && "md:text-center",
         !titleClassName?.includes("max-w-") && (align === "center" ? "max-w-4xl mx-auto" : "max-w-3xl"),
         titleClassName
       )}>
@@ -58,7 +59,8 @@ export default function SectionHeading({
       </h2>
       {description ? (
         <p className={cn(
-          "mt-5 text-body-lg text-white/70",
+          "mt-5 text-body-lg text-white/70 text-center md:text-start",
+          align === "center" && "md:text-center",
           !descriptionClassName?.includes("max-w-") && (align === "center" ? "max-w-2xl mx-auto" : "max-w-2xl"),
           descriptionClassName
         )}>

@@ -23,7 +23,7 @@ export default function WhyLatrics({ staggerContainer, staggerItem }) {
                 Engineering India's Autonomous Future
               </h2>
               <p className="font-sans text-body-lg text-white/50 leading-relaxed">
-                Building indigenous aerospace systems, intelligent analytics, and sustainable infrastructure to transform India's critical sectors from mining and corridors to urban development, utilities, water conservation, and emergency response. By combining autonomous aerial systems with AI-powered insights and clean technology, we enable industries to operate safer, smarter, and more sustainably, strengthening India's path toward self-reliance and technological sovereignty.
+                Building indigenous aerospace systems, AI-powered analytics, and sustainable infrastructure to help India’s critical sectors operate safer, smarter, and more sustainably.
               </p>
             </div>
           </header>

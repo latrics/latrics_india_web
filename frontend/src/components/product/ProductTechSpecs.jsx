@@ -46,8 +46,8 @@ export default function ProductTechSpecs() {
             {/* Specs Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
               {SPECS.map((spec) => (
-                <div 
-                  key={spec.label} 
+                <div
+                  key={spec.label}
                   className="group/spec bg-[#1B1A1A]/50 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center pt-8 pb-10 backdrop-blur-sm transition-all duration-300 hover:bg-brand hover:border-brand hover:-translate-y-1 hover:shadow-lg hover:shadow-brand/20"
                 >
                   <span className="text-[0.65rem] font-black text-gray-500 tracking-[0.2em] mb-2 uppercase group-hover/spec:text-white/70 transition-colors duration-300">

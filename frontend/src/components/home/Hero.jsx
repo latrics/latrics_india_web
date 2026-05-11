@@ -10,7 +10,7 @@ const verticals = [
   {
     id: "aerospace",
     label: "Aerospace",
-    title: <>India's First Indigenous <br className="hidden lg:block" />DGCA-Certified LiDAR Platform</>,
+    title: <>India's First Indigenous <br />DGCA-Certified LiDAR Platform</>,
     description: "Autonomous drones + AI analytics for Mining, Highways, Urban Development, Energy, Water & Emergency Services",
     bgImage: "/aerospace_hero.png",
     thumbnail: "/aerospace_hero.png",
@@ -19,7 +19,7 @@ const verticals = [
   {
     id: "digital",
     label: "Digital",
-    title: <>Digital Intelligence for<br className="hidden lg:block" />Critical Assets</>,
+    title: <>Digital Intelligence for<br />Critical Assets</>,
     description: "Unify imagery and telemetry into one operating picture for asset-heavy environments that move too fast for manual review",
     bgImage: "/industry_digital.jpg",
     thumbnail: "/industry_digital.jpg"
@@ -27,7 +27,7 @@ const verticals = [
   {
     id: "energy",
     label: "Energy",
-    title: <>Powering the Future of<br className="hidden lg:block" />Clean Energy & Storage</>,
+    title: <>Powering the Future of<br />Clean Energy & Storage</>,
     description: "From 20MW solar deployments to next-gen battery R&D - building self-reliant energy solutions for drones, infrastructure, and the grid",
     bgImage: "/energy_hero.png",
     thumbnail: "/energy_hero.png"
@@ -50,13 +50,14 @@ export default function Hero() {
   const reduceMotion = useReducedMotion();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // Auto-cycle effect: Switch verticals every 6 seconds
+  // Auto-cycle effect: Switch verticals every 12 seconds
+  // Resets whenever selectedIndex changes (e.g., on manual click)
   useEffect(() => {
-    const timer = setInterval(() => {
+    const timer = setTimeout(() => {
       setSelectedIndex((prev) => (prev + 1) % verticals.length);
     }, 12000);
-    return () => clearInterval(timer);
-  }, []);
+    return () => clearTimeout(timer);
+  }, [selectedIndex]);
 
   const currentContent = verticals[selectedIndex];
 
@@ -79,9 +80,9 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center h-full">
 
           {/* Left Side: Content */}
-          <div className="lg:col-span-9 flex flex-col items-start text-left gap-6 h-full pb-12">
-            {/* Conditional "Visit Page" Button */}
-            <div className="min-h-[50px]">
+          <div className="lg:col-span-9 flex flex-col items-start text-left gap-4 md:gap-6 h-full pb-12">
+            {/* Conditional "Visit Page" Button (Desktop Only) */}
+            <div className="min-h-[50px] hidden lg:block">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedIndex}
@@ -105,7 +106,7 @@ export default function Hero() {
 
             <DynamicText content={currentContent} />
             {/* Industry Badges (Made in India, etc.) */}
-            <div className="mt-12 lg:mt-auto pt-10">
+            <div className="mt-6 md:mt-12 lg:mt-auto pt-4 md:pt-10">
               <Badges activeId={currentContent.id} />
             </div>
           </div>
@@ -123,7 +124,7 @@ export default function Hero() {
         </div>
 
         {/* Mobile Controls */}
-        <div className="mt-10 lg:hidden flex flex-col items-center gap-8 pb-8">
+        <div className="mt-6 lg:hidden flex flex-col items-center gap-4 pb-8">
           <Controls
             verticals={verticals}
             selectedIndex={selectedIndex}
@@ -171,7 +172,7 @@ const DynamicText = memo(({ content }) => (
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 30 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col items-start gap-8 w-full"
+      className="flex flex-col items-start gap-4 md:gap-8 w-full pt-10 lg:pt-0"
     >
       <h1 className="text-title-1 leading-[1.2] text-white font-bold tracking-tight text-left max-w-none lg:max-w-5xl">
         {content.title}
@@ -179,6 +180,19 @@ const DynamicText = memo(({ content }) => (
       <p className="max-w-none lg:max-w-3xl text-lg md:text-[1.25rem] font-medium leading-relaxed text-white/70 text-left">
         {content.description}
       </p>
+
+      {/* Mobile Visit Page Button */}
+      <div className="mt-3 lg:hidden">
+        <ActionLink
+          href={`#${content.id}`}
+          className="rounded-lg bg-black/40 backdrop-blur-[2px] border border-white/10 p-1 pl-5 shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all"
+          iconClassName="size-9 bg-brand border border-white/10"
+        >
+          <span className="text-[0.9rem] font-semibold tracking-wide text-white">
+            Visit Page
+          </span>
+        </ActionLink>
+      </div>
     </motion.div>
   </AnimatePresence>
 ));
@@ -186,7 +200,7 @@ DynamicText.displayName = "DynamicText";
 
 const BadgeCard = ({ image, label, containerClassName, imageContainerClassName, textClassName }) => (
   <div className={cn(
-    "flex flex-col items-center gap-1 px-3 py-1 rounded-2xl bg-black/5 border border-white/10 backdrop-blur-[2px] shadow-2xl transition-all hover:bg-white/5 group w-[calc(50%-0.5rem)] sm:w-60 lg:w-60",
+    "flex flex-col items-center gap-1 px-3 py-1 rounded-2xl bg-black/5 border border-white/10 backdrop-blur-[2px] shadow-2xl transition-all hover:bg-white/5 group flex-1 min-w-0 sm:flex-none sm:w-60 lg:w-60",
     containerClassName
   )}>
     <div className={cn("relative h-20 sm:h-28 w-full flex items-center justify-center transition-transform group-hover:scale-105", imageContainerClassName)}>
@@ -208,7 +222,7 @@ const Badges = memo(({ activeId }) => {
   if (isSpecialSector) return null;
 
   return (
-    <div className="flex flex-wrap lg:flex-nowrap gap-4 lg:gap-8 w-full lg:w-auto justify-center lg:justify-start">
+    <div className="flex flex-row gap-18 w-full justify-between lg:justify-start lg:gap-8">
       <BadgeCard
         image="/make_in_india.png"
       //label="Made in India"

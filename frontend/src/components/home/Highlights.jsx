@@ -1,6 +1,7 @@
 import { Sparkles, ArrowUp, ArrowDown } from "lucide-react";
+import { cn } from "../../utils/cn";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { highlightItems } from "../../constants/siteContent";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
@@ -10,6 +11,14 @@ function HighlightCard({ item }) {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Motion values for tilt effect
   const x = useMotionValue(0);
@@ -43,9 +52,9 @@ function HighlightCard({ item }) {
     y.set(0);
   };
 
-  const MAX_DESC_LENGTH = 150; // Approx 2 lines of text at the current font size
+  const MAX_DESC_LENGTH = isMobile ? 45 : 150; 
   const isLongDesc = item.desc.length > MAX_DESC_LENGTH;
-  const isCurrentlyExpanded = isExpanded || (isHovered && isLongDesc);
+  const isCurrentlyExpanded = isExpanded || (!isMobile && isHovered && isLongDesc);
 
   return (
     <motion.article
@@ -68,9 +77,9 @@ function HighlightCard({ item }) {
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className={`group relative grid w-full gap-4 items-start overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.04] px-5 py-5 shadow-xl transition-all duration-500 ease-out sm:grid-cols-[130px_1fr] sm:gap-6 flex-shrink-0 ${isHovered ? 'ring-1 ring-[#DA291C]/50 shadow-2xl bg-white/[0.07]' : ''}`}
+      className={`group relative grid w-full gap-2 items-start overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-3 sm:px-5 sm:py-5 shadow-xl transition-all duration-500 ease-out sm:grid-cols-[130px_1fr] sm:gap-6 flex-shrink-0 ${isHovered ? 'ring-1 ring-[#DA291C]/50 shadow-2xl bg-white/[0.07]' : ''}`}
     >
-      <div className="relative h-30 w-full overflow-hidden rounded-xl" style={{ transform: "translateZ(20px)" }}>
+      <div className="relative h-30 w-full overflow-hidden rounded-xl hidden sm:block" style={{ transform: "translateZ(20px)" }}>
         <motion.img
           src={item.image}
           alt=""
@@ -82,14 +91,17 @@ function HighlightCard({ item }) {
         />
       </div>
 
-      <div className="flex flex-col justify-start gap-2 pr-2 pb-2 pt-0" style={{ transform: "translateZ(30px)" }}>
+      <div className="flex flex-col justify-start gap-1 sm:gap-2 pr-2 pb-1 sm:pb-2 pt-0" style={{ transform: "translateZ(30px)" }}>
         <span className="text-[0.75rem] font-bold uppercase tracking-wider text-white/50">
           {item.date}
         </span>
         <h3 className="font-display text-lg font-black leading-tight text-[#FFF5E0] md:text-xl">
           {item.title}
         </h3>
-        <p className="text-[1rem] font-regular leading-tight text-white/80 md:text-[1rem]">
+        <p className={cn(
+          "text-[1rem] font-regular leading-tight text-white/80 md:text-[1rem]",
+          !isCurrentlyExpanded && isMobile ? "line-clamp-2" : ""
+        )}>
           {!isCurrentlyExpanded && isLongDesc ? (
             <>
               {item.desc.substring(0, MAX_DESC_LENGTH)}
@@ -98,8 +110,8 @@ function HighlightCard({ item }) {
                   e.stopPropagation();
                   setIsExpanded(true);
                 }}
-                className="text-[#DA291C] font-semibold ml-1 cursor-pointer hover:underline"
-              >...read more</span>
+                className="text-[#DA291C] font-semibold ml-1 cursor-pointer hover:underline whitespace-nowrap"
+              >read more..</span>
             </>
           ) : (
             item.desc
@@ -144,7 +156,7 @@ indigenous LiDAR platform is transforming industries."
                 className="mb-6 md:mb-8"
               />
 
-              <div className="flex gap-4">
+              <div className="hidden lg:flex gap-4">
                 <button
                   onClick={() => scroll("up")}
                   aria-label="Scroll up"

@@ -12,6 +12,7 @@ import Navbar from "../components/home/Navbar";
 import Hero from "../components/home/Hero";
 import About from "../components/home/About";
 import Highlights from "../components/home/Highlights";
+import Brochure from "../components/home/Brochure";
 import WhyLatrics from "../components/home/WhyLatrics";
 import Industries from "../components/home/Industries";
 import CaseStudies from "../components/home/CaseStudies";
@@ -214,6 +215,7 @@ export default function App() {
               <main id="top" className="relative z-[1]">
                 <Hero staggerContainer={staggerContainer} staggerItem={staggerItem} />
                 <Highlights staggerContainer={staggerContainer} staggerItem={staggerItem} />
+                <Brochure staggerContainer={staggerContainer} staggerItem={staggerItem} />
                 {/* <BannerMarquee /> */}
                 <Industries
                   activeTab={activeTab}

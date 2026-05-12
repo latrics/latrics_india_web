@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Globe, ArrowRight, ArrowUpRight, ChevronDown, Check } from "lucide-react";
+import { Factory, ArrowRight, ArrowUpRight, ChevronDown, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { industryCopy, industryTabs } from "../../constants/siteContent";
 import Container from "../common/Container";
@@ -42,7 +42,7 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
       <Container>
         <div className="island-card">
           <SectionHeading
-            badgeIcon={Globe}
+            badgeIcon={Factory}
             badgeText="Industries"
             badgeAlign="start"
             title="Solutions tailored for every frontier"

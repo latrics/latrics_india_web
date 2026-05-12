@@ -66,7 +66,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden pt-20 lg:pt-16 pb-0">
+    <section className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden pt-24 lg:pt-44 pb-12">
       <Background
         crossfadeKey={currentContent.id}
         imageUrl={currentContent.bgImage}
@@ -75,12 +75,12 @@ export default function Hero() {
 
       <Container
         wrapperClassName="h-full"
-        className="relative z-10 w-full h-full flex flex-col justify-center px-0 sm:px-6 md:px-8 py-6 md:py-10"
+        className="relative z-10 w-full h-full flex flex-col justify-center px-6 sm:px-6 md:px-8 py-6 md:py-10"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center h-full">
 
           {/* Left Side: Content */}
-          <div className="lg:col-span-9 flex flex-col items-start text-left gap-4 md:gap-6 h-full pb-12">
+          <div className="lg:col-span-9 flex flex-col items-start text-left gap-4 md:gap-6 h-full pb-4 lg:pb-12">
             {/* Conditional "Visit Page" Button (Desktop Only) */}
             <div className="min-h-[50px] hidden lg:block">
               <AnimatePresence mode="wait">
@@ -124,7 +124,7 @@ export default function Hero() {
         </div>
 
         {/* Mobile Controls */}
-        <div className="mt-6 lg:hidden flex flex-col items-center gap-4 pb-8">
+        <div className="mt-2 lg:hidden flex flex-col items-center gap-4 pb-8">
           <Controls
             verticals={verticals}
             selectedIndex={selectedIndex}
@@ -171,18 +171,18 @@ const DynamicText = memo(({ content }) => (
       initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
-      transition={{ 
-        duration: 0.8, 
+      transition={{
+        duration: 0.8,
         ease: [0.16, 1, 0.3, 1],
         opacity: { duration: 0.5 },
         filter: { duration: 0.5 }
       }}
-      className="flex flex-col items-start gap-4 md:gap-8 w-full pt-10 lg:pt-0"
+      className="flex flex-col items-start gap-4 md:gap-8 w-full pt-4 lg:pt-0"
     >
-      <h1 className="text-title-1 leading-[1.2] text-white font-bold tracking-tight text-left max-w-none lg:max-w-5xl">
+      <h1 className="text-title-1 leading-[1.2] text-white font-bold tracking-tight text-left max-w-none lg:max-w-5xl min-h-[2.4em] lg:min-h-[2.4em] flex items-center">
         {content.title}
       </h1>
-      <p className="max-w-none lg:max-w-3xl text-lg md:text-[1.25rem] font-medium leading-relaxed text-white/70 text-left">
+      <p className="max-w-none lg:max-w-3xl text-lg md:text-[1.25rem] font-medium leading-relaxed text-white/70 text-left min-h-[3.2em] flex items-start">
         {content.description}
       </p>
 
@@ -222,12 +222,13 @@ const BadgeCard = ({ image, label, containerClassName, imageContainerClassName, 
 );
 
 const Badges = memo(({ activeId }) => {
-  const isSpecialSector = activeId === "digital" || activeId === "energy";
-
-  if (isSpecialSector) return null;
+  const showBadges = activeId === "aerospace"; // Only Aerospace has these specific certifications
 
   return (
-    <div className="flex flex-row gap-18 w-full justify-between lg:justify-start lg:gap-8">
+    <div className={cn(
+      "flex flex-row gap-18 w-full justify-between lg:justify-start lg:gap-8 transition-opacity duration-500",
+      !showBadges && "opacity-0 pointer-events-none" // Maintain layout but hide contents
+    )}>
       <BadgeCard
         image="/make_in_india.png"
       //label="Made in India"
@@ -251,7 +252,7 @@ const Controls = memo(({ verticals, selectedIndex, onSelect }) => (
           onClick={() => onSelect(idx)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          animate={{ 
+          animate={{
             scale: isActive ? 1.08 : 1,
             opacity: isActive ? 1 : 0.7
           }}
@@ -271,9 +272,9 @@ const Controls = memo(({ verticals, selectedIndex, onSelect }) => (
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             {isActive && (
-              <motion.div 
+              <motion.div
                 layoutId="active-glow"
-                className="absolute inset-0 bg-[#DA291C]/10" 
+                className="absolute inset-0 bg-[#DA291C]/10"
               />
             )}
           </div>

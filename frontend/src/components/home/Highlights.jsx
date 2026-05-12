@@ -1,4 +1,4 @@
-import { Sparkles, ArrowUp, ArrowDown } from "lucide-react";
+import { Sparkles, ArrowUp, ArrowDown, Download } from "lucide-react";
 import { cn } from "../../utils/cn";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
@@ -6,6 +6,7 @@ import { highlightItems } from "../../constants/siteContent";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
 import Container from "../common/Container";
+import ActionLink from "../common/ActionLink";
 
 function HighlightCard({ item }) {
   const cardRef = useRef(null);
@@ -52,7 +53,7 @@ function HighlightCard({ item }) {
     y.set(0);
   };
 
-  const MAX_DESC_LENGTH = isMobile ? 45 : 150; 
+  const MAX_DESC_LENGTH = isMobile ? 45 : 150;
   const isLongDesc = item.desc.length > MAX_DESC_LENGTH;
   const isCurrentlyExpanded = isExpanded || (!isMobile && isHovered && isLongDesc);
 
@@ -68,7 +69,7 @@ function HighlightCard({ item }) {
         height: "auto",
         zIndex: isHovered ? 50 : 1,
       }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.02,
         backgroundColor: "rgba(255, 255, 255, 0.07)",
         borderColor: "rgba(218, 41, 28, 0.5)",
@@ -166,7 +167,7 @@ indigenous LiDAR platform is transforming industries."
                 className="mb-0"
               />
 
-              <div className="hidden lg:flex gap-4 mt-auto">
+              <div className="hidden lg:flex items-center gap-4 mt-auto">
                 <button
                   onClick={() => scroll("up")}
                   aria-label="Scroll up"

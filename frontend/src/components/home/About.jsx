@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Info, Target, History, Rocket, Check } from "lucide-react";
+import { Info, Target, History, Rocket, Check, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../../utils/cn";
 import { aboutFeatures } from "../../constants/siteContent";
@@ -93,7 +93,13 @@ export default function About({ fadeInUp }) {
                 {/* Buttons */}
                 <div className="mt-4 flex flex-col gap-4 sm:flex-row">
                   <ActionLink>Read more</ActionLink> {/** This button is just for show, it will redirect to the about page */}
-                  {/* <ActionLink>Download Brochures</ActionLink> {/** On clicking the button a popup card appears where the user need to provide their email and phone number and the brochure is sent to their email only after mobile number verification using OTP */}
+                  <ActionLink 
+                    href="/LiCopter_Brochure_V2.0.pdf" 
+                    download="LiCopter_Brochure.pdf"
+                    icon={Download}
+                  >
+                    Download Brochures
+                  </ActionLink>
                 </div>
               </div>
 

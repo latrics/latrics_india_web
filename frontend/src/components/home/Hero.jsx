@@ -146,10 +146,10 @@ const Background = memo(({ crossfadeKey, imageUrl, customClassName }) => (
     <AnimatePresence>
       <motion.div
         key={crossfadeKey}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1.2 }}
+        initial={{ opacity: 0, scale: 1.1 }}
+        animate={{ opacity: 1, scale: 1.05 }}
+        exit={{ opacity: 0, scale: 1.1 }}
+        transition={{ duration: 1.5, ease: "easeInOut" }}
         className={cn(
           "absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105",
           customClassName
@@ -168,10 +168,15 @@ const DynamicText = memo(({ content }) => (
   <AnimatePresence mode="wait">
     <motion.div
       key={content.id}
-      initial={{ opacity: 0, x: -30 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: 30 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+      transition={{ 
+        duration: 0.8, 
+        ease: [0.16, 1, 0.3, 1],
+        opacity: { duration: 0.5 },
+        filter: { duration: 0.5 }
+      }}
       className="flex flex-col items-start gap-4 md:gap-8 w-full pt-10 lg:pt-0"
     >
       <h1 className="text-title-1 leading-[1.2] text-white font-bold tracking-tight text-left max-w-none lg:max-w-5xl">
@@ -241,12 +246,19 @@ const Controls = memo(({ verticals, selectedIndex, onSelect }) => (
     {verticals.map((v, idx) => {
       const isActive = selectedIndex === idx;
       return (
-        <button
+        <motion.button
           key={v.id}
           onClick={() => onSelect(idx)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          animate={{ 
+            scale: isActive ? 1.08 : 1,
+            opacity: isActive ? 1 : 0.7
+          }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className={cn(
-            "group relative flex flex-col items-center gap-2 w-18 sm:w-28 transition-all duration-500",
-            isActive ? "scale-105" : "opacity-90 hover:opacity-100"
+            "group relative flex flex-col items-center gap-2 w-18 sm:w-28",
+            isActive && "z-10"
           )}
         >
           <div className={cn(
@@ -259,7 +271,10 @@ const Controls = memo(({ verticals, selectedIndex, onSelect }) => (
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             {isActive && (
-              <div className="absolute inset-0 bg-[#DA291C]/10" />
+              <motion.div 
+                layoutId="active-glow"
+                className="absolute inset-0 bg-[#DA291C]/10" 
+              />
             )}
           </div>
           <span className={cn(
@@ -268,7 +283,7 @@ const Controls = memo(({ verticals, selectedIndex, onSelect }) => (
           )}>
             {v.label}
           </span>
-        </button>
+        </motion.button>
       );
     })}
   </div>

@@ -12,7 +12,7 @@ import { cn } from "../../utils/cn";
 const links = [
   { href: "#", label: "Home" },
   { href: "#product", label: "Products", hasDropdown: true },
-  { href: "#expertise", label: "Expertise", hasDropdown: true },
+  { href: "#expertise", label: "Expertise", hasDropdown: false },
   { href: "#case-studies", label: "Outcomes", hasDropdown: false },
   { href: "#highlights", label: "Blog", hasDropdown: false },
   { href: "#about", label: "About", hasDropdown: false }
@@ -51,18 +51,7 @@ const productDropdown = {
  * Dropdown data for Expertise, Outcomes, Blog, and About.
  * Standardized structure for consistent rendering in both desktop and mobile menus.
  */
-const expertiseDropdown = {
-  categories: [
-    {
-      title: "INDUSTRIES",
-      items: [
-        { name: "Aerospace", href: "#aerospace" },
-        { name: "Digital Intelligence", href: "#digital-intelligence" },
-        { name: "Sustainable Energy", href: "#energy" }
-      ]
-    }
-  ]
-};
+
 
 const outcomesDropdown = {
   categories: [
@@ -157,6 +146,21 @@ export default function Navbar({ isScrolled, currentRoute }) {
   useEffect(() => {
     closeSearch();
   }, [currentRoute]);
+  
+  /**
+   * Effect: Prevent Body Scroll
+   * Disables scrolling on the main page when the mobile menu is open.
+   */
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [open]);
 
   const handleClickOutside = (event) => {
     // Close all menus if user clicks outside the navbar area
@@ -220,7 +224,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
   const allSearchableItems = [
     ...links.map(l => ({ label: l.label, href: l.href, category: "Pages" })),
     ...productDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Products" }))),
-    ...expertiseDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Expertise" }))),
+
     ...outcomesDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Outcomes" }))),
     ...blogDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Updates" }))),
     ...aboutDropdown.categories.flatMap(c => c.items.map(i => ({ label: i.name, href: i.href, category: "Company" })))
@@ -514,7 +518,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
             <div className="hidden lg:block">
               <Button
                 as="a"
-                href="#contact"
+                href="#request-demo-form"
                 variant="brand-solid"
                 className="flex items-center gap-2 px-6 py-2 h-11 rounded-xl text-sm font-bold shadow-lg shadow-brand/20 hover:scale-[1.02] transition-all"
               >
@@ -546,7 +550,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed inset-x-4 top-20 z-[60] lg:hidden"
           >
-            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-6 shadow-[0_40px_100px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
+            <div className="overflow-y-auto no-scrollbar max-h-[calc(100dvh-160px)] rounded-xl border border-gray-200 bg-white p-6 shadow-[0_40px_100px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
               <div className="flex flex-col gap-1">
                 {links.map((link) => {
                   const active = isLinkActive(link.label);
@@ -555,7 +559,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
                   // Map sub-sections based on link label for accordion behavior
                   let dropdownData = null;
                   if (link.label === "Products") dropdownData = productDropdown;
-                  if (link.label === "Expertise") dropdownData = expertiseDropdown;
+
                   if (link.label === "Outcomes") dropdownData = outcomesDropdown;
                   if (link.label === "Blog") dropdownData = blogDropdown;
                   if (link.label === "About") dropdownData = aboutDropdown;
@@ -632,7 +636,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
               <div className="mt-8 flex items-center border-t border-gray-200 pt-8">
                 <Button
                   as="a"
-                  href="#contact"
+                  href="#request-demo-form"
                   variant="brand-solid"
                   onClick={() => setOpen(false)}
                   className="flex h-14 flex-1 items-center justify-center gap-3 rounded-xl font-sans text-base font-bold text-white shadow-[0_12px_24px_rgba(218,41,28,0.3)] transition-all"

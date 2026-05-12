@@ -38,7 +38,7 @@ export default function Footer({ isHomePage = true }) {
   };
 
   return (
-    <footer 
+    <footer
       className="relative z-[1] border-t border-white/10 transition-colors duration-500 mt-[var(--section-spacing)]"
       style={{ backgroundColor: isHomePage ? "#DA291C" : "#54585A" }}
     >
@@ -51,9 +51,8 @@ export default function Footer({ isHomePage = true }) {
             duration: 80,
             ease: "linear"
           }}
-          className={`flex w-max whitespace-nowrap text-[6vw] md:text-[4vw] font-black uppercase tracking-tighter transition-colors duration-500 ${
-            isHomePage ? "text-[#800F0F]/80" : "text-white/10"
-          }`}
+          className={`flex w-max whitespace-nowrap text-[6vw] md:text-[4vw] font-black uppercase tracking-tighter transition-colors duration-500 ${isHomePage ? "text-[#800F0F]/80" : "text-white/10"
+            }`}
         >
           {/* Render double the items for a mathematically perfect seamless loop (0 to -50%) */}
           {[...Array(12)].map((_, i) => (
@@ -75,7 +74,7 @@ export default function Footer({ isHomePage = true }) {
               />
             </div>
             <p className="font-sans max-w-xs text-sm leading-relaxed text-white/80">
-              Leading the intelligence layer for global industrial operations through LiDAR, AI analytics, and autonomous aerospace systems.
+              India's Autonomous Technology Company, building Tomorrow's Aerial Infrastructure
             </p>
           </div>
 
@@ -104,7 +103,7 @@ export default function Footer({ isHomePage = true }) {
             <ul className="grid gap-3">
               {[
                 ["#about", "About us"],
-                ["#contact", "Contact"],
+                ["#request-demo-form", "Contact"],
                 ["#highlights", "Latest news"]
               ].map(([href, label]) => (
                 <li key={href}>

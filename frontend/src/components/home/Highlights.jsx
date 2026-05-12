@@ -68,16 +68,26 @@ function HighlightCard({ item }) {
         height: "auto",
         zIndex: isHovered ? 50 : 1,
       }}
+      whileHover={{ 
+        scale: 1.02,
+        backgroundColor: "rgba(255, 255, 255, 0.07)",
+        borderColor: "rgba(218, 41, 28, 0.5)",
+      }}
       transition={{
         layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-        height: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+        scale: { duration: 0.4, ease: "easeOut" },
+        backgroundColor: { duration: 0.3 },
+        borderColor: { duration: 0.3 }
       }}
       style={{
         rotateX,
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className={`group relative grid w-full gap-2 items-start overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-3 sm:px-5 sm:py-5 shadow-xl transition-all duration-500 ease-out sm:grid-cols-[130px_1fr] sm:gap-6 flex-shrink-0 ${isHovered ? 'ring-1 ring-[#DA291C]/50 shadow-2xl bg-white/[0.07]' : ''}`}
+      className={cn(
+        "group relative grid w-full gap-2 items-start overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.04] px-4 py-3 sm:px-5 sm:py-5 shadow-xl sm:grid-cols-[130px_1fr] sm:gap-6 flex-shrink-0",
+        isHovered && "ring-1 ring-[#DA291C]/50 shadow-2xl"
+      )}
     >
       <div className="relative h-30 w-full overflow-hidden rounded-xl hidden sm:block" style={{ transform: "translateZ(20px)" }}>
         <motion.img

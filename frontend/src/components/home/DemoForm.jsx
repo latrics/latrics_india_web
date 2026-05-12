@@ -66,7 +66,7 @@ export default function DemoForm({
             </div>
           </div>
 
-          <Card variant="inset" className="p-5 sm:p-7 flex flex-col h-full">
+          <Card id="request-demo-form" variant="inset" className="p-5 sm:p-7 flex flex-col h-full scroll-mt-32">
             <h3 className="font-display mt-0 mb-2 text-title-2 text-fg text-center">Get started</h3>
             <p className="font-display text-regular text-base mb-4 max-w-md mx-auto text-center opacity-80">Fill in the details below and we&apos;ll get back to you shortly</p>
             <form onSubmit={handleFormSubmit} className="flex flex-col flex-1 gap-3">

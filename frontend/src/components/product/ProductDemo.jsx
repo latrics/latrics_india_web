@@ -55,7 +55,7 @@ export default function ProductDemo({
 
               {/* Get Quotation button with ActionLink styling */}
               <ActionLink
-                href="#contact"
+                href="/#request-demo-form"
                 className="mt-4"
               >
                 Get Quotation

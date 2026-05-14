@@ -13,8 +13,8 @@ export default function HomePopup() {
   const [activeStep, setActiveStep] = useState(0);
   const images = [
     "/licopter_popup01.png",
-    "/Drone_image_2.jpg",
-    "/licopter_hero.jpg"
+    "/licopter_popup01.png",
+    "/licopter_popup01.png"
   ];
 
   // Auto-slide functionality

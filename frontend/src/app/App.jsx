@@ -19,6 +19,7 @@ import CaseStudies from "../components/home/CaseStudies";
 import Milestones from "../components/home/Milestones";
 import DemoForm from "../components/home/DemoForm";
 import Footer from "../components/home/Footer";
+import HomePopup from "../components/home/HomePopup";
 import ProductPage from "../components/product/ProductPage";
 import AboutPage from "../components/about/AboutPage";
 import ExpertisePage from "../components/expertise/ExpertisePage";
@@ -143,6 +144,7 @@ export default function App() {
         />
 
         <Navbar isScrolled={isScrolled} currentRoute={currentRoute} />
+        {currentRoute === "home" && <HomePopup />}
 
         <AnimatePresence mode="wait">
           <motion.div

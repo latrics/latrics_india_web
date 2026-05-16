@@ -75,7 +75,7 @@ export default function HomePopup() {
             {/* Close Button - Distinct Floating Red Square */}
             <button
               onClick={handleClose}
-              className="absolute -top-3 -right-3 z-[60] p-2 bg-[#DA291C] text-white hover:bg-[#DA291C]/90 hover:scale-105 transition-all rounded-lg shadow-lg"
+              className="absolute -top-3 -right-3 z-[60] p-2 bg-brand text-white hover:bg-brand-hover hover:scale-105 transition-all rounded-lg shadow-lg"
               aria-label="Close"
             >
               <X size={24} strokeWidth={2.5} />
@@ -116,7 +116,7 @@ export default function HomePopup() {
                       onClick={() => setActiveStep(idx)}
                       className={cn(
                         "h-1.5 rounded-full transition-all duration-300",
-                        activeStep === idx ? "w-6 bg-[#DA291C]" : "w-3 bg-white/40 hover:bg-white/60"
+                        activeStep === idx ? "w-6 bg-brand" : "w-3 bg-white/40 hover:bg-white/60"
                       )}
                       aria-label={`Go to slide ${idx + 1}`}
                     />
@@ -137,15 +137,15 @@ export default function HomePopup() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 }}
-                      className="text-3xl md:text-4xl font-extrabold text-[#DA291C] leading-tight mb-3 tracking-tight"
+                      className="font-display text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-brand-deep to-brand leading-tight mb-3 tracking-tight"
                     >
                       Latrics Survey Drone
                     </motion.h2>
 
-                    <h3 className="text-base md:text-lg font-semi-bold text-slate-900 mb-2">
+                    <h3 className="font-display text-base md:text-lg font-medium text-card-light-fg mb-2">
                       At Latrics, we build precision-driven LiDAR
                     </h3>
-                    <p className="text-[0.75rem] md:text-[0.85rem] text-slate-500 leading-relaxed max-w-[90%]">
+                    <p className="font-sans text-body-s text-card-light-muted leading-relaxed max-w-[90%]">
                       We fuse advanced drone hardware with proprietary AI analytics to give manufacturer and facility operators.
                     </p>
                   </div>
@@ -166,13 +166,13 @@ export default function HomePopup() {
                         className="bg-black/6 backdrop-blur border border-slate/40 p-4 rounded-lg flex flex-col items-start gap-3 group/card hover:bg-white/60 transition-all duration-300 shadow-sm"
                       >
                         <div className="size-8 rounded-lg bg-black/8 backdrop-blur border border-white/20 flex items-center justify-center shrink-0 group-hover/card:scale-110 transition-transform">
-                          <Flame className="size-5 text-[#DA291C] fill-[#DA291C]" />
+                          <Flame className="size-5 text-brand fill-brand" />
                         </div>
                         <div className="flex flex-col gap-0.5">
-                          <span className="text-[0.85rem] font-bold text-[#DA291C] leading-tight">
+                          <span className="font-display text-[0.85rem] font-bold text-brand leading-tight">
                             {feature.title}
                           </span>
-                          <span className="text-[0.65rem] font-semi-bold text-slate-500 tracking-wider uppercase">
+                          <span className="font-sans text-overline text-card-light-muted">
                             {feature.subtitle}
                           </span>
                         </div>
@@ -184,13 +184,13 @@ export default function HomePopup() {
                   <div className="grid grid-cols-2 gap-3 mt-auto mb-6">
                     <button
                       onClick={handleClose}
-                      className="h-12 rounded-lg bg-slate/10 border-[2px] border-slate-300 text-slate-600 font-bold text-sm hover:bg-white transition-colors"
+                      className="font-sans h-12 rounded-lg bg-black/5 border-[2px] border-black/10 text-card-light-muted font-bold text-sm hover:bg-white transition-colors"
                     >
                       Maybe Later
                     </button>
                     <button
                       onClick={handleClose}
-                      className="h-12 rounded-lg bg-[#DA291C] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#DA291C]/90 shadow-lg shadow-[#DA291C]/20 transition-all group"
+                      className="font-sans h-12 rounded-lg bg-brand text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-brand-hover shadow-lg shadow-brand-glow transition-all group"
                     >
                       Continue
                       <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -202,7 +202,7 @@ export default function HomePopup() {
                     <div className="size-5 rounded-full bg-green-500 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
                       <Check className="size-3.5 text-white" strokeWidth={4} />
                     </div>
-                    <p className="text-xs leading-relaxed text-slate-500 font-medium">
+                    <p className="font-sans text-caption leading-relaxed text-card-light-muted font-medium">
                       We fuse advanced drone hardware with proprietary AI analytics to give manufacturer and facility operators.
                     </p>
                   </div>

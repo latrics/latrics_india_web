@@ -3,11 +3,32 @@
  * Debugging is much easier when text, images, and section lists live in one place.
  */
 export const industryImages = {
-  Mining: "/case_3.png",
+  Mining: [
+    "/adani_mines_0.png",
+    "/adani_mines_1.png",
+    "/adani_mines_2.png",
+    "/adani_mines_3.png",
+    "/adani_mines_4.png"
+  ],
   "Highways and Railways": "/highways_railways.jpg",
-  "Urban Development": "/topographic_map.jpg",
-  "Energy and Utilities": "/industry_energy.png",
-  "Water Resources": "/water_resources.jpg",
+  "Urban Development": [
+    "/amaravthi_urban_dev_0.png",
+    "/amaravthi_urban_dev_1.png",
+    "/amaravthi_urban_dev_2.png",
+    "/amaravthi_urban_dev_3.png",
+    "/amaravthi_urban_dev_4.png",
+    "/amaravthi_urban_dev_5.jpeg"
+  ],
+  "Energy and Utilities": [
+    "/powerlines_0.png",
+    "/powerlines_1.png",
+    "/powerlines_2.png",
+    "/powerlines_3.png"
+  ],
+  "Water Resources": [
+    "/nalla_0.png",
+    "/nalla_1.png"
+  ],
   "Emergency Services": "/industry_aerospace.png"
 };
 

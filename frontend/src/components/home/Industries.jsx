@@ -25,7 +25,24 @@ const DIMENSIONS = {
 
 export default function Industries({ activeTab, setActiveTab, industryImages }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const dropdownRef = useRef(null);
+
+  // Reset index when tab changes
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [activeTab]);
+
+  // Slideshow logic for tabs with multiple images
+  useEffect(() => {
+    const images = industryImages[activeTab];
+    if (Array.isArray(images) && images.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      }, 5000); // 5 seconds per slide
+      return () => clearInterval(interval);
+    }
+  }, [activeTab, industryImages]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -146,16 +163,36 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
           )}>
             <AnimatePresence mode="wait">
               <motion.img
-                key={activeTab}
+                key={`${activeTab}-${currentImageIndex}`}
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                src={industryImages[activeTab]}
-                alt={activeTab}
+                src={Array.isArray(industryImages[activeTab]) ? industryImages[activeTab][currentImageIndex] : industryImages[activeTab]}
+                alt={`${activeTab} - view ${currentImageIndex + 1}`}
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105"
               />
             </AnimatePresence>
+
+            {/* Pagination Dots for Slideshow */}
+            {Array.isArray(industryImages[activeTab]) && industryImages[activeTab].length > 1 && (
+              <div className="absolute bottom-1/5 translate-y-1/2 right-6 sm:right-8 md:right-10 z-20 flex flex-col gap-2.5">
+                {industryImages[activeTab].map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex(idx);
+                    }}
+                    className={cn(
+                      "w-2 rounded-full transition-all duration-300",
+                      currentImageIndex === idx ? "h-6 bg-brand shadow-[0_0_12px_rgba(218,41,28,0.5)]" : "h-2 bg-white/30 hover:bg-white/50"
+                    )}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            )}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent" />
 
             {/* Top Right Decorative Arrow Button (Replica) */}

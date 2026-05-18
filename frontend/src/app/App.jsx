@@ -122,12 +122,10 @@ export default function App() {
 
   return (
     <>
-
-
       <div
         className={cn(
           "relative isolate min-h-screen overflow-x-hidden w-full",
-          ["about", "expertise", "product", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes", "aerospace", "digital-intelligence", "energy"].includes(currentRoute) && "h-[100dvh] overflow-hidden"
+          currentRoute !== "home" && "h-[100dvh] overflow-hidden"
         )}
       >
         {/* Site-wide interactive grid spotlight */}
@@ -146,104 +144,117 @@ export default function App() {
         <Navbar isScrolled={isScrolled} currentRoute={currentRoute} />
         {currentRoute === "home" && <HomePopup />}
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentRoute}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full h-full"
-          >
-            {currentRoute === "product" ? (
-              <ComingSoon
-                title="LiCOPTER-P720"
-                subtitle="The next generation of industrial heavy-lift drone technology is being calibrated for peak performance. Stay tuned for the technical specifications."
-                icon={Rocket}
-              />
-            ) : currentRoute === "about" ? (
-              <ComingSoon
-                title="About Latrics"
-                subtitle="We're building a company focused on precision, innovation, and real-world impact. Our journey, vision, and the people behind Latrics will be shared here soon. Stay tuned."
-                icon={Flame}
-              />
-            ) : currentRoute === "expertise" ? (
-              <ComingSoon
-                title="Industrial Expertise"
-                subtitle="We're detailing our specialized industrial capabilities and technical mastery. This section is currently being updated with our latest methodologies."
-                icon={Layers}
-              />
-            ) : currentRoute === "sudarshana" ? (
-              <ComingSoon
-                title="Sudarshana Series"
-                subtitle="Our next-generation tactical drone platform is undergoing final mission-readiness testing. Stay tuned for the unveiling."
-                icon={Rocket}
-              />
-            ) : currentRoute === "guardian" ? (
-              <ComingSoon
-                title="Guardian Series"
-                subtitle="Advanced defensive aerial surveillance systems currently in the R&D pipeline. Precision and protection, redefined."
-                icon={ShieldAlert}
-              />
-            ) : currentRoute === "terrain-desk" ? (
-              <ComingSoon
-                title="Terrain Desk"
-                subtitle="Our proprietary geospatial analysis platform is being integrated with next-gen AI capabilities."
-                icon={Layers}
-              />
-            ) : currentRoute === "aerospace" ? (
-              <ComingSoon
-                title="Aerospace Solutions"
-                subtitle="Pioneering the next frontier of aerial intelligence. Our aerospace division is crafting advanced flight systems for the future of Indian industry."
-                icon={Rocket}
-              />
-            ) : currentRoute === "digital-intelligence" ? (
-              <ComingSoon
-                title="Digital Intelligence"
-                subtitle="Harnessing the power of AI and Big Data to transform raw aerial telemetry into actionable industrial insights."
-                icon={Activity}
-              />
-            ) : currentRoute === "energy" ? (
-              <ComingSoon
-                title="Sustainable Energy"
-                subtitle="Optimizing the energy landscape through precise LiDAR monitoring and autonomous infrastructure inspection."
-                icon={Flame}
-              />
-            ) : currentRoute === "highlights" ? (
-              <BlogPage />
-            ) : currentRoute === "outcomes" ? (
-              <OutcomesPage />
-            ) : (
-              <main id="top" className="relative z-[1]">
-                <Hero staggerContainer={staggerContainer} staggerItem={staggerItem} />
-                <Highlights staggerContainer={staggerContainer} staggerItem={staggerItem} />
-                <Brochure staggerContainer={staggerContainer} staggerItem={staggerItem} />
-                {/* <BannerMarquee /> */}
-                <Industries
-                  activeTab={activeTab}
-                  setActiveTab={setActiveTab}
-                  industryImages={industryImages}
-                />
-                <WhyLatrics staggerContainer={staggerContainer} staggerItem={staggerItem} />
-                <Milestones staggerContainer={staggerContainer} staggerItem={staggerItem} />
-                <CaseStudies staggerContainer={staggerContainer} staggerItem={staggerItem} />
-                <About fadeInUp={fadeInUp} />
-                <DemoForm
-                  formData={formData}
-                  setFormData={setFormData}
-                  handleFormSubmit={handleFormSubmit}
-                  isSubmitting={isSubmitting}
-                  submitState={submitState}
-                />
-              </main>
-            )}
-          </motion.div>
-        </AnimatePresence>
+        {/* 1. HOME PAGE CONTAINER: Always mounted in the DOM to keep its state, three.js/canvas instances and scroll position, but hidden from sight & interaction when a subpage is active */}
+        <div 
+          className={cn(
+            "w-full h-full transition-opacity duration-300 ease-in-out", 
+            currentRoute !== "home" && "opacity-0 pointer-events-none"
+          )}
+        >
+          <main id="top" className="relative z-[1]">
+            <Hero staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <Highlights staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <Brochure staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <Industries
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              industryImages={industryImages}
+            />
+            <WhyLatrics staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <Milestones staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <CaseStudies staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <About fadeInUp={fadeInUp} />
+            <DemoForm
+              formData={formData}
+              setFormData={setFormData}
+              handleFormSubmit={handleFormSubmit}
+              isSubmitting={isSubmitting}
+              submitState={submitState}
+            />
+          </main>
+          
+          <Footer isHomePage={true} />
+        </div>
 
-        {/* Global Footer - Hidden on 'Coming Soon' pages to maintain aesthetic focus */}
-        {!["about", "expertise", "product", "sudarshana", "guardian", "terrain-desk", "highlights", "outcomes", "aerospace", "digital-intelligence", "energy"].includes(currentRoute) && (
-          <Footer isHomePage={currentRoute === "home"} />
-        )}
+        {/* 2. SUBPAGES CONTAINER: Animates subpages instantly on top of the Home page without any unmounting lag */}
+        <AnimatePresence>
+          {currentRoute !== "home" && (
+            <motion.div
+              key={currentRoute}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-0 z-40 w-full h-[100dvh] overflow-hidden bg-[#1B1A1A]"
+            >
+              {currentRoute === "product" && (
+                <ComingSoon
+                  title="LiCOPTER-P720"
+                  subtitle="The next generation of industrial heavy-lift drone technology is being calibrated for peak performance. Stay tuned for the technical specifications."
+                  icon={Rocket}
+                />
+              )}
+              {currentRoute === "about" && (
+                <ComingSoon
+                  title="About Latrics"
+                  subtitle="We're building a company focused on precision, innovation, and real-world impact. Our journey, vision, and the people behind Latrics will be shared here soon. Stay tuned."
+                  icon={Flame}
+                />
+              )}
+              {currentRoute === "expertise" && (
+                <ComingSoon
+                  title="Industrial Expertise"
+                  subtitle="We're detailing our specialized industrial capabilities and technical mastery. This section is currently being updated with our latest methodologies."
+                  icon={Layers}
+                />
+              )}
+              {currentRoute === "sudarshana" && (
+                <ComingSoon
+                  title="Sudarshana Series"
+                  subtitle="Our next-generation tactical drone platform is undergoing final mission-readiness testing. Stay tuned for the unveiling."
+                  icon={Rocket}
+                />
+              )}
+              {currentRoute === "guardian" && (
+                <ComingSoon
+                  title="Guardian Series"
+                  subtitle="Advanced defensive aerial surveillance systems currently in the R&D pipeline. Precision and protection, redefined."
+                  icon={ShieldAlert}
+                />
+              )}
+              {currentRoute === "terrain-desk" && (
+                <ComingSoon
+                  title="Terrain Desk"
+                  subtitle="Our proprietary geospatial analysis platform is being integrated with next-gen AI capabilities."
+                  icon={Layers}
+                />
+              )}
+              {currentRoute === "aerospace" && (
+                <ComingSoon
+                  title="Aerospace Solutions"
+                  subtitle="Pioneering the next frontier of aerial intelligence. Our aerospace division is crafting advanced flight systems for the future of Indian industry."
+                  icon={Rocket}
+                />
+              )}
+              {currentRoute === "digital-intelligence" && (
+                <ComingSoon
+                  title="Digital Intelligence"
+                  subtitle="Harnessing the power of AI and Big Data to transform raw aerial telemetry into actionable industrial insights."
+                  icon={Activity}
+                />
+              )}
+              {currentRoute === "energy" && (
+                <ComingSoon
+                  title="Sustainable Energy"
+                  subtitle="Optimizing the energy landscape through precise LiDAR monitoring and autonomous infrastructure inspection."
+                  icon={Flame}
+                />
+              )}
+              {currentRoute === "highlights" && <BlogPage />}
+              {currentRoute === "outcomes" && <OutcomesPage />}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

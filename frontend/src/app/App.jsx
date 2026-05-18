@@ -185,8 +185,24 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-40 w-full h-[100dvh] overflow-hidden bg-[#1B1A1A]"
+              className="fixed inset-0 z-40 w-full h-[100dvh] overflow-hidden"
             >
+              {/* Solid brand canvas background layer behind the grid */}
+              <div className="absolute inset-0 bg-[#08090d] -z-20" />
+              
+              {/* Dedicated grid background instance for the subpage context */}
+              <GridBackground />
+
+              {/* Glowing accent effects for subpage ambient styling */}
+              <div
+                className="pointer-events-none absolute left-[-6rem] top-32 -z-10 h-80 w-80 rounded-full bg-brand-glow blur-[60px]"
+                aria-hidden
+              />
+              <div
+                className="pointer-events-none absolute right-[-8rem] top-[36rem] -z-10 h-96 w-96 rounded-full bg-accent-glow blur-[60px]"
+                aria-hidden
+              />
+
               {currentRoute === "product" && (
                 <ComingSoon
                   title="LiCOPTER-P720"

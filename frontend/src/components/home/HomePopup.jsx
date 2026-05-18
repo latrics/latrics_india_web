@@ -8,6 +8,10 @@ import { cn } from "../../utils/cn";
  * A premium first-time visitor modal that showcases the Latrics Survey Drone.
  * Uses localStorage to ensure it only appears once.
  */
+// Module-level state to track if the popup was shown during the active React session.
+// This persists across component mount/unmount cycles but resets completely on page reload.
+let hasBeenShownSession = false;
+
 export default function HomePopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -29,10 +33,13 @@ export default function HomePopup() {
   }, [isOpen, images.length]);
 
   useEffect(() => {
+    if (hasBeenShownSession) return; // Prevent attaching the observer if already shown in this session
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsOpen(true);
+          hasBeenShownSession = true; // Mark as shown for the session
           observer.disconnect(); // Only trigger once
         }
       },

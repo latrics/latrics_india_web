@@ -23,10 +23,9 @@ import HomePopup from "../components/home/HomePopup";
 import ProductPage from "../components/product/ProductPage";
 import AboutPage from "../components/about/AboutPage";
 import ExpertisePage from "../components/expertise/ExpertisePage";
-import BlogPage from "../components/blog/BlogPage";
 import OutcomesPage from "../components/outcomes/OutcomesPage";
 import ComingSoon from "../components/common/ComingSoon";
-import { Rocket, ShieldAlert, Layers, Flame, Activity } from "lucide-react";
+import { Rocket, ShieldAlert, Layers, Flame, Activity, PenTool } from "lucide-react";
 
 /**
  * Main Application Composition Root.
@@ -61,7 +60,8 @@ export default function App() {
         window.location.hash.includes("expertise") ? "expertise" :
           window.location.hash.includes("aerospace") ? "aerospace" :
             window.location.hash.includes("digital-intelligence") ? "digital-intelligence" :
-              window.location.hash.includes("energy") ? "energy" : "home"
+              window.location.hash.includes("energy") ? "energy" :
+                window.location.hash.includes("blog") ? "blog" : "home"
   );
 
   useEffect(() => {
@@ -79,8 +79,8 @@ export default function App() {
         setCurrentRoute("guardian");
       } else if (hash.includes("terrain-desk")) {
         setCurrentRoute("terrain-desk");
-      } else if (hash.includes("highlights")) {
-        setCurrentRoute("highlights");
+      } else if (hash.includes("blog")) {
+        setCurrentRoute("blog");
       } else if (hash.includes("outcomes") || hash.includes("case-studies")) {
         setCurrentRoute("outcomes");
       } else if (hash.includes("aerospace")) {
@@ -207,20 +207,21 @@ export default function App() {
               />
 
               {currentRoute === "product" && (
-                <ProductPage
+                <ComingSoon
+                  title="LiCOPTER-P720"
+                  subtitle="The next generation of industrial heavy-lift drone technology is being calibrated for peak performance. Stay tuned for the technical specifications."
+                  icon={Rocket}
+                />
+              )}
+
+            {/**{/*<ProductPage
                   formData={formData}
                   setFormData={setFormData}
                   handleFormSubmit={handleFormSubmit}
                   isSubmitting={isSubmitting}
                   submitState={submitState}
-                />
-
-              )}
-              {/*<ComingSoon
-                title="About Latrics"
-                subtitle="We're building a company focused on precision, innovation, and real-world impact. Our journey, vision, and the people behind Latrics will be shared here soon. Stay tuned."
-                icon={Flame}
-              />*/}
+                />/} */}
+            
 
 
               {currentRoute === "about" && (
@@ -279,7 +280,14 @@ export default function App() {
                   icon={Flame}
                 />
               )}
-              {currentRoute === "highlights" && <BlogPage />}
+              {currentRoute === "blog" && (
+                <ComingSoon
+                  title="Latrics Blog"
+                  subtitle="Industry insights, technical deep-dives, and company news are currently being curated by our editorial team."
+                  icon={PenTool}
+                />
+              )}
+              
               {currentRoute === "outcomes" && <OutcomesPage />}
             </motion.div>
           )}

@@ -200,6 +200,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
     if (currentRoute === "product" && label === "Products") return true;
     if (currentRoute === "expertise" && label === "Expertise") return true;
     if (currentRoute === "about" && label === "About") return true;
+    if (currentRoute === "blog" && label === "Blog") return true;
     return false;
   };
 

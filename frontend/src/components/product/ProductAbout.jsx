@@ -1,4 +1,4 @@
-import { Flame } from "lucide-react";
+import { Flame, Download } from "lucide-react";
 import Section from "../common/Section";
 import Container from "../common/Container";
 import SectionHeading from "../common/SectionHeading";
@@ -25,7 +25,13 @@ export default function ProductAbout() {
             />
 
             <div className="flex flex-wrap items-center justify-center gap-6 pt-6">
-              <ActionLink href="#download">Download Brochure</ActionLink>
+              <ActionLink
+                href="/LiCopter_Brochure_V2.0.pdf"
+                download="LiCopter_Brochure.pdf"
+                icon={Download}
+              >
+                Download Brochure
+              </ActionLink>
               <ActionLink href="#discover">Discover more</ActionLink>
             </div>
           </div>

@@ -56,35 +56,29 @@ export const simulationStats = [
 
 export const highlightItems = [
   {
-    date: "March 5, 2026",
-    title: "Aerospace innovation award",
-    desc: "Autonomous corridor mapping workflows reduced inspection overhead while improving mission safety review.",
-    image: "/drone_inspection.png",
+    date: "May, 2026",
+    title: "Latrics Received ₹30 Lakh Grant Support from Kotak BizLabs Season 2",
+    desc: "Selected among the top 15 startups from 730+ applications nationwide, receiving grant support to scale India's indigenous LiDAR platform for critical infrastructure operations.",
+    image: "/kotakBizlab.jpg",
     featured: true
   },
   {
-    date: "March 12, 2026",
-    title: "Clean energy thermal partnership",
-    desc: "A new field deployment pairs thermal analytics with LiDAR to prioritize turbine maintenance in real time.",
-    image: "/industry_energy.png"
+    date: "Jan, 2026",
+    title: "Finally, Latrics Now Has India's First DGCA Certified LiDAR Drone",
+    desc: "LiCopter P720 received DGCA Type Certification as India's first indigenous LiDAR drone platform. Engineered for commercial autonomy, it delivers precise aerial mapping, advanced obstacle avoidance, and secure deployments across mining, infrastructure, and critical operations.",
+    image: "/dgca_certified_highlight.jpeg"
   },
   {
-    date: "February 27, 2026",
-    title: "Featured in Kotak Biz Lab",
-    desc: "Recognition for translating advanced sensing into practical industrial workflows across Indian manufacturing and aerospace.",
-    image: "/industry_digital.png"
+    date: "Jan, 2025",
+    title: "Latrics Presents Indigenous LiCopter P720 to PM Modi at Viksit Bharat Young Leader Dialogue 2025",
+    desc: "LiCopter was showcased to Hon'ble PM Shri Narendra Modi at the Viksit Bharat Young Leader Dialogue 2025, securing national recognition and multi-channel coverage for advancing India's indigenous aerial mapping and autonomous operations.",
+    image: "/My pitch with Modi ji.jpeg"
   },
   {
-    date: "April 2, 2026",
-    title: "Global Fleet Expansion",
-    desc: "Latrix expands its autonomous drone fleet to 15 new countries, enhancing global operational intelligence and coverage across multiple industries.",
-    image: "/drone_on_pedestals.png"
-  },
-  {
-    date: "March 20, 2026",
-    title: "Next-Gen LiDAR Sensors",
-    desc: "Unveiling our ultra-precise LiDAR sensor suite that allows for sub-millimeter defect detection in high-stress industrial environments.",
-    image: "/drone_sensor.png"
+    date: "May, 2026",
+    title: "Latrics Receives Land Allocation to Contribute to Andhra Pradesh Drone City Vision",
+    desc: " LiCopter P720 deployment and R&D facility established in Kurnool under the AP Drone City initiative, inaugurated in Puttaparthi in the presence of Defence Minister Shri Rajnath Singh and AP Chief Minister Shri Nara Chandrababu Naidu. Delivering precision LiDAR mapping for smart infrastructure, defense readiness, and critical corridor surveying - advancing India's sovereign autonomous ecosystem.",
+    image: "/landAllocation_highlights.jpg"
   }
 ];
 
@@ -180,8 +174,8 @@ export const caseStudies = [
 export const milestoneItems = [
   { value: "15+", label: "Years of Experience" },
   { value: "20+", label: "Active Drones" },
-  { value: "1000", label: "Completed Missions" },
-  { value: "200+", label: "Industrial Clients" }
+  { value: "100+", label: "Successful Flights" },
+  { value: "10+", label: "Successful Mission Executions" }
 ];
 
 export const timelineEvents = [

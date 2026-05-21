@@ -145,9 +145,9 @@ export default function App() {
         {currentRoute === "home" && <HomePopup />}
 
         {/* 1. HOME PAGE CONTAINER: Always mounted in the DOM to keep its state, three.js/canvas instances and scroll position, but hidden from sight & interaction when a subpage is active */}
-        <div 
+        <div
           className={cn(
-            "w-full h-full transition-opacity duration-300 ease-in-out", 
+            "w-full h-full transition-opacity duration-300 ease-in-out",
             currentRoute !== "home" && "opacity-0 pointer-events-none"
           )}
         >
@@ -172,7 +172,7 @@ export default function App() {
               submitState={submitState}
             />
           </main>
-          
+
           <Footer isHomePage={true} />
         </div>
 
@@ -185,11 +185,14 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-40 w-full h-[100dvh] overflow-hidden"
+              className={cn(
+                "fixed inset-0 z-40 w-full h-[100dvh] overflow-x-hidden",
+                currentRoute === "product" ? "overflow-y-auto" : "overflow-hidden"
+              )}
             >
               {/* Solid brand canvas background layer behind the grid */}
               <div className="absolute inset-0 bg-[#08090d] -z-20" />
-              
+
               {/* Dedicated grid background instance for the subpage context */}
               <GridBackground />
 
@@ -204,12 +207,22 @@ export default function App() {
               />
 
               {currentRoute === "product" && (
-                <ComingSoon
-                  title="LiCOPTER-P720"
-                  subtitle="The next generation of industrial heavy-lift drone technology is being calibrated for peak performance. Stay tuned for the technical specifications."
-                  icon={Rocket}
+                <ProductPage
+                  formData={formData}
+                  setFormData={setFormData}
+                  handleFormSubmit={handleFormSubmit}
+                  isSubmitting={isSubmitting}
+                  submitState={submitState}
                 />
+
               )}
+              {/*<ComingSoon
+                title="About Latrics"
+                subtitle="We're building a company focused on precision, innovation, and real-world impact. Our journey, vision, and the people behind Latrics will be shared here soon. Stay tuned."
+                icon={Flame}
+              />*/}
+
+
               {currentRoute === "about" && (
                 <ComingSoon
                   title="About Latrics"

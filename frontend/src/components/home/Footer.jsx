@@ -127,13 +127,12 @@ export default function Footer({ isHomePage = true }) {
               </label>
               <input
                 id="newsletter-email"
-                type="email"
-                placeholder="Email address"
+                type="text"
+                placeholder="Coming Soon"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={isSubmitting}
-                className="min-h-11 min-w-0 flex-1 rounded-xl border border-white/50 bg-black/20 px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 transition-colors focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20"
+                disabled
+                className="min-h-11 min-w-0 flex-1 rounded-xl border border-white/50 bg-black/20 px-3.5 py-2.5 text-sm text-white placeholder:text-white/40 transition-colors focus:border-white focus:outline-none focus:ring-2 focus:ring-white/20 cursor-not-allowed"
               />
               <Button
                 type="submit"

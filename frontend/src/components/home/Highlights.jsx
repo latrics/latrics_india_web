@@ -106,11 +106,11 @@ function HighlightCard({ item }) {
         <span className="text-[0.75rem] font-bold uppercase tracking-wider text-white/50">
           {item.date}
         </span>
-        <h3 className="font-display text-lg font-black leading-tight text-[#FFF5E0] md:text-xl">
+        <h2 className="font-display text-lg font-black leading-tight text-[#FFF5E0] md:text-lg">
           {item.title}
-        </h3>
+        </h2>
         <p className={cn(
-          "text-[1rem] font-regular leading-tight text-white/80 md:text-[1rem]",
+          "text-[1rem] font-regular leading-tight text-white/80 md:text-[0.75rem]",
           !isCurrentlyExpanded && isMobile ? "line-clamp-2" : ""
         )}>
           {!isCurrentlyExpanded && isLongDesc ? (
@@ -125,7 +125,20 @@ function HighlightCard({ item }) {
               >read more..</span>
             </>
           ) : (
-            item.desc
+            <>
+              {item.desc}
+              {isMobile && isExpanded && isLongDesc && (
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsExpanded(false);
+                  }}
+                  className="text-[#DA291C] font-semibold ml-1 cursor-pointer hover:underline whitespace-nowrap"
+                >
+                  show less
+                </span>
+              )}
+            </>
           )}
         </p>
       </div>
@@ -189,7 +202,7 @@ indigenous LiDAR platform is transforming industries."
             <motion.div
               layout
               ref={scrollContainerRef}
-              className="flex flex-col gap-5 md:h-[520px] md:overflow-y-auto overflow-x-hidden no-scrollbar pr-1 scroll-smooth"
+              className="flex flex-col gap-5 md:h-[570px] md:overflow-y-auto overflow-x-hidden no-scrollbar p-4 -m-4 scroll-smooth"
             >
               {highlightItems.map((item, index) => (
                 <HighlightCard key={index} item={item} />

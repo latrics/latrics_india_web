@@ -99,27 +99,25 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
                     - backdrop-blur adds a premium feel to the text background.
                   */}
                     <div
-                      className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500 ${(lockedIdx === idx || (lockedIdx === null && hoveredIdx === idx))
-                        ? "opacity-100 backdrop-blur-[2px]"
-                        : "lg:opacity-0 opacity-100"
-                        }`}
+                      className={cn(
+                        "absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-all duration-500 opacity-100",
+                        (lockedIdx === idx || (lockedIdx === null && hoveredIdx === idx))
+                          ? "backdrop-blur-[3px] from-black/95 via-black/50"
+                          : "backdrop-blur-[1px]"
+                      )}
                     />
 
                     {/* 
                     Text Content Overlay:
-                    - Controlled by isActive state.
-                    - delay-100 ensures the background starts fading before text appears for readability.
+                    - Visible at all times, with enhanced sizing on hover.
                   */}
                     <div
-                      className={`absolute inset-0 p-8 pt-12 pr-12 flex flex-col justify-end transition-opacity duration-500 ${(lockedIdx === idx || (lockedIdx === null && hoveredIdx === idx))
-                        ? "opacity-100 delay-100"
-                        : "lg:opacity-0 opacity-100"
-                        }`}
+                      className="absolute inset-0 p-6 lg:p-8 pt-12 pr-12 flex flex-col justify-end transition-all duration-500 opacity-100"
                     >
                       <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/50">
                         {item.meta}
                       </p>
-                      <h3 className="mb-2 text-2xl font-bold leading-tight text-white max-w-[90%]">
+                      <h3 className="mb-2 text-xl lg:text-lg lg:group-hover:text-2xl font-bold leading-tight text-white max-w-[90%] transition-all duration-300">
                         {item.title}
                       </h3>
                       <p className="text-sm font-medium leading-relaxed text-white/70 max-w-[85%] line-clamp-3">

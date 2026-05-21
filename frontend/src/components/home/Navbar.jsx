@@ -14,7 +14,7 @@ const links = [
   { href: "#product", label: "Products", hasDropdown: true },
   { href: "#expertise", label: "Expertise", hasDropdown: false },
   { href: "#case-studies", label: "Outcomes", hasDropdown: false },
-  { href: "#highlights", label: "Blog", hasDropdown: false },
+  { href: "#blog", label: "Blog", hasDropdown: false },
   { href: "#about", label: "About", hasDropdown: false }
 ];
 

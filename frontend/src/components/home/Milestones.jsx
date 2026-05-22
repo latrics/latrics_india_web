@@ -1,12 +1,41 @@
-import React, { memo } from "react";
+import React, { memo, useRef, useState, useEffect } from "react";
 import { Trophy } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useInView, animate } from "framer-motion";
 import { milestoneItems } from "../../constants/siteContent";
 import Container from "../common/Container";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
 
 const MilestoneCard = memo(({ item, index, variants }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  
+  // Set initial display to 0 + the suffix (e.g. "0+")
+  const initialSuffix = item.value.replace(/[\d.]/g, "");
+  const [displayValue, setDisplayValue] = useState("0" + initialSuffix);
+
+  useEffect(() => {
+    if (isInView) {
+      const numericPart = item.value.replace(/[^\d.]/g, "");
+      const targetNum = parseFloat(numericPart) || 0;
+      const suffix = item.value.replace(/[\d.]/g, "");
+      const hasDecimal = numericPart.includes(".");
+
+      const controls = animate(0, targetNum, {
+        duration: 1.5,
+        ease: "easeOut",
+        onUpdate: (value) => {
+          const formatted = hasDecimal ? value.toFixed(1) : Math.floor(value);
+          setDisplayValue(formatted + suffix);
+        },
+        onComplete: () => {
+          setDisplayValue(item.value);
+        }
+      });
+      return () => controls.stop();
+    }
+  }, [isInView, item.value]);
+
   const glowPositions = [
     "-left-16 -top-16",    // Card 1: Top Left
     "-right-16 -top-16",   // Card 2: Top Right
@@ -23,6 +52,7 @@ const MilestoneCard = memo(({ item, index, variants }) => {
 
   return (
     <motion.div
+      ref={ref}
       variants={variants}
       className="group relative flex h-full min-h-[190px] flex-col items-center justify-center overflow-hidden rounded-xl border border-white/[0.05] bg-gradient-to-br from-[#222] to-[#111] p-8 text-center transition-all duration-500 hover:border-brand/30 hover:shadow-[0_20px_50px_rgba(218,41,28,0.1)] sm:p-10"
     >
@@ -38,7 +68,7 @@ const MilestoneCard = memo(({ item, index, variants }) => {
 
       <div className="relative z-10 flex flex-col items-center gap-1">
         <div className="font-display text-5xl font-bold tracking-[-0.04em] text-white sm:text-6xl transition-transform group-hover:scale-110 duration-500">
-          {item.value}
+          {displayValue}
         </div>
         <div className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/40">
           {item.label}

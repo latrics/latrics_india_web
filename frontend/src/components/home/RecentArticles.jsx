@@ -1,7 +1,7 @@
 import { Grid, ArrowRight, ChevronRight, FileText, ArrowUpRight, Lock, Unlock } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { caseStudies } from "../../constants/siteContent";
+import { recentArticles } from "../../constants/siteContent";
 import Button from "../common/Button";
 import Container from "../common/Container";
 import Section from "../common/Section";
@@ -12,10 +12,10 @@ import ActionLink from "../common/ActionLink";
 import { cn } from "../../utils/cn";
 
 /**
- * CaseStudies Component
+ * RecentArticles Component
  * 
  * Logic & Workflow:
- * 1. Data Mapping: Iterates through the `caseStudies` array from `siteContent.js`.
+ * 1. Data Mapping: Iterates through the `recentArticles` array from `siteContent.js`.
  * 2. Interaction State: Uses `hoveredIdx` state to track which card is currently being hovered.
  * 3. Dynamic Layout (AER - Automated Expansion/Reduction):
  *    - On desktop (`lg`), the hovered card expands (`flex-[2.5]`) while siblings shrink (`flex-1`).
@@ -30,7 +30,7 @@ import { cn } from "../../utils/cn";
  * @param {Object} props.staggerContainer - Framer motion variants for the parent container.
  * @param {Object} props.staggerItem - Framer motion variants for individual cards.
  */
-export default function CaseStudies({ staggerContainer, staggerItem }) {
+export default function RecentArticles({ staggerContainer, staggerItem }) {
   // State to track the currently hovered index for the expansion effect
   const [hoveredIdx, setHoveredIdx] = useState(null);
   // State to track the currently locked index (clicked card)
@@ -41,7 +41,7 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
   };
 
   return (
-    <Section id="case-studies" variant="default">
+    <Section id="recent-articles" variant="default">
       <Container>
         <div className="island-card">
           {/* Section header with localized badges/icons for brand consistency */}
@@ -66,7 +66,7 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
             viewport={{ once: true, margin: "-70px" }}
             className="flex flex-col lg:flex-row gap-6 mb-16 h-auto lg:h-[372px]"
           >
-            {caseStudies.map((item, idx) => {
+            {recentArticles.map((item, idx) => {
               const isActive = hoveredIdx === idx;
 
               return (
@@ -79,30 +79,35 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
                   whileHover={{ y: -4, transition: { duration: 0.3 } }}
                   // Logic: flex property changes from 1 to 2.5 on hover or lock for the expansion effect
                   // If something is locked, it takes priority. Otherwise, use hover.
-                  className={`group relative overflow-visible rounded-[1rem] border-4 lg:border-[8px] border-white/70 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[280px] sm:h-[320px] lg:h-full w-full lg:w-auto ${lockedIdx !== null
+                  className={`group relative overflow-visible rounded-lg border-2 lg:border-[2px] border-white/100 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[280px] sm:h-[320px] lg:h-full w-full lg:w-auto ${lockedIdx !== null
                     ? (lockedIdx === idx ? "lg:flex-[2.5]" : "lg:flex-1")
                     : (hoveredIdx === idx ? "lg:flex-[2.5]" : "lg:flex-1")
                     }`}
                 >
                   {/* Image Container with overflow-hidden for the inner zoom effect */}
                   <div className="absolute inset-0 overflow-hidden rounded-[.5rem] lg:rounded-[.5rem]" style={{ transform: "translateZ(0)", WebkitMaskImage: "-webkit-radial-gradient(white, black)" }}>
-                    {/* Zoom Effect: Scale 110 on group-hover */}
+                    {/* Zoom & Brightness/Contrast enhancements on hover or active (locked) state */}
                     <img
                       src={item.img}
                       alt={item.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className={cn(
+                        "h-full w-full object-cover transition-all duration-500",
+                        (lockedIdx === idx || (lockedIdx === null && hoveredIdx === idx))
+                          ? "scale-110 brightness-110 contrast-105"
+                          : "scale-100 brightness-90"
+                      )}
                     />
 
                     {/* 
                     Glassmorphism Overlay:
                     - Fades in using opacity-100 on active state.
-                    - backdrop-blur adds a premium feel to the text background.
+                    - We keep it clear (no backdrop blur) on hover/press so details stand out.
                   */}
                     <div
                       className={cn(
                         "absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-all duration-500 opacity-100",
                         (lockedIdx === idx || (lockedIdx === null && hoveredIdx === idx))
-                          ? "backdrop-blur-[3px] from-black/95 via-black/50"
+                          ? "backdrop-blur-none from-black/80 via-black/20"
                           : "backdrop-blur-[1px]"
                       )}
                     />
@@ -117,10 +122,10 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
                       <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/50">
                         {item.meta}
                       </p>
-                      <h3 className="mb-2 text-xl lg:text-lg lg:group-hover:text-2xl font-bold leading-tight text-white max-w-[90%] transition-all duration-300">
+                      <p className="mb-2 text-lg lg:text-lg lg:group-hover:text-lg font-bold leading-tight text-white max-w-[90%] transition-all duration-300">
                         {item.title}
-                      </h3>
-                      <p className="text-sm font-medium leading-relaxed text-white/70 max-w-[85%] line-clamp-3">
+                      </p>
+                      <p className="text-xs font-medium leading-relaxed text-white/70 max-w-[85%] line-clamp-3">
                         {item.desc}
                       </p>
                     </div>
@@ -161,7 +166,7 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
             })}
           </motion.div>
 
-          {/* CTA to link to a dedicated case studies or articles page */}
+          {/* CTA to link to a dedicated articles page */}
           <div className="flex justify-center">
             <ActionLink href="">View More</ActionLink>  {/*TODO: Add link to articles page*/}
           </div>
@@ -170,5 +175,3 @@ export default function CaseStudies({ staggerContainer, staggerItem }) {
     </Section>
   );
 }
-
-

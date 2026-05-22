@@ -57,6 +57,12 @@ export const simulationStats = [
 export const highlightItems = [
   {
     date: "May, 2026",
+    title: "Latrics Receives Land Allocation to Contribute to Andhra Pradesh Drone City Vision",
+    desc: " LiCopter P720 deployment and R&D facility established in Kurnool under the AP Drone City initiative, inaugurated in Puttaparthi in the presence of Defence Minister Shri Rajnath Singh and AP Chief Minister Shri Nara Chandrababu Naidu. Delivering precision LiDAR mapping for smart infrastructure, defense readiness, and critical corridor surveying - advancing India's sovereign autonomous ecosystem.",
+    image: "/landAllocation_highlights.jpg"
+  },
+  {
+    date: "May, 2026",
     title: "Latrics Received ₹30 Lakh Grant Support from Kotak BizLabs Season 2",
     desc: "Selected among the top 15 startups from 730+ applications nationwide, receiving grant support to scale India's indigenous LiDAR platform for critical infrastructure operations.",
     image: "/kotakBizlab.jpg",
@@ -73,12 +79,6 @@ export const highlightItems = [
     title: "Latrics Presents Indigenous LiCopter P720 to PM Modi at Viksit Bharat Young Leader Dialogue 2025",
     desc: "LiCopter was showcased to Hon'ble PM Shri Narendra Modi at the Viksit Bharat Young Leader Dialogue 2025, securing national recognition and multi-channel coverage for advancing India's indigenous aerial mapping and autonomous operations.",
     image: "/My pitch with Modi ji.jpeg"
-  },
-  {
-    date: "May, 2026",
-    title: "Latrics Receives Land Allocation to Contribute to Andhra Pradesh Drone City Vision",
-    desc: " LiCopter P720 deployment and R&D facility established in Kurnool under the AP Drone City initiative, inaugurated in Puttaparthi in the presence of Defence Minister Shri Rajnath Singh and AP Chief Minister Shri Nara Chandrababu Naidu. Delivering precision LiDAR mapping for smart infrastructure, defense readiness, and critical corridor surveying - advancing India's sovereign autonomous ecosystem.",
-    image: "/landAllocation_highlights.jpg"
   }
 ];
 
@@ -134,37 +134,37 @@ export const industryCopy = {
 };
 
 /**
- * Case Studies Data Table
- * Used in the CaseStudies section to populate the interactive gallery.
- * Each object represents a success story or industrial application.
+ * Recent Articles Data Table
+ * Used in the RecentArticles section to populate the interactive gallery.
+ * Each object represents an article, success story or industrial application.
  */
-export const caseStudies = [
+export const recentArticles = [
   {
-    title: "Intelligent AI Ethics",
-    desc: "Precision LiDAR workflows for high-speed rail corridors.",
-    img: "/case_1.png",
-    meta: "AI & ROBOTICS",
+    title: "Latrics Receives Land Allocation to Contribute to Andhra Pradesh Drone City Vision",
+    desc: "LiCopter P720 deployment and R&D facility established in Kurnool under the AP Drone City initiative, inaugurated in Puttaparthi in the presence of Defence Minister Shri Rajnath Singh and AP Chief Minister Shri Nara Chandrababu Naidu. Delivering precision LiDAR mapping for smart infrastructure, defense readiness, and critical corridor surveying - advancing India's sovereign autonomous ecosystem.",
+    img: "/landAllocation_highlights.jpg",
+    meta: "May, 2026",
     href: "#"
   },
   {
-    title: "Sustainable Energy",
-    desc: "A 30% maintenance reduction across utility-scale solar farms.",
-    img: "/case_2.png",
-    meta: "RENEWABLE ENERGY",
+    title: "Latrics Received ₹30 Lakh Grant Support from Kotak BizLabs Season 2",
+    desc: "Selected among the top 15 startups from 730+ applications nationwide, receiving grant support to scale India's indigenous LiDAR platform for critical infrastructure operations.",
+    img: "/kotakBizlab.jpg",
+    meta: "May, 2026",
     href: "#"
   },
   {
-    title: "Precision Mining",
-    desc: "AI-assisted monitoring that gives operators faster visibility.",
-    img: "/case_3.png",
-    meta: "INDUSTRIAL DRONES",
+    title: "Finally, Latrics Now Has India's First DGCA Certified LiDAR Drone",
+    desc: "LiCopter P720 received DGCA Type Certification as India's first indigenous LiDAR drone platform. Engineered for commercial autonomy, it delivers precise aerial mapping, advanced obstacle avoidance, and secure deployments across mining, infrastructure, and critical operations.",
+    img: "/dgca_certified_highlight.jpeg",
+    meta: "Jan, 2026",
     href: "#"
   },
   {
-    title: "Urban Logistics",
-    desc: "Offshore blade inspection workflows capable of identifying defects.",
-    img: "/case_4.png",
-    meta: "AEROSPACE AI",
+    title: "Latrics Presents Indigenous LiCopter P720 to PM Modi at Viksit Bharat Young Leader Dialogue 2025",
+    desc: "LiCopter was showcased to Hon'ble PM Shri Narendra Modi at the Viksit Bharat Young Leader Dialogue 2025, securing national recognition and multi-channel coverage for advancing India's indigenous aerial mapping and autonomous operations.",
+    img: "/My pitch with Modi ji.jpeg",
+    meta: "Jan, 2025",
     href: "#"
   }
 ];

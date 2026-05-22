@@ -107,8 +107,8 @@ export default function ExpertiseOutcomes({ data }) {
 
           {/* Bottom CTA - Tightened margin */}
           <div className="mt-4 md:mt-6 flex justify-center">
-            <ActionLink href="#case-studies">
-              View All Case Studies
+            <ActionLink href="#recent-articles">
+              View All Recent Articles
             </ActionLink>
           </div>
         </div>

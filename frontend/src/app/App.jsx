@@ -15,7 +15,7 @@ import Highlights from "../components/home/Highlights";
 import Brochure from "../components/home/Brochure";
 import WhyLatrics from "../components/home/WhyLatrics";
 import Industries from "../components/home/Industries";
-import CaseStudies from "../components/home/CaseStudies";
+import RecentArticles from "../components/home/RecentArticles";
 import Milestones from "../components/home/Milestones";
 import DemoForm from "../components/home/DemoForm";
 import Footer from "../components/home/Footer";
@@ -61,7 +61,8 @@ export default function App() {
           window.location.hash.includes("aerospace") ? "aerospace" :
             window.location.hash.includes("digital-intelligence") ? "digital-intelligence" :
               window.location.hash.includes("energy") ? "energy" :
-                window.location.hash.includes("blog") ? "blog" : "home"
+                window.location.hash.includes("blog") ? "blog" :
+                  (window.location.hash.includes("outcomes") || window.location.hash.includes("case-studies")) ? "outcomes" : "home"
   );
 
   useEffect(() => {
@@ -162,7 +163,7 @@ export default function App() {
             />
             <WhyLatrics staggerContainer={staggerContainer} staggerItem={staggerItem} />
             <Milestones staggerContainer={staggerContainer} staggerItem={staggerItem} />
-            <CaseStudies staggerContainer={staggerContainer} staggerItem={staggerItem} />
+            <RecentArticles staggerContainer={staggerContainer} staggerItem={staggerItem} />
             <About fadeInUp={fadeInUp} />
             <DemoForm
               formData={formData}

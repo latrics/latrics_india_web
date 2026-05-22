@@ -79,13 +79,13 @@ export default function RecentArticles({ staggerContainer, staggerItem }) {
                   whileHover={{ y: -4, transition: { duration: 0.3 } }}
                   // Logic: flex property changes from 1 to 2.5 on hover or lock for the expansion effect
                   // If something is locked, it takes priority. Otherwise, use hover.
-                  className={`group relative overflow-visible rounded-lg border-2 lg:border-[2px] border-white/100 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/30 h-[280px] sm:h-[320px] lg:h-full w-full lg:w-auto ${lockedIdx !== null
+                  className={`group relative overflow-visible rounded-lg border-2 lg:border-[2px] border-white/40 bg-white/5 shadow-2xl transition-all duration-[0.6s] ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-white/20 h-[280px] sm:h-[320px] lg:h-full w-full lg:w-auto ${lockedIdx !== null
                     ? (lockedIdx === idx ? "lg:flex-[2.5]" : "lg:flex-1")
                     : (hoveredIdx === idx ? "lg:flex-[2.5]" : "lg:flex-1")
                     }`}
                 >
                   {/* Image Container with overflow-hidden for the inner zoom effect */}
-                  <div className="absolute inset-0 overflow-hidden rounded-[.5rem] lg:rounded-[.5rem]" style={{ transform: "translateZ(0)", WebkitMaskImage: "-webkit-radial-gradient(white, black)" }}>
+                  <div className="absolute inset-0 overflow-hidden rounded-lg lg:rounded-lg" style={{ transform: "translateZ(0)", WebkitMaskImage: "-webkit-radial-gradient(white, black)" }}>
                     {/* Zoom & Brightness/Contrast enhancements on hover or active (locked) state */}
                     <img
                       src={item.img}

@@ -109,10 +109,7 @@ function HighlightCard({ item }) {
         <h2 className="font-display text-lg font-black leading-tight text-[#FFF5E0] md:text-lg">
           {item.title}
         </h2>
-        <p className={cn(
-          "text-[1rem] font-regular leading-tight text-white/80 md:text-[0.75rem]",
-          !isCurrentlyExpanded && isMobile ? "line-clamp-2" : ""
-        )}>
+        <p className="text-[1rem] font-regular leading-tight text-white/80 md:text-[0.75rem]">
           {!isCurrentlyExpanded && isLongDesc ? (
             <>
               {item.desc.substring(0, MAX_DESC_LENGTH)}

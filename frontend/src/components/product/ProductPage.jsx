@@ -9,6 +9,7 @@ import ProductLicopterWorks from "./ProductLicopterWorks";
 import ProductAnalysis from "./ProductAnalysis";
 import ProductStatsBanner from "./ProductStatsBanner";
 import ProductDemo from "./ProductDemo";
+import Footer from "../home/Footer";
 
 export default function ProductPage({
   formData,
@@ -53,6 +54,7 @@ export default function ProductPage({
         isSubmitting={isSubmitting}
         submitState={submitState}
       />
+      <Footer isHomePage={false} />
     </div>
   );
 }

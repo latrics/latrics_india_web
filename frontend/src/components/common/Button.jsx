@@ -23,7 +23,7 @@ const variants = {
  * Base styles applied to all button variants.
  */
 const base =
-  "inline-flex min-h-12 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg px-6 text-sm font-extrabold tracking-wide transition-[transform,box-shadow,background-color,border-color,opacity] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/45 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas active:scale-[0.98] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100";
+  "inline-flex min-h-12 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 text-sm font-extrabold tracking-wide transition-[transform,box-shadow,background-color,border-color,opacity] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/45 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas active:scale-[0.98] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100";
 
 /**
  * Reusable Button component that adheres to the Latrics design system.

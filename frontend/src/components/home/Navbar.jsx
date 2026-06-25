@@ -41,7 +41,7 @@ const productDropdown = {
     {
       title: "PLATFORMS",
       items: [
-        { name: "Terrain Desk", href: "#terrain-desk" }
+        { name: "Terrain Desk", href: "https://terraindesk.com/" }
       ]
     }
   ]
@@ -270,48 +270,51 @@ export default function Navbar({ isScrolled, currentRoute }) {
       <Container
         className={cn(
           "relative",
-          "bg-[#050A11]/30 backdrop-blur-lg border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+          "bg-[#050A11]/60 backdrop-blur-lg border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
           "rounded-lg",
           "py-4 px-6 md:px-8",
           "transition-all duration-300"
         )}
       >
         <div className="flex items-center justify-between">
-          {/* --- LOGO SECTION --- */}
-          <a href="#" className="font-sans flex items-center no-underline outline-none group">
-            <img
-              src="/latrics_logo.svg"
-              alt="Latrics Logo"
-              className="h-8 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-            />
-          </a>
+          {/* Left Side Group: Logo and Desktop Navigation */}
+          <div className="flex items-center gap-10 lg:gap-14">
+            {/* --- LOGO SECTION --- */}
+            <a href="#" className="font-sans flex items-center no-underline outline-none group shrink-0">
+              <img
+                src="/latrics_logo.svg"
+                alt="Latrics Logo"
+                className="h-8 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            </a>
 
-          {/* --- DESKTOP NAVIGATION --- */}
-          <nav className="hidden lg:flex items-center space-x-8" aria-label="Primary">
-            {links.map((link) => {
-              const active = isLinkActive(link.label);
-              return (
-                <div key={link.label} className="relative py-2">
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleLinkClick(e, link)}
-                    className={cn(
-                      "group flex items-center gap-1 text-base font-medium transition-colors hover:text-gray-300",
-                      active ? "text-brand font-semibold" : "text-white"
-                    )}
-                  >
-                    {link.label}
-                    {link.hasDropdown && (
-                      <ChevronDown className={cn(
-                        "w-4 h-4 transition-transform duration-300 opacity-60",
-                        activeDropdown === link.label ? "rotate-180" : ""
-                      )} />
-                    )}
-                  </a>
-                </div>
-              );
-            })}
-          </nav>
+            {/* --- DESKTOP NAVIGATION --- */}
+            <nav className="hidden lg:flex items-center space-x-6" aria-label="Primary">
+              {links.map((link) => {
+                const active = isLinkActive(link.label);
+                return (
+                  <div key={link.label} className="relative py-2">
+                    <a
+                      href={link.href}
+                      onClick={(e) => handleLinkClick(e, link)}
+                      className={cn(
+                        "group flex items-center gap-1 text-[15px] font-medium transition-colors hover:text-gray-300",
+                        active ? "text-brand font-semibold" : "text-white"
+                      )}
+                    >
+                      {link.label}
+                      {link.hasDropdown && (
+                        <ChevronDown className={cn(
+                          "w-4 h-4 transition-transform duration-300 opacity-60",
+                          activeDropdown === link.label ? "rotate-180" : ""
+                        )} />
+                      )}
+                    </a>
+                  </div>
+                );
+              })}
+            </nav>
+          </div>
 
           {/* --- MEGA MENU DROPDOWN (DESKTOP) --- */}
           <AnimatePresence>
@@ -367,6 +370,8 @@ export default function Navbar({ isScrolled, currentRoute }) {
                                 <a
                                   key={item.name}
                                   href={item.href}
+                                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                                   onClick={() => setActiveDropdown(null)}
                                   className={cn(
                                     "group flex items-center px-4 py-2.5 rounded-lg transition-all duration-300 no-underline w-fit min-w-[180px]",
@@ -404,12 +409,12 @@ export default function Navbar({ isScrolled, currentRoute }) {
                 initial={false}
                 animate={{
                   width: (isSearchExpanded || isDropdownClosing)
-                    ? (typeof window !== "undefined" && window.innerWidth < 1024 ? "40px" : "280px")
+                    ? (typeof window !== "undefined" && window.innerWidth < 1024 ? "40px" : "220px")
                     : (typeof window !== "undefined" && window.innerWidth < 1024 ? "40px" : "44px")
                 }}
                 className={cn(
-                  "relative flex items-center h-10 lg:h-11 rounded-lg border border-white/10 bg-white/5 transition-colors overflow-hidden",
-                  (isSearchExpanded || isDropdownClosing) ? "bg-white/10 border-white/30 shadow-lg" : "hover:bg-white/10"
+                  "relative flex items-center h-10 lg:h-11 rounded-lg border border-white/15 bg-slate-950/40 backdrop-blur-md transition-all duration-300 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_4px_12px_rgba(0,0,0,0.4)]",
+                  (isSearchExpanded || isDropdownClosing) ? "border-white/35 bg-slate-900/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_24px_rgba(0,0,0,0.6)]" : "hover:border-white/25 hover:bg-slate-900/40"
                 )}
               >
                 <div className="flex items-center w-full h-full">
@@ -457,9 +462,9 @@ export default function Navbar({ isScrolled, currentRoute }) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     className={cn(
-                      "bg-[#0d0f14] backdrop-blur-2xl border border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.8)] rounded-lg overflow-hidden z-[100]",
+                      "bg-[#0d0f14]/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_25px_60px_rgba(0,0,0,0.8)] rounded-lg overflow-hidden z-[100]",
                       // Mobile: Fixed positioning to avoid alignment issues with the parent button
-                      "fixed inset-x-4 top-[84px] lg:absolute lg:inset-x-auto lg:top-full lg:right-0 lg:mt-3 lg:w-full lg:min-w-[320px]"
+                      "fixed inset-x-4 top-[84px] lg:absolute lg:inset-x-auto lg:top-full lg:right-0 lg:mt-3 lg:w-[220px]"
                     )}
                   >
                     <div className="py-2 max-h-[80vh] lg:max-h-[400px] overflow-y-auto custom-scrollbar">
@@ -482,7 +487,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
                       {/* --- SUGGESTIONS (When query is short) --- */}
                       {searchQuery.trim().length < 2 && (
                         <div className="px-5 py-5">
-                          <span className="block text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/50 mb-5 ml-1">Trending Searches</span>
+                          <span className="block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/50 mb-5 ml-1">Trending Searches</span>
                           <div className="flex flex-col gap-2">
                             {trendingSuggestions.map((s) => (
                               <button
@@ -493,7 +498,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
                                 }}
                                 className="w-full flex items-center justify-between px-4 py-3.5 rounded-lg bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-white/[0.1] transition-all duration-300 group"
                               >
-                                <span className="text-white/80 text-sm font-semibold tracking-tight transition-colors group-hover:text-white">{s.label}</span>
+                                <span className="text-white/80 text-xs font-medium tracking-tight transition-colors group-hover:text-white">{s.label}</span>
                                 <History size={16} className="text-white/20 transition-colors group-hover:text-white/40" />
                               </button>
                             ))}
@@ -543,17 +548,48 @@ export default function Navbar({ isScrolled, currentRoute }) {
               </AnimatePresence>
             </div>
 
+            {/* 1-Click Terrain Desk Button (Desktop Only) */}
+            <div className="hidden lg:block relative group">
+              {/* Outer static glow */}
+              <div className="absolute -inset-1 rounded-lg bg-red-600/30 group-hover:bg-white/30 blur-lg opacity-70 group-hover:opacity-100 transition-all duration-500 pointer-events-none"></div>
+
+              <a
+                href="https://terraindesk.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative inline-flex h-10 lg:h-11 items-center justify-center rounded-lg p-[1.5px] overflow-hidden no-underline outline-none transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                {/* Rotating Conic Gradient for the dynamic border */}
+                <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,rgba(239,68,68,0.1)_50%,rgba(255,0,0,1)_100%)] group-hover:bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,rgba(255,255,255,0.1)_50%,rgba(255,255,255,1)_100%)] opacity-90 transition-all duration-500" />
+
+                {/* Inner Dark Background with red inner glow */}
+                <span className="relative flex h-full w-full items-center justify-center rounded-lg bg-[#0a0a0a] px-6 overflow-hidden shadow-[inset_0_0_16px_rgba(255,0,0,0.4)] group-hover:shadow-[inset_0_0_16px_rgba(255,255,255,0.4)] transition-shadow duration-500">
+                  {/* Center Red Oval Glow */}
+                  <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-8 bg-[rgba(255,0,0,1)]/70 group-hover:bg-white/50 blur-[18px] rounded-lg pointer-events-none transition-colors duration-500" />
+
+                  {/* Text */}
+                  <span className="relative z-10 text-sm font-medium tracking-wide text-white font-sans whitespace-nowrap">
+                    <span className="inline-block group-hover:hidden">1-Click Terrain Desk</span>
+                    <span className="hidden group-hover:inline-block">Launch Terrain Desk</span>
+                  </span>
+                </span>
+              </a>
+            </div>
+
             {/* Contact Button (Desktop Only) */}
             <div className="hidden lg:block">
-              <Button
-                as="a"
+              <a
                 href="#request-demo-form"
-                variant="brand-solid"
-                className="flex items-center gap-2 px-6 py-2 h-11 rounded-lg text-sm font-bold shadow-lg shadow-brand/20 hover:scale-[1.02] transition-all"
+                className="relative inline-flex h-10 lg:h-11 items-center justify-center rounded-lg bg-gradient-to-b from-[#222222] to-[#0a0a0a] border border-white/10 px-6 text-sm font-medium tracking-wide text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] no-underline shadow-[inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-2px_4px_rgba(0,0,0,0.3),0_4px_12px_rgba(0,0,0,0.25)] overflow-hidden"
               >
-                Contact Us
-                <ArrowUpRight className="w-4 h-4" />
-              </Button>
+                {/* Soft center radial highlight */}
+                <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.05)_0%,transparent_60%)] pointer-events-none" />
+
+                {/* Text */}
+                <span className="relative z-10 font-bold text-white drop-shadow-none whitespace-nowrap">
+                  Contact Us
+                </span>
+              </a>
             </div>
 
             {/* Mobile Menu Toggle Button */}
@@ -638,6 +674,8 @@ export default function Navbar({ isScrolled, currentRoute }) {
                                       <a
                                         key={item.name}
                                         href={item.href}
+                                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                                         onClick={() => setOpen(false)}
                                         className={cn(
                                           "text-base py-2 px-3 font-medium transition-colors rounded-lg w-fit",

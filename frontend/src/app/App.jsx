@@ -208,20 +208,14 @@ export default function App() {
               />
 
               {currentRoute === "product" && (
-                <ComingSoon
-                  title="LiCOPTER-P720"
-                  subtitle="The next generation of industrial heavy-lift drone technology is being calibrated for peak performance. Stay tuned for the technical specifications."
-                  icon={Rocket}
-                />
-              )}
-
-            {/**{/*<ProductPage
+                <ProductPage
                   formData={formData}
                   setFormData={setFormData}
                   handleFormSubmit={handleFormSubmit}
                   isSubmitting={isSubmitting}
                   submitState={submitState}
-                />/} */}
+                />
+              )}
             
 
 

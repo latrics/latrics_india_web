@@ -570,7 +570,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
                   {/* Text */}
                   <span className="relative z-10 text-sm font-medium tracking-wide text-white font-sans whitespace-nowrap">
                     <span className="inline-block group-hover:hidden">1-Click Terrain Desk</span>
-                    <span className="hidden group-hover:inline-block">Launch Terrain Desk</span>
+                    <span className="hidden group-hover:inline-block">Launch 1 Terrain Desk</span>
                   </span>
                 </span>
               </a>

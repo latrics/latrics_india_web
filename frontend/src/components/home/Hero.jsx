@@ -12,9 +12,9 @@ const verticals = [
     label: "Aerospace",
     title: <>India's First Indigenous <br />DGCA-Certified LiDAR Platform</>,
     description: "Autonomous drones + AI analytics for Mining, Highways, Urban Development, Energy, Water & Emergency Services",
-    bgImage: "/aerospace_hero.png",
-    thumbnail: "/aerospace_hero.png",
-    bgClassName: "bg-[length:100%_auto] bg-[center_180%] bg-no-repeat bg-[#08090d] max-sm:bg-cover max-sm:bg-[75%_center]"
+    bgImage: "/aerospace_hero.jpg",
+    thumbnail: "/aerospace_hero.jpg",
+    bgClassName: "bg-[length:90%] bg-[center_2%] bg-no-repeat bg-[#08090d] max-sm:bg-cover max-sm:bg-[75%_center]"
   },
   {
     id: "digital",

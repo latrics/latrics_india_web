@@ -14,15 +14,16 @@ const verticals = [
     description: "Autonomous drones + AI analytics for Mining, Highways, Urban Development, Energy, Water & Emergency Services",
     bgImage: "/aerospace_hero.png",
     thumbnail: "/aerospace_hero.png",
-    bgClassName: "max-sm:bg-cover max-sm:bg-[75%_center]" // Ensures full coverage with drone slightly right of center on mobile
+    //bgClassName: "max-sm:bg-cover max-sm:bg-[75%_center]" // Ensures full coverage with drone slightly right of center on mobile
   },
   {
     id: "digital",
     label: "Digital",
-    title: <>Digital Intelligence for<br />Critical Assets</>,
-    description: "Unify imagery and telemetry into one operating picture for asset-heavy environments that move too fast for manual review",
-    bgImage: "/industry_digital.jpg",
-    thumbnail: "/industry_digital.jpg"
+    title: <>Where Reality <br />Becomes Data</>,
+    description: "Convert billions of spatial data points into accurate digital models that accelerate inspection, asset management, and decision-making.",
+    bgImage: "/industry_digital.png",
+    thumbnail: "/industry_digital.png",
+    bgClassName: "bg-contain bg-right bg-no-repeat bg-[#08090d] max-sm:bg-contain max-sm:bg-center"
   },
   {
     id: "energy",
@@ -141,27 +142,36 @@ export default function Hero() {
 
 // --- Subcomponents ---
 
-const Background = memo(({ crossfadeKey, imageUrl, customClassName }) => (
-  <div className="absolute inset-0 z-0 pointer-events-none">
-    <AnimatePresence>
-      <motion.div
-        key={crossfadeKey}
-        initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 1, scale: 1.05 }}
-        exit={{ opacity: 0, scale: 1.1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-        className={cn(
-          "absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear scale-105",
-          customClassName
-        )}
-        style={{ backgroundImage: `url('${imageUrl}')` }}
-      />
-    </AnimatePresence>
-    <div className="absolute inset-0 bg-black/30" />
-    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-transparent" />
-    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
-  </div>
-));
+const Background = memo(({ crossfadeKey, imageUrl, customClassName }) => {
+  const hasBgSize = customClassName?.includes("bg-cover") || customClassName?.includes("bg-contain");
+  const hasBgPosition = customClassName?.includes("bg-center") || customClassName?.includes("bg-right") || customClassName?.includes("bg-left") || customClassName?.includes("bg-[");
+  const hasBgRepeat = customClassName?.includes("bg-repeat") || customClassName?.includes("bg-no-repeat");
+
+  return (
+    <div className="absolute inset-0 z-0 pointer-events-none">
+      <AnimatePresence>
+        <motion.div
+          key={crossfadeKey}
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1.05 }}
+          exit={{ opacity: 0, scale: 1.1 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className={cn(
+            "absolute inset-0 transition-transform duration-[20s] ease-linear scale-105",
+            !hasBgSize && "bg-cover",
+            !hasBgPosition && "bg-center",
+            !hasBgRepeat && "bg-no-repeat",
+            customClassName
+          )}
+          style={{ backgroundImage: `url('${imageUrl}')` }}
+        />
+      </AnimatePresence>
+      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
+    </div>
+  );
+});
 Background.displayName = "Background";
 
 const DynamicText = memo(({ content }) => (

@@ -1,36 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Flame, ArrowRight, Check } from "lucide-react";
-import { cn } from "../../utils/cn";
+import { X, ArrowRight } from "lucide-react";
 
 /**
  * HomePopup Component
- * A premium first-time visitor modal that showcases the Latrics Survey Drone.
- * Uses localStorage to ensure it only appears once.
+ * A premium first-time visitor modal that showcases Terrain Desk by Latrics.
+ * Uses localStorage/session-level tracking to ensure it appears once per session.
  */
-// Module-level state to track if the popup was shown during the active React session.
-// This persists across component mount/unmount cycles but resets completely on page reload.
 let hasBeenShownSession = false;
 
 export default function HomePopup() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
-  const images = [
-    "/licopter_popup01.png",
-    "/licopter_popup01.png",
-    "/licopter_popup01.png"
-  ];
-
-  // Auto-slide functionality
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % images.length);
-    }, 10000); // Change image every 3.5 seconds
-
-    return () => clearInterval(interval);
-  }, [isOpen, images.length]);
 
   useEffect(() => {
     if (hasBeenShownSession) return; // Prevent attaching the observer if already shown in this session
@@ -68,7 +48,7 @@ export default function HomePopup() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            className="absolute inset-0 bg-black/75 backdrop-blur-md"
           />
 
           {/* Modal Container */}
@@ -77,144 +57,75 @@ export default function HomePopup() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}
             transition={{ type: "spring", damping: 25, stiffness: 120 }}
-            className="relative h-[90vh] md:h-[640px] w-full max-w-4xl bg-white rounded-lg shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] overflow-visible"
+            className="relative w-full max-w-3xl rounded-2xl md:rounded-[24px] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] overflow-visible px-5 py-4 md:px-8 md:py-6"
+            style={{
+              background: "radial-gradient(circle at bottom left, rgba(218, 41, 28, 0.25) 0%, rgba(255, 255, 255, 0) 45%), #ffffff"
+            }}
           >
             {/* Close Button - Distinct Floating Red Square */}
             <button
               onClick={handleClose}
-              className="absolute -top-3 -right-3 z-[60] p-2 bg-brand text-white hover:bg-brand-hover hover:scale-105 transition-all rounded-lg shadow-lg"
+              className="absolute -top-2 -right-2 md:-top-5.5 md:-right-2.5 z-[60] w-9 h-9 md:w-11 md:h-11 bg-brand text-white hover:bg-brand-hover hover:scale-105 transition-all rounded-xl shadow-lg flex items-center justify-center border border-white/10"
               aria-label="Close"
             >
-              <X size={24} strokeWidth={2.5} />
+              <X size={18} className="md:size-5" strokeWidth={2.5} />
             </button>
 
-            {/* Scrollable Content Wrapper */}
-            <div className="w-full h-full flex flex-col md:flex-row p-2 md:p-3 gap-2 md:gap-3 overflow-y-auto md:overflow-hidden no-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              <style dangerouslySetInnerHTML={{
-                __html: `
-                .no-scrollbar::-webkit-scrollbar {
-                  display: none;
-                }
-              `}} />
+            {/* Content: Two-column layout */}
+            <div className="relative w-full flex flex-col md:flex-row items-stretch gap-5 md:gap-7">
 
-              {/* Left Section: Image Visual Carousel */}
-              <div className="w-full md:w-[45%] relative h-[300px] md:h-auto rounded-lg overflow-hidden shrink-0">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeStep}
-                    src={images[activeStep]}
-                    alt={`Latrics Survey Drone - View ${activeStep + 1}`}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.4 }}
-                    className="w-full h-full object-cover"
-                  />
-                </AnimatePresence>
+              {/* Left Column: Info & Actions */}
+              <div className="w-full md:w-[48%] flex flex-col items-start text-left relative z-10 py-1">
+                {/* Badge: INTRODUCING */}
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] md:text-xs font-bold tracking-wider uppercase text-brand bg-brand/10 mb-5 md:mb-6">
+                  <span className="size-2.5 rounded-full bg-brand inline-block animate-pulse" />
+                  INTRODUCING
+                </div>
 
-                {/* Visual Accent Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
+                {/* Title: Terrain Desk */}
+                <h2 className="font-display text-2xl md:text-3xl font-extrabold text-brand leading-none mb-1.5 md:mb-2 tracking-tight">
+                  Terrain Desk
+                </h2>
 
-                {/* Pagination Dots (Functional) */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                  {images.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveStep(idx)}
-                      className={cn(
-                        "h-1.5 rounded-full transition-all duration-300",
-                        activeStep === idx ? "w-6 bg-brand" : "w-3 bg-white/40 hover:bg-white/60"
-                      )}
-                      aria-label={`Go to slide ${idx + 1}`}
-                    />
-                  ))}
+                {/* Subtitle: Your Workspace for Terrain Intelligence */}
+                <h3 className="font-display text-lg md:text-2xl font-semibold text-slate-900 leading-tight mb-2 md:mb-3 tracking-tight">
+                  Your Workspace for Terrain Intelligence
+                </h3>
+
+                {/* Description */}
+                <p className="font-sans text-xs md:text-sm text-slate-500 leading-relaxed mb-3 md:mb-5 max-w-[95%]">
+                  The next generation platform for discovering and leveraging geospatial data-designed for professionals who build the world.
+                </p>
+
+                {/* Action Buttons */}
+                <div className="flex flex-row items-center gap-2.5 w-full mt-auto pt-4">
+                  <a
+                    href="https://terraindesk.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-sans h-9 md:h-10 px-3.5 md:px-4 rounded-lg bg-brand text-white font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-brand-hover shadow-lg shadow-brand-glow transition-all group no-underline whitespace-nowrap"
+                  >
+                    Explore Terrain Desk
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <button
+                    onClick={handleClose}
+                    className="font-sans h-9 md:h-10 px-3.5 md:px-4 rounded-lg bg-[#f3f4f6] border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-100 font-bold text-xs transition-all whitespace-nowrap"
+                  >
+                    Back to Latrics
+                  </button>
                 </div>
               </div>
-              {/* Right Section: Gradient Box Content */}
-              <div
-                className="w-full md:w-[55%] flex flex-col relative md:overflow-hidden rounded-lg p-5 md:p-7"
-                style={{
-                  background: "linear-gradient(135deg, rgba(218,41,28,0.25) 0%, #f3f4f6 35%, #f3f4f6 65%, rgba(218,41,28,0.25) 100%)"
-                }}
-              >
-                <div className="relative z-10 flex flex-col h-full">
-                  {/* Title & Description */}
-                  <div className="mb-6">
-                    <motion.h2
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 }}
-                      className="font-display text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-brand-deep to-brand leading-tight mb-3 tracking-tight"
-                    >
-                      Latrics Survey Drone
-                    </motion.h2>
 
-                    <h3 className="font-display text-base md:text-lg font-medium text-card-light-fg mb-2">
-                      At Latrics, we build precision-driven LiDAR
-                    </h3>
-                    <p className="font-sans text-body-s text-card-light-muted leading-relaxed max-w-[90%]">
-                      We fuse advanced drone hardware with proprietary AI analytics to give manufacturer and facility operators.
-                    </p>
-                  </div>
-
-                  {/* Features Grid (2x2) */}
-                  <div className="grid grid-cols-2 gap-3 mb-6">
-                    {[
-                      { title: "LiDAR Mapping", subtitle: "3D TERRAIN" },
-                      { title: "High-Resolution", subtitle: "CLEAR PHOTOS/VIDEOS" },
-                      { title: "Long Flight Time", subtitle: "45 MINS" },
-                      { title: "Real-Time Analytics", subtitle: "INSTANT PROCESSING" },
-                    ].map((feature, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 + (idx * 0.1) }}
-                        className="bg-black/6 backdrop-blur border border-slate/40 p-4 rounded-lg flex flex-col items-start gap-3 group/card hover:bg-white/60 transition-all duration-300 shadow-sm"
-                      >
-                        <div className="size-8 rounded-lg bg-black/8 backdrop-blur border border-white/20 flex items-center justify-center shrink-0 group-hover/card:scale-110 transition-transform">
-                          <Flame className="size-5 text-brand fill-brand" />
-                        </div>
-                        <div className="flex flex-col gap-0.5">
-                          <span className="font-display text-[0.85rem] font-bold text-brand leading-tight">
-                            {feature.title}
-                          </span>
-                          <span className="font-sans text-overline text-card-light-muted">
-                            {feature.subtitle}
-                          </span>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="grid grid-cols-2 gap-3 mt-auto mb-6">
-                    <button
-                      onClick={handleClose}
-                      className="font-sans h-12 rounded-lg bg-black/5 border-[2px] border-black/10 text-card-light-muted font-bold text-sm hover:bg-white transition-colors"
-                    >
-                      Maybe Later
-                    </button>
-                    <button
-                      onClick={handleClose}
-                      className="font-sans h-12 rounded-lg bg-brand text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-brand-hover shadow-lg shadow-brand-glow transition-all group"
-                    >
-                      Continue
-                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-
-                  {/* Bottom Footer Note */}
-                  <div className="flex items-start gap-3 mt-auto">
-                    <div className="size-5 rounded-full bg-green-500 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                      <Check className="size-3.5 text-white" strokeWidth={4} />
-                    </div>
-                    <p className="font-sans text-caption leading-relaxed text-card-light-muted font-medium">
-                      We fuse advanced drone hardware with proprietary AI analytics to give manufacturer and facility operators.
-                    </p>
-                  </div>
-                </div>
+              {/* Right Column: Image */}
+              <div className="w-full md:w-[52%] relative z-10 flex items-center justify-center">
+                <img
+                  src="/popup_tdesk.png"
+                  alt="Terrain Desk by Latrics"
+                  className="w-full h-auto rounded-lg md:rounded-[14px] shadow-[0_12px_36px_rgba(0,0,0,0.15)] object-cover"
+                />
               </div>
+
             </div>
           </motion.div>
         </div>
@@ -222,3 +133,4 @@ export default function HomePopup() {
     </AnimatePresence>
   );
 }
+

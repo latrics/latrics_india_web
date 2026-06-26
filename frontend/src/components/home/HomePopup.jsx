@@ -48,7 +48,7 @@ export default function HomePopup() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="absolute inset-0 bg-black/75 backdrop-blur-md"
+            className="absolute inset-0 backdrop-blur-md"
           />
 
           {/* Modal Container */}

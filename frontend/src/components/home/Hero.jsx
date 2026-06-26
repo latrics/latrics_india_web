@@ -14,7 +14,7 @@ const verticals = [
     description: "Autonomous drones + AI analytics for Mining, Highways, Urban Development, Energy, Water & Emergency Services",
     bgImage: "/aerospace_hero.png",
     thumbnail: "/aerospace_hero.png",
-    //bgClassName: "max-sm:bg-cover max-sm:bg-[75%_center]" // Ensures full coverage with drone slightly right of center on mobile
+    bgClassName: "bg-[length:100%_auto] bg-[center_180%] bg-no-repeat bg-[#08090d] max-sm:bg-cover max-sm:bg-[75%_center]"
   },
   {
     id: "digital",
@@ -23,7 +23,7 @@ const verticals = [
     description: "Convert billions of spatial data points into accurate digital models that accelerate inspection, asset management, and decision-making.",
     bgImage: "/industry_digital.png",
     thumbnail: "/industry_digital.png",
-    bgClassName: "bg-contain bg-right bg-no-repeat bg-[#08090d] max-sm:bg-contain max-sm:bg-center"
+    bgClassName: "bg-contain bg-center bg-no-repeat bg-[#08090d] max-sm:bg-contain max-sm:bg-center"
   },
   {
     id: "energy",

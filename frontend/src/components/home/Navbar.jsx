@@ -10,12 +10,12 @@ import { cn } from "../../utils/cn";
  * Defines the main menu items and their dropdown behavior.
  */
 const links = [
-  { href: "#", label: "Home" },
-  { href: "#product", label: "Products", hasDropdown: true },
-  { href: "#expertise", label: "Expertise", hasDropdown: false },
-  { href: "#case-studies", label: "Outcomes", hasDropdown: false },
-  { href: "#blog", label: "Blog", hasDropdown: false },
-  { href: "#about", label: "About", hasDropdown: false }
+  { href: "/#top", label: "Home" },
+  { href: "/#product", label: "Products", hasDropdown: true },
+  { href: "/#expertise", label: "Expertise", hasDropdown: false },
+  { href: "/#case-studies", label: "Outcomes", hasDropdown: false },
+  { href: "/#blog", label: "Blog", hasDropdown: false },
+  { href: "/#about", label: "About", hasDropdown: false }
 ];
 
 /**
@@ -27,15 +27,15 @@ const productDropdown = {
     {
       title: "DRONE SERIES",
       items: [
-        { name: "Licopter - P720", href: "#product" },
-        { name: "Sudarshana", href: "#sudarshana" },
-        { name: "Guardian", href: "#guardian" }
+        { name: "Licopter - P720", href: "/#product" },
+        { name: "Sudarshana", href: "/#sudarshana" },
+        { name: "Guardian", href: "/#guardian" }
       ]
     },
     {
       title: "COMPARE",
       items: [
-        { name: "Compare Drones", href: "#product-analysis", isAction: true }
+        { name: "Compare Drones", href: "/#product-analysis", isAction: true }
       ]
     },
     {
@@ -58,8 +58,8 @@ const outcomesDropdown = {
     {
       title: "IMPACT",
       items: [
-        { name: "Success Stories", href: "#case-studies" },
-        { name: "Industrial Impact", href: "#outcomes" }
+        { name: "Success Stories", href: "/#case-studies" },
+        { name: "Industrial Impact", href: "/#outcomes" }
       ]
     }
   ]
@@ -70,9 +70,9 @@ const blogDropdown = {
     {
       title: "UPDATES",
       items: [
-        { name: "Latest News", href: "#highlights" },
-        { name: "Industry Insights", href: "#highlights" },
-        { name: "Technical Blog", href: "#highlights" }
+        { name: "Latest News", href: "/#highlights" },
+        { name: "Industry Insights", href: "/#highlights" },
+        { name: "Technical Blog", href: "/#highlights" }
       ]
     }
   ]
@@ -83,10 +83,10 @@ const aboutDropdown = {
     {
       title: "COMPANY",
       items: [
-        { name: "Company Profile", href: "#about" },
-        { name: "Timeline", href: "#about" },
-        { name: "Vision & Mission", href: "#about" },
-        { name: "Our Values", href: "#about" }
+        { name: "Company Profile", href: "/#about" },
+        { name: "Timeline", href: "/#about" },
+        { name: "Vision & Mission", href: "/#about" },
+        { name: "Our Values", href: "/#about" }
       ]
     }
   ]
@@ -201,6 +201,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
     if (currentRoute === "expertise" && label === "Expertise") return true;
     if (currentRoute === "about" && label === "About") return true;
     if (currentRoute === "blog" && label === "Blog") return true;
+    if (currentRoute === "outcomes" && label === "Outcomes") return true;
     return false;
   };
 

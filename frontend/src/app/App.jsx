@@ -187,8 +187,7 @@ export default function App() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               className={cn(
-                "fixed inset-0 z-40 w-full h-[100dvh] overflow-x-hidden",
-                currentRoute === "product" ? "overflow-y-auto" : "overflow-hidden"
+                "fixed inset-0 z-40 w-full h-[100dvh] overflow-x-hidden overflow-hidden"
               )}
             >
               {/* Solid brand canvas background layer behind the grid */}
@@ -208,12 +207,10 @@ export default function App() {
               />
 
               {currentRoute === "product" && (
-                <ProductPage
-                  formData={formData}
-                  setFormData={setFormData}
-                  handleFormSubmit={handleFormSubmit}
-                  isSubmitting={isSubmitting}
-                  submitState={submitState}
+                <ComingSoon
+                  title="Our Products"
+                  subtitle="We are currently upgrading our drone specifications and LiDAR platforms. Detailed specifications and certification documents will be available here soon."
+                  icon={Rocket}
                 />
               )}
             

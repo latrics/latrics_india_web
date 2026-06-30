@@ -213,7 +213,7 @@ export default function App() {
                   icon={Rocket}
                 />
               )}
-            
+
 
 
               {currentRoute === "about" && (
@@ -279,7 +279,7 @@ export default function App() {
                   icon={PenTool}
                 />
               )}
-              
+
               {currentRoute === "outcomes" && <OutcomesPage />}
             </motion.div>
           )}

@@ -171,24 +171,6 @@ export default function Footer({ isHomePage = true }) {
               >
                 <InstagramIcon size={20} />
               </a>
-              <a
-                href="https://facebook.com/latrics"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full p-1"
-                aria-label="Facebook"
-              >
-                <FacebookIcon size={20} />
-              </a>
-              <a
-                href="https://x.com/latrics"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full p-1"
-                aria-label="X (formerly Twitter)"
-              >
-                <XIcon size={18} />
-              </a>
             </div>
           </div>
 

@@ -20,6 +20,9 @@ export const industryImages = {
     "/amaravthi_urban_dev_5.jpeg"
   ],
   "Energy and Utilities": [
+    "/powerlines1.jpeg",
+    "/powerlines2.jpeg",
+    "/powerlines3.jpeg",
     "/powerlines_0.png",
     "/powerlines_1.png",
     "/powerlines_2.png",
@@ -104,32 +107,33 @@ export const industryCopy = {
   Mining: {
     title: "Precision Mining with Autonomous Visibility",
     description: "Monitor stockpiles, track site changes, and optimize excavation workflows with high-accuracy LiDAR mapping and AI analytics.",
-    tags: ["HIGH-PRECISION MAPPING", "DGCA-CERTIFIED", "AI-POWERED ANALYTICS"]
+    tags: ["STOCKPILE VOLUMETRICS", "3D MINE MODELS", "AI-BASED MINE ANALYTICS"]
   },
   "Highways and Railways": {
     title: "Rapid Corridor Mapping for Infrastructure",
     description: "Enable faster corridor surveys, precise gradient analysis, and seamless alignment planning with autonomous LiDAR drones built for long-distance infrastructure projects.",
-    tags: ["CORRIDOR MAPPING", "DGCA-CERTIFIED", "GPS-DENIED NAVIGATION"]
+    tags: ["RAILWAY INFRASTRUCTURE MAPPING", "LIDAR CORRIDOR SURVEYS", "ROAD ASSET MANAGEMENT"]
   },
   "Urban Development": {
     title: "3D Digital Twins for Smarter Cities",
     description: "Enable precise urban planning, infrastructure optimization, and zoning compliance with autonomous LiDAR drones that generate intelligent 3D city models.",
-    tags: ["DIGITAL TWIN", "DGCA-CERTIFIED", "AI-POWERED ANALYTICS"]
+    tags: ["SMART CITY MAPPING", "3D CITY MODELS", "URBAN PLANNING"]
+
   },
   "Energy and Utilities": {
     title: "Autonomous Solutions for Power & Utilities",
     description: "Enable safer powerline inspections, precise solar farm planning, and predictive maintenance with autonomous drones built to operate safely near high-interference infrastructure.",
-    tags: ["THERMAL VISION", "DGCA-CERTIFIED", "ASSET MANAGEMENT"]
+    tags: ["POWER LINE INSPECTION", "SUBSTATION MAPPING", "AI ASSET ANALYTICS"]
   },
   "Water Resources": {
     title: "Autonomous Solutions for Water Body Management",
     description: "Enable precise reservoir mapping, flood risk prediction, and catchment area analysis with autonomous drones that support intelligent water conservation and management.",
-    tags: ["FLOOD PREDICTION", "REAL-TIME MONITORING", "AQUIFER ANALYSIS"]
+    tags: ["FLOOD RISK ASSESSMENT", "CANAL SURVEYING", "WATER RESOURCE MONITORING"]
   },
   "Emergency Services": {
     title: "Rapid Response for Critical Situations",
     description: "Enable faster damage assessment, precise rescue planning, and real-time situational awareness with autonomous drones built for rapid deployment in challenging conditions.",
-    tags: ["3D DAMAGE MAPPING", "DGCA-CERTIFIED", "GPS-DENIED OPERATION"]
+    tags: ["DISASTER RESPONSE MAPPING", "RAPID DAMAGE ASSESSMENT", "FLOOD DAMAGE MAPPING"]
   },
 };
 

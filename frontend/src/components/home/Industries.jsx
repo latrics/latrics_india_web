@@ -208,7 +208,7 @@ export default function Industries({ activeTab, setActiveTab, industryImages }) 
               "absolute inset-0 flex flex-col justify-end sm:flex-row sm:items-end sm:justify-between sm:gap-6",
               DIMENSIONS.contentPadding
             )}>
-              <div className="max-w-xl text-left">
+              <div className="max-w-3xl text-left">
                 <span className="mb-4 inline-block rounded-full border border-[#DA291C]/30 bg-[#DA291C]/10 px-3 py-1 font-bold tracking-widest text-[#DA291C] text-[0.625rem] uppercase backdrop-blur-md">
                   Active sector
                 </span>

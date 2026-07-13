@@ -10,7 +10,6 @@ export const industryImages = {
     "/adani_mines_3.png",
     "/adani_mines_4.png"
   ],
-  "Highways and Railways": "/highways_railways.jpg",
   "Urban Development": [
     "/amaravthi_urban_dev_0.png",
     "/amaravthi_urban_dev_1.png",
@@ -20,18 +19,18 @@ export const industryImages = {
     "/amaravthi_urban_dev_5.jpeg"
   ],
   "Energy and Utilities": [
-    "/powerlines1.jpeg",
-    "/powerlines2.jpeg",
-    "/powerlines3.jpeg",
     "/powerlines_0.png",
-    "/powerlines_1.png",
+    "/powerlines_3.png",
     "/powerlines_2.png",
-    "/powerlines_3.png"
+    "/powerlines1.jpeg",
+    "/powerlines3.jpeg",
+    "/powerlines_1.png"
   ],
   "Water Resources": [
     "/nalla_0.png",
     "/nalla_1.png"
   ],
+  "Highways and Railways": "/highways_railways.jpg",
   "Emergency Services": "/industry_aerospace.png"
 };
 
@@ -178,8 +177,8 @@ export const recentArticles = [
 export const milestoneItems = [
   { value: "15+", label: "Years of Experience" },
   { value: "20+", label: "Active Drones" },
-  { value: "100+", label: "Successful Flights" },
-  { value: "10+", label: "Successful Mission Executions" }
+  { value: "2000+", label: "Successful Flights" },
+  { value: "50+", label: "Successful Project Executions" }
 ];
 
 export const timelineEvents = [

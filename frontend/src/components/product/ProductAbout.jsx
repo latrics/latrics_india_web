@@ -26,7 +26,7 @@ export default function ProductAbout() {
 
             <div className="flex flex-wrap items-center justify-center gap-6 pt-6">
               <ActionLink
-                href="/LiCopter_Brochure_V2.0.pdf"
+                href="/LiCopter_Brochure_V3.0.pdf"
                 download="LiCopter_Brochure.pdf"
                 icon={Download}
               >

@@ -10,12 +10,12 @@ import { cn } from "../../utils/cn";
  * Defines the main menu items and their dropdown behavior.
  */
 const links = [
-  { href: "/#top", label: "Home" },
-  { href: "/#product", label: "Products", hasDropdown: true },
-  { href: "/#expertise", label: "Expertise", hasDropdown: false },
-  { href: "/#case-studies", label: "Outcomes", hasDropdown: false },
-  { href: "/#blog", label: "Blog", hasDropdown: false },
-  { href: "/#about", label: "About", hasDropdown: false }
+  { href: "/", label: "Home" },
+  { href: "/", label: "Products", hasDropdown: true },
+  { href: "/", label: "Expertise", hasDropdown: false },
+  { href: "/", label: "Outcomes", hasDropdown: false },
+  { href: "/", label: "Blog", hasDropdown: false },
+  { href: "/", label: "About", hasDropdown: false }
 ];
 
 /**
@@ -27,15 +27,15 @@ const productDropdown = {
     {
       title: "DRONE SERIES",
       items: [
-        { name: "Licopter - P720", href: "/#product" },
-        { name: "Sudarshana", href: "/#sudarshana" },
-        { name: "Guardian", href: "/#guardian" }
+        { name: "Licopter - P720", href: "/" },
+        { name: "Sudarshana", href: "/" },
+        { name: "Guardian", href: "/" }
       ]
     },
     {
       title: "COMPARE",
       items: [
-        { name: "Compare Drones", href: "/#product-analysis", isAction: true }
+        { name: "Compare Drones", href: "/", isAction: true }
       ]
     },
     {
@@ -58,8 +58,8 @@ const outcomesDropdown = {
     {
       title: "IMPACT",
       items: [
-        { name: "Success Stories", href: "/#case-studies" },
-        { name: "Industrial Impact", href: "/#outcomes" }
+        { name: "Success Stories", href: "/" },
+        { name: "Industrial Impact", href: "/" }
       ]
     }
   ]
@@ -70,9 +70,9 @@ const blogDropdown = {
     {
       title: "UPDATES",
       items: [
-        { name: "Latest News", href: "/#highlights" },
-        { name: "Industry Insights", href: "/#highlights" },
-        { name: "Technical Blog", href: "/#highlights" }
+        { name: "Latest News", href: "/" },
+        { name: "Industry Insights", href: "/" },
+        { name: "Technical Blog", href: "/" }
       ]
     }
   ]
@@ -83,10 +83,10 @@ const aboutDropdown = {
     {
       title: "COMPANY",
       items: [
-        { name: "Company Profile", href: "/#about" },
-        { name: "Timeline", href: "/#about" },
-        { name: "Vision & Mission", href: "/#about" },
-        { name: "Our Values", href: "/#about" }
+        { name: "Company Profile", href: "/" },
+        { name: "Timeline", href: "/" },
+        { name: "Vision & Mission", href: "/" },
+        { name: "Our Values", href: "/" }
       ]
     }
   ]
@@ -249,12 +249,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
    * Suggestions Logic: Show top-tier products and sections when query is empty or short.
    */
   const trendingSuggestions = [
-    { label: "LiCOPTER-P720", href: "#product", category: "Featured" },
-
-    // Todo: Uncomment these 3 lines later for Search Suggestions or may Add more options
-    // { label: "Sudarshana", href: "#sudarshana", category: "Drone Series" },
-    // { label: "Terrain Desk", href: "#terrain-desk", category: "Platforms" },
-    // { label: "Expertise", href: "#expertise", category: "Pages" }
+    { label: "Terrain Desk", href: "https://terraindesk.com/", category: "Platforms" }
   ];
 
   return (
@@ -346,7 +341,7 @@ export default function Navbar({ isScrolled, currentRoute }) {
 
                       <Button
                         as="a"
-                        href="#product"
+                        href="/"
                         variant="brand-solid"
                         onClick={() => setActiveDropdown(null)}
                         className="group relative inline-flex items-center justify-between px-5 py-3 rounded-lg font-black text-sm transition-all shadow-[0_4px_12px_rgba(218,41,28,0.3)] mt-8 w-fit gap-6"
@@ -488,21 +483,24 @@ export default function Navbar({ isScrolled, currentRoute }) {
                       {/* --- SUGGESTIONS (When query is short) --- */}
                       {searchQuery.trim().length < 2 && (
                         <div className="px-5 py-5">
-                          <span className="block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/50 mb-5 ml-1">Trending Searches</span>
+                          <span className="block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/50 mb-5 ml-1">Suggested Links</span>
                           <div className="flex flex-col gap-2">
-                            {trendingSuggestions.map((s) => (
-                              <button
-                                key={s.label}
-                                onClick={() => {
-                                  window.location.href = s.href;
-                                  closeSearch();
-                                }}
-                                className="w-full flex items-center justify-between px-4 py-3.5 rounded-lg bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-white/[0.1] transition-all duration-300 group"
-                              >
-                                <span className="text-white/80 text-xs font-medium tracking-tight transition-colors group-hover:text-white">{s.label}</span>
-                                <History size={16} className="text-white/20 transition-colors group-hover:text-white/40" />
-                              </button>
-                            ))}
+                            {trendingSuggestions.map((s) => {
+                              const isExternal = s.href.startsWith("http");
+                              return (
+                                <a
+                                  key={s.label}
+                                  href={s.href}
+                                  target={isExternal ? "_blank" : undefined}
+                                  rel={isExternal ? "noopener noreferrer" : undefined}
+                                  onClick={() => closeSearch()}
+                                  className="w-full flex items-center justify-between px-4 py-3.5 rounded-lg bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-white/[0.1] transition-all duration-300 group no-underline"
+                                >
+                                  <span className="text-white/80 text-xs font-medium tracking-tight transition-colors group-hover:text-white">{s.label}</span>
+                                  <History size={16} className="text-white/20 transition-colors group-hover:text-white/40" />
+                                </a>
+                              );
+                            })}
                           </div>
                         </div>
                       )}

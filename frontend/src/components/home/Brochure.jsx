@@ -96,7 +96,7 @@ export default function Brochure({ staggerContainer, staggerItem }) {
 
               <div className="flex flex-wrap justify-center lg:justify-start gap-6 items-center w-full">
                 <ActionLink
-                  href="/LiCopter_Brochure_V2.0.pdf"
+                  href="/LiCopter_Brochure_V3.0.pdf"
                   download="LiCopter_Brochure.pdf"
                   icon={Download}
                 >

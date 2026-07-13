@@ -92,9 +92,9 @@ export default function About({ fadeInUp }) {
 
                 {/* Buttons */}
                 <div className="mt-4 flex flex-col gap-4 sm:flex-row">
-                  <ActionLink>Read more</ActionLink> {/** This button is just for show, it will redirect to the about page */}
-                  <ActionLink 
-                    href="/LiCopter_Brochure_V2.0.pdf" 
+                  {/** <ActionLink>Read more</ActionLink> {/** This button is just for show, it will redirect to the about page */}
+                  <ActionLink
+                    href="/LiCopter_Brochure_V3.0.pdf"
                     download="LiCopter_Brochure.pdf"
                     icon={Download}
                   >
